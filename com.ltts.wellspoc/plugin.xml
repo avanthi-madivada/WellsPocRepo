@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.ltts.wellspoc.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.ltts.wellspoc.Perspective"
+            name="RCP Perspective"
+            id="com.ltts.wellspoc.perspective">
+      </perspective>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="Wells POC"
+            application="com.ltts.wellspoc.application">
+         <property
+               name="windowImages"
+               value="icons/eclipse16.png,icons/eclipse32.png,icons/eclipse48.png,icons/eclipse64.png, icons/eclipse128.png,icons/eclipse256.png,icons/eclipse512.png">
+         </property>
+         <property
+               name="introBrandingImage"
+               value="icons/eclipse64.png">
+         </property>
+         <property
+               name="aboutText"
+               value="Application to select and display well details.">
+         </property>
+         <property
+               name="introTitle"
+               value="Wells POC">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.ltts.wellspoc.wellswizardcommand"
+            name="Wells Wizard">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.ltts.wellspoc.WellsWizardHandler"
+            commandId="com.ltts.wellspoc.wellswizardcommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="com.ltts.wellspoc.toolbar">
+            <command
+                  commandId="com.ltts.wellspoc.wellswizardcommand"
+                  icon="icons/eclipse16.png"
+                  label="Start Wells wizard"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.ltts.wellspoc.ui.views.WellDetailsView"
+            id="com.ltts.wellspoc.welldetailsview"
+            inject="true"
+            name="Well Details">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               id="com.ltts.wellspoc.welldetailsview"
+               minimized="false"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               standalone="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>

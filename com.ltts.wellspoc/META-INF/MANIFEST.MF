@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wellspoc
+Bundle-SymbolicName: com.ltts.wellspoc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: LTTS
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.apache.felix.scr,
+ org.eclipse.equinox.util,
+ org.eclipse.equinox.event
+Automatic-Module-Name: com.ltts.wellspoc
+Bundle-RequiredExecutionEnvironment: JavaSE-11
