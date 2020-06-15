@@ -1,5 +1,7 @@
 package com.ltts.wellspoc.ui.wizard;
 
+
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -31,11 +33,19 @@ public class WellsPage extends WizardPage {
 
 		// swt widgets
 		Label dummyLabel = new Label(container, SWT.NONE);
-		dummyLabel.setText("dummy label. can remove");
+		dummyLabel.setText("Well Selection Table");
 		GridData dummyLabelData = new GridData(SWT.CENTER, SWT.FILL, true, false);
 		dummyLabel.setLayoutData(dummyLabelData);
 
 		setControl(container);
 	}
+
+
+	
+	@Override
+	public IWizardPage getPreviousPage() {
+      return null;
+    }
+	
 
 }

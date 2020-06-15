@@ -58,6 +58,10 @@ public class WellsWizard extends Wizard  {
     
     @Override
     public IWizardPage getNextPage(IWizardPage page) {
+    	
+    	if(getContainer().getCurrentPage() == wellsPage)
+			return null;
+    	
     	 try {
     		  String username_check = LoginPage.userName.getText();
     		    String password_check = LoginPage.password.getText();
@@ -84,5 +88,8 @@ public class WellsWizard extends Wizard  {
     	 return null;
     	 
     }
-	  
+
+	
+	
+    
 }
