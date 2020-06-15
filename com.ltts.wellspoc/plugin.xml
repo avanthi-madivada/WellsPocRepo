@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">
@@ -23,24 +22,34 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
+            id="com.ltts.wellspoc.product"
             name="Wells POC"
             application="com.ltts.wellspoc.application">
          <property
-               name="windowImages"
-               value="icons/eclipse16.png,icons/eclipse32.png,icons/eclipse48.png,icons/eclipse64.png, icons/eclipse128.png,icons/eclipse256.png,icons/eclipse512.png">
-         </property>
-         <property
                name="introBrandingImage"
-               value="icons/eclipse64.png">
-         </property>
-         <property
-               name="aboutText"
-               value="Application to select and display well details.">
+               value="product:icons/eclipse16.png">
          </property>
          <property
                name="introTitle"
                value="Wells POC">
          </property>
+         <property
+               name="appName"
+               value="Wells POC">
+         </property>
+         <property
+               name="aboutText"
+               value="Application to select and display well details">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/eclipse16.png,icons/eclipse32.png,icons/eclipse48.png,icons/eclipse64.png,icons/eclipse128.png,icons/eclipse256.png">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+	
       </product>
    </extension>
    <extension
@@ -72,6 +81,20 @@
             </command>
          </toolbar>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:file?before=additions">
+         <command
+               commandId="com.ltts.wellspoc.wellswizardcommand"
+               label="Well Selection "
+               style="push">
+         </command>
+         <command
+               commandId="com.ltts.wellspoc.wellswizardcommand"
+               label="Show Well Details"
+               style="push">
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.views">
@@ -95,5 +118,30 @@
          </view>
       </perspectiveExtension>
    </extension>
-
+   
+   <extension point="org.eclipse.ui.intro">
+	<intro
+		class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+		id="com.ltts.wellspoc"/>    
+	<introProductBinding
+		 introId="com.ltts.wellspoc"
+		 productId="com.ltts.wellspoc.product">
+	</introProductBinding>
+</extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            content="introContent.xml"
+            id="com.ltts.wellspoc.config"
+            introId="com.ltts.wellspoc">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+   
+   
 </plugin>
