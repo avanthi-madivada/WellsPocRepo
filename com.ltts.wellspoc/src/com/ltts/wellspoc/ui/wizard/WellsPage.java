@@ -1,6 +1,5 @@
 package com.ltts.wellspoc.ui.wizard;
 
-
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -40,12 +39,12 @@ public class WellsPage extends WizardPage {
 		setControl(container);
 	}
 
-
-	
+	/**
+	 * Disables the back button in Well Selection Page.
+	 */
 	@Override
 	public IWizardPage getPreviousPage() {
-      return null;
-    }
-	
+		return null;
+	}
 
 }
