@@ -1,6 +1,8 @@
 package com.ltts.wellspoc.ui.views;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
@@ -12,8 +14,10 @@ import com.ltts.wellspoc.models.Well;
 public class DataProvider extends DummyBodyDataProvider{
 
 	
-	private Map<Well, Object> values = new HashMap<Well, Object>();
 	private String[] properties = new String[7];
+	List<Well> wellList = new ArrayList<Well>();
+	
+	Well well = new Well();
     public DataProvider(int columnCount, int rowCount) {
         super(columnCount, rowCount);
     }
@@ -25,8 +29,16 @@ public class DataProvider extends DummyBodyDataProvider{
 
     @Override
     public Object getDataValue(int columnIndex, int rowIndex) {
+    	well.setWellPlanName("WellPlan");
+    	well.setEasting("420107.6");
+    	well.setField("7244305.1");
+    	well.setAzimuth("180");
+    	well.setReservoir("Ghawar");
+    	well.setType("Not Fm. 2 HD Top");
+    	well.setNorthing("Not Fm. 2 HD Top");
+    	wellList.add(well);
     	
-    	String[] wellDetails = {"Well plan1","420107.6","7244305.1","1000.0","Ghawar","Not Fm. 2 HD Top","Horizontal"};
+    	String[] wellDetails = {well.getWellPlanName(),well.getEasting(),well.getNorthing(),well.getAzimuth(),well.getField(),well.getReservoir(),well.getType()};
     	 DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(wellDetails);
          ColumnHeaderLayerStack columnlayer = new ColumnHeaderLayerStack(columnData);
     	return columnlayer.getDataValueByPosition(columnIndex, rowIndex);
@@ -35,7 +47,8 @@ public class DataProvider extends DummyBodyDataProvider{
 
     @Override
     public int getRowCount() {
-        return 1;
+    	return 1;
+       
     }
 
     @Override

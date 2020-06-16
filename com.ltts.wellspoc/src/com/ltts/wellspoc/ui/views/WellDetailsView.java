@@ -59,7 +59,7 @@ public class WellDetailsView extends ViewPart {
         IConfigRegistry configRegistry = new ConfigRegistry();
         
         ArrayList columnNames = new ArrayList();
-        columnNames.add("Well Plan name");
+        columnNames.add("Well Name");
         columnNames.add("Easting");
         columnNames.add("Northing");
         columnNames.add("Azimuth");
