@@ -31,7 +31,7 @@ public class WellsPage extends WizardPage {
 
 		// swt widgets
 		Label dummyLabel = new Label(container, SWT.NONE);
-		dummyLabel.setText("dummy label. can remove");
+		dummyLabel.setText("Well Selection Table");
 		GridData dummyLabelData = new GridData(SWT.CENTER, SWT.FILL, true, false);
 		dummyLabel.setLayoutData(dummyLabelData);
 
