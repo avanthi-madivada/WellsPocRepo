@@ -26,7 +26,8 @@ import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
 /**
- * Info about this class
+ * Class which shows the list of wells in the tabular format with Well selection
+ * and Well names as the columns.
  * 
  * @author
  *
@@ -54,19 +55,15 @@ public class WellsPage extends WizardPage {
 		Table table = createTable(container);
 		viewer.setInput(wellData);
 
-		
-	/*
-		for (TableItem item : table.getItems()) {
-			Well wellData = (Well) item.getData();
-			item.setChecked(wellData.isChecked());
-			if(wellData.isChecked()) {
-            System.out.println("12345 "+wellData.isChecked());
-            System.out.println("12345 "+wellData.getWellPlanName());
+		/*
+		 * for (TableItem item : table.getItems()) { Well wellData = (Well)
+		 * item.getData(); item.setChecked(wellData.isChecked());
+		 * if(wellData.isChecked()) { System.out.println("12345 "+wellData.isChecked());
+		 * System.out.println("12345 "+wellData.getWellPlanName());
+		 * 
+		 * } }
+		 */
 
-			}
-		} 
-    */
-		
 		table.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -90,6 +87,7 @@ public class WellsPage extends WizardPage {
 		createColumns(table);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
+		// Get the content for the viewer.
 		viewer.setContentProvider(new IStructuredContentProvider() {
 
 			@Override
@@ -109,12 +107,15 @@ public class WellsPage extends WizardPage {
 		return table;
 	}
 
+	// Creates the columns for the table.
 	private void createColumns(Table table) {
 		TableLayout layout = new TableLayout();
 
 		layout.addColumnData(new ColumnWeightData(60, true));
 		layout.addColumnData(new ColumnWeightData(250, true));
 		table.setLayout(layout);
+
+		// First column - Well Selection
 		TableViewerColumn column = createTableViewerColumn("Well Selection");
 
 		column.setLabelProvider(new ColumnLabelProvider() {
@@ -123,7 +124,7 @@ public class WellsPage extends WizardPage {
 				return ((Well) element).getWellId();
 			}
 		});
-
+		// Second column - Well Name
 		column = createTableViewerColumn("Well Name");
 		column.setLabelProvider(new ColumnLabelProvider() {
 			@Override

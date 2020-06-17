@@ -26,7 +26,8 @@ public class WellsWizard extends Wizard {
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Well well = new Well();
-	ArrayList<String> selectedWellsList = new ArrayList<String>();
+
+	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
 	int flag = 0;
 
 	/**
@@ -50,9 +51,8 @@ public class WellsWizard extends Wizard {
 	}
 
 	/**
-	 * Sets the isChecked value to false for all the selected wells on click of cancel button.
-	 * 
-	 *
+	 * Sets the isChecked value to false for all the selected wells on click of
+	 * cancel button.
 	 */
 	@Override
 	public boolean performCancel() {
@@ -64,9 +64,8 @@ public class WellsWizard extends Wizard {
 	}
 
 	/**
-	 * Checks for the selected wells and stores the corresponding well name in the
-	 * selectedWellsList on click of Finish button.
-	 *
+	 * Checks for the selected wells and stores the corresponding well objects in
+	 * the selectedWellsList on click of Finish button.
 	 */
 	@Override
 	public boolean performFinish() {
@@ -74,7 +73,7 @@ public class WellsWizard extends Wizard {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
 					flag = 1;
-					selectedWellsList.add(wellData.get(i).getWellPlanName());
+					selectedWellsList.add(wellData.get(i));
 
 				}
 			}

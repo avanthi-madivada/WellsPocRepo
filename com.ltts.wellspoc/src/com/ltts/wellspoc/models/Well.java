@@ -9,7 +9,7 @@ public class Well {
 	private String field;
 	private String reservoir;
 	private String type;
-
+//	private String wellName;
 	private String WellId;
 	private boolean isChecked;
 
@@ -69,6 +69,23 @@ public class Well {
 		this.type = type;
 	}
 
+	public String getWellId() {
+		return WellId;
+	}
+
+	public void setWellId(String WellId) {
+
+		this.WellId = WellId;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
 	public Well(String wellPlanName, String easting, String northing, String azimuth, String field, String reservoir,
 			String type) {
 		super();
@@ -84,27 +101,17 @@ public class Well {
 	public Well() {
 	}
 
-	public Well(String wellPlanName, String WellId, boolean isChecked) {
+	public Well(String wellPlanName, String easting, String northing, String azimuth, String field, String reservoir,
+			String type, boolean isChecked) {
 		super();
 		this.wellPlanName = wellPlanName;
-		this.WellId = WellId;
-		this.isChecked = isChecked;
-	}
-
-	public String getWellId() {
-		return WellId;
-	}
-
-	public boolean isChecked() {
-		return isChecked;
-	}
-
-	public void setWellId(String WellId) {
-
-		this.WellId = WellId;
-	}
-
-	public void setChecked(boolean isChecked) {
+		this.easting = easting;
+		this.northing = northing;
+		this.azimuth = azimuth;
+		this.field = field;
+		this.reservoir = reservoir;
+		this.type = type;
+//		this.WellId = WellId;
 		this.isChecked = isChecked;
 	}
 
