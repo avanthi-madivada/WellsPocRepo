@@ -11,8 +11,10 @@ import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
- *
- * @author
+ * Class that re-implements the methods to perform special processing for the
+ * wizard.
+ * 
+ * @author Ranjith D
  *
  */
 
@@ -70,10 +72,6 @@ public class WellsWizard extends Wizard {
 					flag = 1;
 					selectedWellsList.add(wellData.get(i));
 				}
-			}
-			// To print the values of selectedWellsList - need to be removed in future.
-			for (int j = 0; j < selectedWellsList.size(); j++) {
-				System.out.println("WellName : " + selectedWellsList.get(j));
 			}
 		}
 		if (flag == 1) {
