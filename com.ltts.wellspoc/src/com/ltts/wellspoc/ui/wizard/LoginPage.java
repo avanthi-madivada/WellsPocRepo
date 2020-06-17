@@ -4,14 +4,11 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * Class that authenticates the user.
@@ -32,13 +29,14 @@ public class LoginPage extends WizardPage {
 
 	@Override
 	public void createControl(Composite parent) {
-//		setTitle("User Authentication");
+		setTitle("User Authentication");
 //		setDescription(" User Authentication ");
 
-		container = new Composite(parent, SWT.NULL | SWT.BORDER);
+		container = new Composite(parent, SWT.NULL | SWT.BORDER );
 		GridLayout layout = new GridLayout(2, true);
 		layout.marginHeight = 50;
 		layout.marginRight = 25;
+		container.setBounds(500, 500, 1000, 1000);
 		container.setLayout(layout);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 

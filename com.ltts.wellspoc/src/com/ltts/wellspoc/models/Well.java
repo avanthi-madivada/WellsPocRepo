@@ -9,50 +9,68 @@ public class Well {
 	private String field;
 	private String reservoir;
 	private String type;
+
+	private String WellId;
+	private boolean isChecked;
+
 	public String getWellPlanName() {
 		return wellPlanName;
 	}
+
 	public void setWellPlanName(String wellPlanName) {
 		this.wellPlanName = wellPlanName;
 	}
+
 	public String getEasting() {
 		return easting;
 	}
+
 	public void setEasting(String easting) {
 		this.easting = easting;
 	}
+
 	public String getNorthing() {
 		return northing;
 	}
+
 	public void setNorthing(String northing) {
 		this.northing = northing;
 	}
+
 	public String getAzimuth() {
 		return azimuth;
 	}
+
 	public void setAzimuth(String azimuth) {
 		this.azimuth = azimuth;
 	}
+
 	public String getField() {
 		return field;
 	}
+
 	public void setField(String field) {
 		this.field = field;
 	}
+
 	public String getReservoir() {
 		return reservoir;
 	}
+
 	public void setReservoir(String reservoir) {
 		this.reservoir = reservoir;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Well(String wellPlanName, String easting, String northing, String azimuth, String field,
-			String reservoir, String type) {
+
+	public Well(String wellPlanName, String easting, String northing, String azimuth, String field, String reservoir,
+			String type) {
 		super();
 		this.wellPlanName = wellPlanName;
 		this.easting = easting;
@@ -62,7 +80,32 @@ public class Well {
 		this.reservoir = reservoir;
 		this.type = type;
 	}
+
 	public Well() {
 	}
-	
+
+	public Well(String wellPlanName, String WellId, boolean isChecked) {
+		super();
+		this.wellPlanName = wellPlanName;
+		this.WellId = WellId;
+		this.isChecked = isChecked;
+	}
+
+	public String getWellId() {
+		return WellId;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setWellId(String WellId) {
+
+		this.WellId = WellId;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
 }

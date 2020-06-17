@@ -1,9 +1,13 @@
 package com.ltts.wellspoc.ui.wizard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.swt.SWT;
 
+import com.ltts.wellspoc.models.Well;
+import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
@@ -11,6 +15,7 @@ import com.ltts.wellspoc.ui.util.MessagesUtil;
  * @author
  *
  */
+
 public class WellsWizard extends Wizard {
 
 	LoginPage loginPage;
@@ -18,6 +23,11 @@ public class WellsWizard extends Wizard {
 
 	private static final String USERNAME = "admin1234";
 	private static final String PASSWORD = "admin1234";
+
+	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
+	Well well = new Well();
+	ArrayList<String> selectedWellsList = new ArrayList<String>();
+	int flag = 0;
 
 	/**
 	 * Provides the title for the wizard.
@@ -39,10 +49,46 @@ public class WellsWizard extends Wizard {
 
 	}
 
+	/**
+	 * Sets the isChecked value to false for all the selected wells on click of cancel button.
+	 * 
+	 *
+	 */
+	@Override
+	public boolean performCancel() {
+		for (int j = 0; j < wellData.size(); j++) {
+			wellData.get(j).setChecked(false);
+
+		}
+		return true;
+	}
+
+	/**
+	 * Checks for the selected wells and stores the corresponding well name in the
+	 * selectedWellsList on click of Finish button.
+	 *
+	 */
 	@Override
 	public boolean performFinish() {
-		return true;
+		if (getContainer().getCurrentPage() == wellsPage) {
+			for (int i = 0; i < wellData.size(); i++) {
+				if (wellData.get(i).isChecked()) {
+					flag = 1;
+					selectedWellsList.add(wellData.get(i).getWellPlanName());
 
+				}
+			}
+			// To print the values of selectedWellsList - need to be removed in future.
+			for (int j = 0; j < selectedWellsList.size(); j++) {
+				System.out.println("WellName : " + selectedWellsList.get(j));
+			}
+		}
+		if (flag == 1) {
+			return true;
+		} else {
+			MessagesUtil.displayInformationDialog("Select anyone of the Wells");
+			return false;
+		}
 	}
 
 	/**
@@ -52,10 +98,10 @@ public class WellsWizard extends Wizard {
 	@Override
 	public boolean canFinish() {
 
-		if (getContainer().getCurrentPage() == wellsPage)
+		if (getContainer().getCurrentPage() == wellsPage) {
 			return true;
-		else
-			return false;
+		}
+		return false;
 
 	}
 
