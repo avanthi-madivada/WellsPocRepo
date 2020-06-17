@@ -55,15 +55,6 @@ public class WellsPage extends WizardPage {
 		Table table = createTable(container);
 		viewer.setInput(wellData);
 
-		/*
-		 * for (TableItem item : table.getItems()) { Well wellData = (Well)
-		 * item.getData(); item.setChecked(wellData.isChecked());
-		 * if(wellData.isChecked()) { System.out.println("12345 "+wellData.isChecked());
-		 * System.out.println("12345 "+wellData.getWellPlanName());
-		 * 
-		 * } }
-		 */
-
 		table.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -73,10 +64,8 @@ public class WellsPage extends WizardPage {
 					wellData.setChecked(item.getChecked());
 					System.out.println(item.getChecked());
 				}
-
 			}
 		});
-
 		setControl(container);
 	}
 
@@ -132,7 +121,6 @@ public class WellsPage extends WizardPage {
 				return ((Well) element).getWellPlanName();
 			}
 		});
-
 	}
 
 	private TableViewerColumn createTableViewerColumn(String name) {

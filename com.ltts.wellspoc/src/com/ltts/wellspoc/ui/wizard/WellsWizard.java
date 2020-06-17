@@ -35,19 +35,15 @@ public class WellsWizard extends Wizard {
 	 */
 	@Override
 	public String getWindowTitle() {
-
 		return "Well Selection Wizard";
-
 	}
 
 	@Override
 	public void addPages() {
-
 		loginPage = new LoginPage("Login Page");
 		wellsPage = new WellsPage("");
 		addPage(loginPage);
 		addPage(wellsPage);
-
 	}
 
 	/**
@@ -58,7 +54,6 @@ public class WellsWizard extends Wizard {
 	public boolean performCancel() {
 		for (int j = 0; j < wellData.size(); j++) {
 			wellData.get(j).setChecked(false);
-
 		}
 		return true;
 	}
@@ -74,7 +69,6 @@ public class WellsWizard extends Wizard {
 				if (wellData.get(i).isChecked()) {
 					flag = 1;
 					selectedWellsList.add(wellData.get(i));
-
 				}
 			}
 			// To print the values of selectedWellsList - need to be removed in future.
@@ -96,12 +90,10 @@ public class WellsWizard extends Wizard {
 
 	@Override
 	public boolean canFinish() {
-
 		if (getContainer().getCurrentPage() == wellsPage) {
 			return true;
 		}
 		return false;
-
 	}
 
 	/**
@@ -111,10 +103,9 @@ public class WellsWizard extends Wizard {
 	 */
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
-
-		if (getContainer().getCurrentPage() == wellsPage)
+		if (getContainer().getCurrentPage() == wellsPage) {
 			return null;
-
+		}
 		try {
 			String userNameCheck = LoginPage.userName.getText();
 			String passwordCheck = LoginPage.password.getText();
@@ -136,9 +127,6 @@ public class WellsWizard extends Wizard {
 
 			MessagesUtil.logError(LoginPage.class.getName(), e.getMessage());
 		}
-
 		return null;
-
 	}
-
 }

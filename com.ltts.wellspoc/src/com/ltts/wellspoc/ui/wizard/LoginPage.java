@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * Class that authenticates the user.
  *
- * @author Ranjith D
+ * @author
  *
  */
 public class LoginPage extends WizardPage {
@@ -30,9 +30,8 @@ public class LoginPage extends WizardPage {
 	@Override
 	public void createControl(Composite parent) {
 		setTitle("User Authentication");
-//		setDescription(" User Authentication ");
 
-		container = new Composite(parent, SWT.NULL | SWT.BORDER );
+		container = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
 		layout.marginHeight = 50;
 		layout.marginRight = 25;
@@ -65,32 +64,23 @@ public class LoginPage extends WizardPage {
 		gridDataPasswordText.widthHint = 100;
 		passWordText.setLayoutData(gridDataPasswordText);
 		passWordText.setTextLimit(15);
-
 		userNameText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 				userName = (Text) e.getSource();
-
 			}
-
 		});
-
 		passWordText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 				password = (Text) e.getSource();
-
 			}
-
 		});
-
 		setControl(container);
-
 	}
 
 	@Override
 	public boolean canFlipToNextPage() {
-
 		return true;
 	}
 }
