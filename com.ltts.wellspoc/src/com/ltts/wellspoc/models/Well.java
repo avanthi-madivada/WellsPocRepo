@@ -9,7 +9,6 @@ public class Well {
 	private String field;
 	private String reservoir;
 	private String type;
-//	private String wellName;
 	private String WellId;
 	private boolean isChecked;
 
@@ -111,7 +110,6 @@ public class Well {
 		this.field = field;
 		this.reservoir = reservoir;
 		this.type = type;
-//		this.WellId = WellId;
 		this.isChecked = isChecked;
 	}
 

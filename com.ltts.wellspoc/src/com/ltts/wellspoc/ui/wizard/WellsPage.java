@@ -16,14 +16,12 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
 /**
  * Class which shows the list of wells in the tabular format with Well selection
@@ -62,7 +60,6 @@ public class WellsPage extends WizardPage {
 					TableItem item = (TableItem) e.item;
 					Well wellData = (Well) item.getData();
 					wellData.setChecked(item.getChecked());
-					System.out.println(item.getChecked());
 				}
 			}
 		});

@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * Class that authenticates the user.
  *
- * @author
+ * @author Ranjith D
  *
  */
 public class LoginPage extends WizardPage {
