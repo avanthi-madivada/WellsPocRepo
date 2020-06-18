@@ -19,6 +19,9 @@ public class WellsWizardHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
+		
+		//opening the wizard by calling wellswizard() class
+		
 		WizardDialog wizardDialog = new WizardDialog(Display.getDefault().getActiveShell(), new WellsWizard());
 		wizardDialog.open();
 		return null;

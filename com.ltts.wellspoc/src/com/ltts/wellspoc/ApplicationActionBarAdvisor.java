@@ -1,5 +1,6 @@
 package com.ltts.wellspoc;
 
+import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -39,6 +40,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
 		MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
 		menuBar.add(fileMenu);
+		fileMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		fileMenu.add(exitAction);
 		menuBar.add(helpMenu);
 		helpMenu.add(introAction);
