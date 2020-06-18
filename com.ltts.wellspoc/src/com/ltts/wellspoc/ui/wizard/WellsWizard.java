@@ -23,11 +23,10 @@ public class WellsWizard extends Wizard {
 	LoginPage loginPage;
 	WellsPage wellsPage;
 
-	private static final String USERNAME = "admin1234";
-	private static final String PASSWORD = "admin1234";
+	private static final String USERNAME = "admin";
+	private static final String PASSWORD = "admin";
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
-	Well well = new Well();
 
 	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
 	int flag = 0;
@@ -40,10 +39,13 @@ public class WellsWizard extends Wizard {
 		return "Well Selection Wizard";
 	}
 
+	/**
+	 * Adds the pages before the wizard opens.
+	 */
 	@Override
 	public void addPages() {
 		loginPage = new LoginPage("Login Page");
-		wellsPage = new WellsPage("");
+		wellsPage = new WellsPage("Well Selection");
 		addPage(loginPage);
 		addPage(wellsPage);
 	}
@@ -103,13 +105,15 @@ public class WellsWizard extends Wizard {
 	public IWizardPage getNextPage(IWizardPage page) {
 		if (getContainer().getCurrentPage() == wellsPage) {
 			return null;
+
 		}
 		try {
-			String userNameCheck = LoginPage.userName.getText();
-			String passwordCheck = LoginPage.password.getText();
+			String userNameCheck = LoginPage.userNameText.getText();
+			String passwordCheck = LoginPage.passWordText.getText();
 
 			if (userNameCheck.contentEquals(USERNAME) && passwordCheck.contentEquals(PASSWORD)) {
 				return wellsPage;
+
 			} else if (!userNameCheck.equals(USERNAME) && !passwordCheck.equals(PASSWORD)) {
 				MessagesUtil.displayErrorDialog("Incorrect username and password");
 
@@ -122,8 +126,8 @@ public class WellsWizard extends Wizard {
 			}
 
 		} catch (Exception e) {
-
 			MessagesUtil.logError(LoginPage.class.getName(), e.getMessage());
+
 		}
 		return null;
 	}

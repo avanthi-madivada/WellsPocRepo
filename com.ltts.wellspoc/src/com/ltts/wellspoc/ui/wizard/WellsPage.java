@@ -24,36 +24,43 @@ import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 
 /**
- * Class which shows the list of wells in the tabular format with Well selection
- * and Well names as the columns.
+ * The class is used for Well Selection.
  * 
- * @author
+ * @author Ranjith D
  *
  */
 public class WellsPage extends WizardPage {
+	private static String PAGE_TITLE = "Wells Selection";
 
-	private Composite container;
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
+	/**
+	 * Constructor for Well Selection Page
+	 * 
+	 * @param pageName
+	 */
 	protected WellsPage(String pageName) {
 		super(pageName);
 
 	}
 
+	/**
+	 * This method is used to create UI for Well Selection Page.
+	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle("Wells Selection Page");
+		setTitle(PAGE_TITLE);
 
-		container = new Composite(parent, SWT.FILL);
+		Composite wellSelectionContainer = new Composite(parent, SWT.FILL);
 		GridLayout layout = new GridLayout(1, false);
-		container.setLayout(layout);
-		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		wellSelectionContainer.setLayout(layout);
+		wellSelectionContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		Table table = createTable(container);
+		Table wellTable = createTable(wellSelectionContainer);
 		viewer.setInput(wellData);
 
-		table.addSelectionListener(new SelectionAdapter() {
+		wellTable.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (e.detail == SWT.CHECK) {
@@ -63,16 +70,22 @@ public class WellsPage extends WizardPage {
 				}
 			}
 		});
-		setControl(container);
+		setControl(wellSelectionContainer);
 	}
 
+	/**
+	 * Creates the table in Well Selection Page
+	 * 
+	 * @param parent
+	 * @return
+	 */
 	private Table createTable(Composite parent) {
 		viewer = new TableViewer(parent, SWT.BORDER | SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL);
 
-		Table table = viewer.getTable();
-		createColumns(table);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
+		Table wellTable = viewer.getTable();
+		createColumns(wellTable);
+		wellTable.setHeaderVisible(true);
+		wellTable.setLinesVisible(true);
 		// Get the content for the viewer.
 		viewer.setContentProvider(new IStructuredContentProvider() {
 
@@ -90,29 +103,34 @@ public class WellsPage extends WizardPage {
 		gridData.heightHint = 100;
 		viewer.getControl().setLayoutData(gridData);
 
-		return table;
+		return wellTable;
 	}
 
-	// Creates the columns for the table.
-	private void createColumns(Table table) {
+	/**
+	 * Creates the column for wellTable with two columns Well Selection and Well
+	 * Name
+	 * 
+	 * @param wellTable
+	 */
+	private void createColumns(Table wellTable) {
 		TableLayout layout = new TableLayout();
 
 		layout.addColumnData(new ColumnWeightData(60, true));
 		layout.addColumnData(new ColumnWeightData(250, true));
-		table.setLayout(layout);
+		wellTable.setLayout(layout);
 
 		// First column - Well Selection
-		TableViewerColumn column = createTableViewerColumn("Well Selection");
+		TableViewerColumn tableViewerColumn = createTableViewerColumn("WELL SELECTION");
 
-		column.setLabelProvider(new ColumnLabelProvider() {
+		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((Well) element).getWellId();
+				return " ";
 			}
 		});
 		// Second column - Well Name
-		column = createTableViewerColumn("Well Name");
-		column.setLabelProvider(new ColumnLabelProvider() {
+		tableViewerColumn = createTableViewerColumn("WELL NAME");
+		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				return ((Well) element).getWellPlanName();
@@ -120,12 +138,17 @@ public class WellsPage extends WizardPage {
 		});
 	}
 
+	/**
+	 * creates the table columns and makes the columns re-sizable.
+	 * @param name
+	 * @return
+	 */
 	private TableViewerColumn createTableViewerColumn(String name) {
-		TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.CENTER);
-		TableColumn column = viewerColumn.getColumn();
-		column.setText(name);
-		column.setMoveable(true);
-		return viewerColumn;
+		TableViewerColumn tableViewerColumn = new TableViewerColumn(viewer, SWT.CENTER);
+		TableColumn tableColumn = tableViewerColumn.getColumn();
+		tableColumn.setText(name);
+		tableColumn.setMoveable(true);
+		return tableViewerColumn;
 	}
 
 	/**

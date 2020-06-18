@@ -3,12 +3,21 @@ package com.ltts.wellspoc.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that provides the data for the Well Table.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class WellDataProvider {
 
 	public final static WellDataProvider wellDataProvider = new WellDataProvider();
 
 	private List<Well> wellData = new ArrayList<Well>();
 
+	/**
+	 * sets the properties of the object.
+	 */
 	private WellDataProvider() {
 		wellData.add(
 				new Well("Well 1", "420107.6", "7244305.1", "240", "Ghawar", "Not Fm. 2 HD Top", "Horizontal", false));

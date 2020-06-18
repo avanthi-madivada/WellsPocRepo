@@ -9,7 +9,6 @@ public class Well {
 	private String field;
 	private String reservoir;
 	private String type;
-	private String WellId;
 	private boolean isChecked;
 
 	public String getWellPlanName() {
@@ -66,15 +65,6 @@ public class Well {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getWellId() {
-		return WellId;
-	}
-
-	public void setWellId(String WellId) {
-
-		this.WellId = WellId;
 	}
 
 	public boolean isChecked() {
