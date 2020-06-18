@@ -1,68 +1,113 @@
 package com.ltts.wellspoc.models;
 
+/**
+ * @author Deepika KS Model class which represents Well details
+ */
 public class Well {
 
 	private String wellPlanName;
-	private String easting;
-	private String northing;
-	private String azimuth;
+	private Double easting;
+	private Double northing;
+	private Double azimuth;
 	private String field;
 	private String reservoir;
 	private String type;
 	private boolean isChecked;
 
+	/**
+	 * @return WellName
+	 */
 	public String getWellPlanName() {
 		return wellPlanName;
 	}
 
+	/**
+	 * @param wellPlanName
+	 */
 	public void setWellPlanName(String wellPlanName) {
 		this.wellPlanName = wellPlanName;
 	}
 
-	public String getEasting() {
+	/**
+	 * @return easting
+	 */
+	public Double getEasting() {
 		return easting;
 	}
 
-	public void setEasting(String easting) {
+	/**
+	 * @param easting
+	 */
+	public void setEasting(Double easting) {
 		this.easting = easting;
 	}
 
-	public String getNorthing() {
+	/**
+	 * @return northing
+	 */
+	public Double getNorthing() {
 		return northing;
 	}
 
-	public void setNorthing(String northing) {
+	/**
+	 * @param northing
+	 */
+	public void setNorthing(Double northing) {
 		this.northing = northing;
 	}
 
-	public String getAzimuth() {
+	/**
+	 * @return azimuth
+	 */
+	public Double getAzimuth() {
 		return azimuth;
 	}
 
-	public void setAzimuth(String azimuth) {
+	/**
+	 * @param azimuth
+	 */
+	public void setAzimuth(Double azimuth) {
 		this.azimuth = azimuth;
 	}
 
+	/**
+	 * @return field value
+	 */
 	public String getField() {
 		return field;
 	}
 
+	/**
+	 * @param field
+	 */
 	public void setField(String field) {
 		this.field = field;
 	}
 
+	/**
+	 * @return reservoir
+	 */
 	public String getReservoir() {
 		return reservoir;
 	}
 
+	/**
+	 * @param reservoir
+	 */
 	public void setReservoir(String reservoir) {
 		this.reservoir = reservoir;
 	}
 
+	/**
+	 * @return type value
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -75,7 +120,16 @@ public class Well {
 		this.isChecked = isChecked;
 	}
 
-	public Well(String wellPlanName, String easting, String northing, String azimuth, String field, String reservoir,
+	/**
+	 * @param wellPlanName
+	 * @param easting
+	 * @param northing
+	 * @param azimuth
+	 * @param field
+	 * @param reservoir
+	 * @param type
+	 */
+	public Well(String wellPlanName, Double easting, Double northing, Double azimuth, String field, String reservoir,
 			String type) {
 		super();
 		this.wellPlanName = wellPlanName;
@@ -90,7 +144,7 @@ public class Well {
 	public Well() {
 	}
 
-	public Well(String wellPlanName, String easting, String northing, String azimuth, String field, String reservoir,
+	public Well(String wellPlanName, Double easting, Double northing, Double azimuth, String field, String reservoir,
 			String type, boolean isChecked) {
 		super();
 		this.wellPlanName = wellPlanName;
