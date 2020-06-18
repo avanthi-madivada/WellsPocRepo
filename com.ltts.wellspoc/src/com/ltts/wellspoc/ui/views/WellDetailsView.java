@@ -38,9 +38,19 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.ViewPart;
 
+import com.ltts.wellspoc.dataprovider.BodyLayerStack;
+import com.ltts.wellspoc.dataprovider.ColumnHeaderLayerStack;
+import com.ltts.wellspoc.dataprovider.DataProvider;
+import com.ltts.wellspoc.dataprovider.RowHeaderLayerStack;
+
+
+/**
+ * @author Deepika KS 
+ *
+ */
 public class WellDetailsView extends ViewPart {
 
-	static BodyLayerStack bodyLayer ;
+	public static BodyLayerStack bodyLayer ;
 	private String[] properties = new String[7];
 	private int statusColumn;
 	private int statusRejected;
@@ -49,6 +59,11 @@ public class WellDetailsView extends ViewPart {
 	private NatTable nattable;
 	private static final String FOO_LABEL = "FOO";
 	private static final String CELL_LABEL = "DEMO";
+	
+	
+	/**
+	 *
+	 */
 	@Override
 	public void createPartControl(Composite parent) {
 		
