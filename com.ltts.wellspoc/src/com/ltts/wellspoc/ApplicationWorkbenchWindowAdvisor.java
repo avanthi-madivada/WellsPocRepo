@@ -27,6 +27,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         //configurer.setInitialSize(new Point(5000, 5000));
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
+       
         configurer.setTitle("Wells POC Application");
     }
 }
