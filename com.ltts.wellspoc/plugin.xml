@@ -94,7 +94,7 @@
             locationURI="menu:file?before=additions">
          <command
                commandId="com.ltts.wellspoc.wellswizardcommand"
-               label="Well Selection "
+               label="Well Selection Wizard"
                style="push">
          </command>
          <command
