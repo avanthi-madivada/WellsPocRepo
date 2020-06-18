@@ -2,7 +2,7 @@ package com.ltts.wellspoc.models;
 
 /**
  * @author Deepika KS
- *
+ * Model class which represents Well details
  */
 public class Well {
 

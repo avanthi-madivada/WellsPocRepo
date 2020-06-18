@@ -7,12 +7,12 @@ import java.util.Map;
 
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DummyBodyDataProvider;
-import org.eclipse.swt.graphics.Point;
 
 import com.ltts.wellspoc.models.Well;
 
 /**
  * @author Deepika KS
+ * This class has methods which is used to populate data for coloumns and rows in nattable
  *
  */
 public class DataProvider extends DummyBodyDataProvider{

@@ -10,7 +10,8 @@ import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * @author Deepika KS
- *
+ *  Subclass of AbstractLayerTransform which are expected to override methods in this
+ * class to implement row specific kinds of layer transformations.
  */
 public class RowHeaderLayerStack extends AbstractLayerTransform {
 
