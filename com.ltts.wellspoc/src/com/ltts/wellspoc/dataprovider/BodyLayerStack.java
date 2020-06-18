@@ -10,7 +10,8 @@ import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 
 /**
  * @author Deepika KS
- *
+ *  Subclass of AbstractLayerTransform which are expected to override methods in this
+ * class to implement body layer transformations.
  */
 public class BodyLayerStack extends AbstractLayerTransform {
 

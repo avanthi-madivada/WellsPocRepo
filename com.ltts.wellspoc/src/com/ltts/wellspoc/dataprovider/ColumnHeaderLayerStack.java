@@ -9,6 +9,8 @@ import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * @author Deepika KS
+ * Subclass of AbstractLayerTransform which are expected to override methods in this
+ * class to implement column layer transformations.
  *
  */
 public class ColumnHeaderLayerStack extends AbstractLayerTransform {
