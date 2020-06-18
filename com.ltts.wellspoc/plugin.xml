@@ -58,12 +58,20 @@
             id="com.ltts.wellspoc.wellswizardcommand"
             name="Wells Wizard">
       </command>
+      <command
+            id="com.ltts.wellspoc.welldetailscommand"
+            name="Show Details">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="com.ltts.wellspoc.WellsWizardHandler"
             commandId="com.ltts.wellspoc.wellswizardcommand">
+      </handler>
+      <handler
+            class="com.ltts.wellspoc.WellDetailsHandler"
+            commandId="com.ltts.wellspoc.welldetailscommand">
       </handler>
    </extension>
    <extension
@@ -90,7 +98,7 @@
                style="push">
          </command>
          <command
-               commandId="com.ltts.wellspoc.wellswizardcommand"
+               commandId="com.ltts.wellspoc.welldetailscommand"
                label="Show Well Details"
                style="push">
          </command>
@@ -102,7 +110,8 @@
             class="com.ltts.wellspoc.ui.views.WellDetailsView"
             id="com.ltts.wellspoc.welldetailsview"
             inject="true"
-            name="Well Details">
+            name="Well Details"
+            restorable="true">
       </view>
    </extension>
    <extension
@@ -114,8 +123,7 @@
                minimized="false"
                ratio="0.95f"
                relationship="left"
-               relative="org.eclipse.ui.editorss"
-               standalone="true">
+               relative="org.eclipse.ui.editorss">
          </view>
       </perspectiveExtension>
    </extension>
