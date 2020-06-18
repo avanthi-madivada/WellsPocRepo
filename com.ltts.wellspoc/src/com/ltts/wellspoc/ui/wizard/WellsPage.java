@@ -140,6 +140,7 @@ public class WellsPage extends WizardPage {
 
 	/**
 	 * creates the table columns and makes the columns re-sizable.
+	 * 
 	 * @param name
 	 * @return
 	 */
