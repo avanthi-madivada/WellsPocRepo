@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-
 /**
  * The class is used for Well Selection.
  * 
@@ -35,6 +34,7 @@ public class WellsPage extends WizardPage {
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
+	WellsWizard wellswizard = new WellsWizard();
 	/**
 	 * Constructor for Well Selection Page
 	 * 
@@ -67,9 +67,13 @@ public class WellsPage extends WizardPage {
 					TableItem item = (TableItem) e.item;
 					Well wellData = (Well) item.getData();
 					wellData.setChecked(item.getChecked());
+					System.out.println(item.getChecked());
+					wellswizard.canFinish();
+					getWizard().getContainer().updateButtons();
 				}
+				
 			}
-		});
+		});		
 		setControl(wellSelectionContainer);
 	}
 
@@ -149,6 +153,7 @@ public class WellsPage extends WizardPage {
 		TableColumn tableColumn = tableViewerColumn.getColumn();
 		tableColumn.setText(name);
 		tableColumn.setMoveable(true);
+
 		return tableViewerColumn;
 	}
 
