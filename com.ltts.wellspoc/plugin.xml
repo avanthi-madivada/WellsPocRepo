@@ -87,6 +87,13 @@
                   label="Start Wells wizard"
                   style="push">
             </command>
+            <command
+                  commandId="com.ltts.wellspoc.welldetailscommand"
+                  icon="icons/add_correction.png"
+                  label="Show Well Details"
+                  style="push"
+                  tooltip="Show Well Details">
+            </command>
          </toolbar>
       </menuContribution>
       <menuContribution
