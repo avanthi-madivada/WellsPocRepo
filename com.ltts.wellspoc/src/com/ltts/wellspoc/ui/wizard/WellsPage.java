@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+
 /**
  * The class is used for Well Selection.
  * 
@@ -35,6 +36,7 @@ public class WellsPage extends WizardPage {
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
 	WellsWizard wellswizard = new WellsWizard();
+
 	/**
 	 * Constructor for Well Selection Page
 	 * 
@@ -67,13 +69,12 @@ public class WellsPage extends WizardPage {
 					TableItem item = (TableItem) e.item;
 					Well wellData = (Well) item.getData();
 					wellData.setChecked(item.getChecked());
-					System.out.println(item.getChecked());
 					wellswizard.canFinish();
 					getWizard().getContainer().updateButtons();
 				}
-				
+
 			}
-		});		
+		});
 		setControl(wellSelectionContainer);
 	}
 
@@ -119,12 +120,12 @@ public class WellsPage extends WizardPage {
 	private void createColumns(Table wellTable) {
 		TableLayout layout = new TableLayout();
 
-		layout.addColumnData(new ColumnWeightData(60, true));
+		layout.addColumnData(new ColumnWeightData(45, true));
 		layout.addColumnData(new ColumnWeightData(250, true));
 		wellTable.setLayout(layout);
 
 		// First column - Well Selection
-		TableViewerColumn tableViewerColumn = createTableViewerColumn("WELL SELECTION");
+		TableViewerColumn tableViewerColumn = createTableViewerColumn("wellSelection");
 
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -133,7 +134,7 @@ public class WellsPage extends WizardPage {
 			}
 		});
 		// Second column - Well Name
-		tableViewerColumn = createTableViewerColumn("WELL NAME");
+		tableViewerColumn = createTableViewerColumn("wellName");
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {

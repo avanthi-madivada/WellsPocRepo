@@ -42,23 +42,19 @@ public class LoginPage extends WizardPage {
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
-		layout.marginHeight = 50;
-		layout.marginRight = 25;
-		layout.marginTop = 80;
-		userAuthenticationContainer.setBounds(500, 500, 1000, 1000);
+		layout.marginHeight = 150;
 		userAuthenticationContainer.setLayout(layout);
 		userAuthenticationContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// User Name
 		Label userNameLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		userNameLabel.setText("User Name");
+		userNameLabel.setText("User name");
 		GridData gridDataUserNameLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		gridDataUserNameLabel.widthHint = 65;
 		userNameLabel.setLayoutData(gridDataUserNameLabel);
 
 		userNameText = new Text(userAuthenticationContainer, SWT.BORDER);
 		GridData gridDataUserNameText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataUserNameText.widthHint = 100;
+		gridDataUserNameText.horizontalIndent = 10;
 		userNameText.setLayoutData(gridDataUserNameText);
 		userNameText.setTextLimit(15);
 		userNameText.setToolTipText("Default Username is 'admin'");
@@ -67,12 +63,11 @@ public class LoginPage extends WizardPage {
 		Label passwardLabel = new Label(userAuthenticationContainer, SWT.NONE);
 		passwardLabel.setText("Password");
 		GridData gridDataPasswordLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		gridDataPasswordLabel.widthHint = 65;
 		passwardLabel.setLayoutData(gridDataPasswordLabel);
 
 		passWordText = new Text(userAuthenticationContainer, SWT.PASSWORD | SWT.BORDER);
 		GridData gridDataPasswordText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataPasswordText.widthHint = 100;
+		gridDataPasswordText.horizontalIndent = 10;
 		passWordText.setLayoutData(gridDataPasswordText);
 		passWordText.setTextLimit(15);
 		passWordText.setToolTipText("Default Password is 'admin'");
