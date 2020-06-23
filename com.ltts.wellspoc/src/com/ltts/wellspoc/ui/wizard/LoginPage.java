@@ -48,13 +48,14 @@ public class LoginPage extends WizardPage {
 
 		// User Name
 		Label userNameLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		userNameLabel.setText("User name");
+		userNameLabel.setText("Username");
 		GridData gridDataUserNameLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		gridDataUserNameLabel.widthHint = 65;
 		userNameLabel.setLayoutData(gridDataUserNameLabel);
 
 		userNameText = new Text(userAuthenticationContainer, SWT.BORDER);
 		GridData gridDataUserNameText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataUserNameText.horizontalIndent = 10;
+		gridDataUserNameText.widthHint = 100;
 		userNameText.setLayoutData(gridDataUserNameText);
 		userNameText.setTextLimit(15);
 		userNameText.setToolTipText("Default Username is 'admin'");
@@ -63,11 +64,12 @@ public class LoginPage extends WizardPage {
 		Label passwardLabel = new Label(userAuthenticationContainer, SWT.NONE);
 		passwardLabel.setText("Password");
 		GridData gridDataPasswordLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		gridDataPasswordLabel.widthHint = 65;
 		passwardLabel.setLayoutData(gridDataPasswordLabel);
 
 		passWordText = new Text(userAuthenticationContainer, SWT.PASSWORD | SWT.BORDER);
 		GridData gridDataPasswordText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataPasswordText.horizontalIndent = 10;
+		gridDataPasswordText.widthHint = 100;
 		passWordText.setLayoutData(gridDataPasswordText);
 		passWordText.setTextLimit(15);
 		passWordText.setToolTipText("Default Password is 'admin'");
