@@ -29,7 +29,7 @@ public class WellsWizard extends Wizard {
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
 	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
-	int flag = 0;
+	boolean isFinishEnabled;
 
 	/**
 	 * Provides the title for the wizard.
@@ -68,32 +68,36 @@ public class WellsWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
+		isFinishEnabled = false;
 		if (getContainer().getCurrentPage() == wellsPage) {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
-					flag = 1;
+					isFinishEnabled = true;
 					selectedWellsList.add(wellData.get(i));
 				}
 			}
+			for (int j = 0; j < wellData.size(); j++) {
+				wellData.get(j).setChecked(false);
+			}
 		}
-		if (flag == 1) {
-			return true;
-		} else {
-			MessagesUtil.displayInformationDialog("Select anyone of the Wells");
-			return false;
-		}
+		return isFinishEnabled;
 	}
 
 	/**
-	 * Enables Finish button only if the current page is the last page.
+	 * Enables Finish button when any one of the wells is selected.
 	 */
 
 	@Override
 	public boolean canFinish() {
-		if (getContainer().getCurrentPage() == wellsPage) {
-			return true;
+		isFinishEnabled = false;
+		for (int i = 0; i < wellData.size(); i++) {
+			if (wellData.get(i).isChecked()) {
+				isFinishEnabled = true;
+				break;
+			}
 		}
-		return false;
+		return isFinishEnabled;
+
 	}
 
 	/**
@@ -131,5 +135,5 @@ public class WellsWizard extends Wizard {
 		}
 		return null;
 	}
-	
+
 }

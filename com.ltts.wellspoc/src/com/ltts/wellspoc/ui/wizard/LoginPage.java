@@ -42,16 +42,13 @@ public class LoginPage extends WizardPage {
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
-		layout.marginHeight = 50;
-		layout.marginRight = 25;
-		layout.marginTop = 80;
-		userAuthenticationContainer.setBounds(500, 500, 1000, 1000);
+		layout.marginHeight = 150;
 		userAuthenticationContainer.setLayout(layout);
 		userAuthenticationContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// User Name
 		Label userNameLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		userNameLabel.setText("User Name");
+		userNameLabel.setText("Username");
 		GridData gridDataUserNameLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		gridDataUserNameLabel.widthHint = 65;
 		userNameLabel.setLayoutData(gridDataUserNameLabel);
