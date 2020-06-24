@@ -112,7 +112,7 @@ public class WellDetailsView extends ViewPart {
         
         GridLayer gridlayer = new GridLayer(bodyLayer, columnlayer, rowlayer, cornerLayer);
         nattable = new NatTable(parent,gridlayer,false);
-
+        System.out.println("parent : "+parent);
         // Change for paint
         IConfigLabelAccumulator cellLabelAccumulator = new IConfigLabelAccumulator() {
             //@Override

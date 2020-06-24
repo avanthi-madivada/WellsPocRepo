@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
+import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
@@ -25,10 +26,13 @@ public class WellsWizard extends Wizard {
 
 	private static final String USERNAME = "admin";
 	private static final String PASSWORD = "admin";
+	public static int rowCountList =0;
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
 	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
+	
+	DataProvider dataProvider = new DataProvider();
 	int flag = 0;
 
 	/**
@@ -72,7 +76,9 @@ public class WellsWizard extends Wizard {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
 					flag = 1;
-					selectedWellsList.add(wellData.get(i));
+					selectedWellsList.add(wellData.get(i)); 
+					rowCountList = selectedWellsList.size();
+					dataProvider.getDataValue(selectedWellsList,selectedWellsList.size());
 				}
 			}
 		}
