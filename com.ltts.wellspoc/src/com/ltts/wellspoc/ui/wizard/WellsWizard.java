@@ -1,15 +1,20 @@
 package com.ltts.wellspoc.ui.wizard;
 
+import java.awt.RenderingHints;
+import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.dataprovider.DataProvider;
+import com.ltts.wellspoc.dataprovider.WellNattable;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * Class that re-implements the methods to perform special processing for the
@@ -23,6 +28,9 @@ public class WellsWizard extends Wizard {
 
 	LoginPage loginPage;
 	WellsPage wellsPage;
+	Composite parent;
+	
+	WellDetailsView wellView = new WellDetailsView();
 
 	private static final String USERNAME = "admin";
 	private static final String PASSWORD = "admin";
@@ -78,7 +86,9 @@ public class WellsWizard extends Wizard {
 					flag = 1;
 					selectedWellsList.add(wellData.get(i)); 
 					rowCountList = selectedWellsList.size();
-					dataProvider.getDataValue(selectedWellsList,selectedWellsList.size());
+					//dataProvider.getDataValue(selectedWellsList,1);
+					//wellNattable.addAllLisFault(selectedWellsList);
+					wellView.createNatTable(selectedWellsList);
 				}
 			}
 		}

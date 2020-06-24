@@ -42,6 +42,7 @@ import com.ltts.wellspoc.dataprovider.BodyLayerStack;
 import com.ltts.wellspoc.dataprovider.ColumnHeaderLayerStack;
 import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.dataprovider.RowHeaderLayerStack;
+import com.ltts.wellspoc.dataprovider.WellNattable;
 
 
 /**
@@ -60,14 +61,15 @@ public class WellDetailsView extends ViewPart {
 	private NatTable nattable;
 	private static final String FOO_LABEL = "FOO";
 	private static final String CELL_LABEL = "DEMO";
+	public static Composite compositeParent;
 	
-	
+	WellNattable wellNattable = new WellNattable();
 	/**
 	 *
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		
+		compositeParent = parent;
 	    
 		GridData gridData = new GridData();	
 		gridData.heightHint = (int) 24;
@@ -147,6 +149,10 @@ public class WellDetailsView extends ViewPart {
         nattable.setLayoutData(gridData);
         nattable.setConfigRegistry(configRegistry);
         nattable.configure();
+	}
+	
+	public void createNatTable(List listOfWellDetails) {
+		wellNattable.createNatTable(compositeParent, listOfWellDetails);
 	}
 
 	@Override

@@ -174,13 +174,13 @@ public class DataProvider extends DummyBodyDataProvider implements IColumnAccess
 		 * columnLabelAccumulator;
 		 */
 		
-		  IColumnPropertyAccessor<Well> columnPropertyAccessor = new ReflectiveColumnPropertyAccessor<Well>(wellColumnNames); 
+		  IColumnPropertyAccessor<Well> columnPropertyAccessor = new ExtendedReflectiveColumnPropertyAccessor<Well>(wellColumnNames); 
 		  IDataProvider listDataProvider = new ListOfDataProvider<Well>(rowObject,columnPropertyAccessor); 
 		  ILayer layer = new DataLayer(listDataProvider);
-		  System.out.println("@183 : ");
+		  System.out.println("@183 : "+layer.getColumnCount());
 		  
 		 // IDataProvider dataProvider = new DataProvider(properties.length,5);
-		return layer.getDataValueByPosition(columnIndex, columnIndex);
+		return layer.getDataValueByPosition(columnIndex, 5);
 		 
     	
 

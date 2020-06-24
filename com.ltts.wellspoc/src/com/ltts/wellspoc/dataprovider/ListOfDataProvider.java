@@ -25,7 +25,7 @@ public class ListOfDataProvider<Well> extends ListDataProvider<Well>{
 		 */
 		Well rowObj =list.get(0); System.out.println("rowObj:"+rowObj.toString());
 		System.out.println("************"+rowObj);
-		return this.columnAccessor.getDataValue(rowObj, columnIndex);
+		return this.columnAccessor.getDataValue(rowObj, 1);
     }
 	
 }
