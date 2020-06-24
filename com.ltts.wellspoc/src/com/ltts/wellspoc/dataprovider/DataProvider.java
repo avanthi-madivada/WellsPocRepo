@@ -144,7 +144,6 @@ public class DataProvider extends DummyBodyDataProvider implements IColumnAccess
 
 	@Override
 	public Object getDataValue(List<Well> rowObject, int columnIndex) {
-		System.out.println("coming here");
 		Map<String, String> map = new HashMap<>();
     	String[] wellColumnNames = {"Well Name","Easting","Northing","Azimuth","Field","Reservoir","Type"};
 		
