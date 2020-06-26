@@ -10,13 +10,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.ltts.wellspoc.ui.util.PropertiesCache;
+
 /**
  * The class is used for User Authentication.
  * 
  * @author Ranjith D
  */
 public class LoginPage extends WizardPage {
-	private static final String PAGE_TITLE = "User Authentication";
+	
+	PropertiesCache prop = PropertiesCache.getInstance();	 
+	//read the title from property file
+	String pagetitle = prop.getProperty("LoginPage_page_title");
+	;
 	protected static Text userNameText = null;
 	protected static Text passWordText = null;
 
@@ -38,7 +44,7 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle(PAGE_TITLE);
+		setTitle(pagetitle);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
