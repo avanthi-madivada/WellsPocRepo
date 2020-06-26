@@ -6,10 +6,11 @@ import java.util.List;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
-import com.ltts.wellspoc.PropertiesCache;
+
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * Class that re-implements the methods to perform special processing for the

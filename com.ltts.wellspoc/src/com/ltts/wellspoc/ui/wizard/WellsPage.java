@@ -20,9 +20,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.ltts.wellspoc.PropertiesCache;
+
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * The class is used for Well Selection.
@@ -33,12 +34,7 @@ import com.ltts.wellspoc.models.WellDataProvider;
 public class WellsPage extends WizardPage {
 	
 
-		PropertiesCache prop = PropertiesCache.getInstance();
-		
-		//read title and column names from properties file
-	    String pagetitle = prop.getProperty("WellsPage_page_title");	    
-	    String column_1=prop.getProperty("WellsPage_column_1");
-	    String column_2=prop.getProperty("WellsPage_column_2");
+    private static String PAGE_TITLE="Wells Selction";
 	    
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
@@ -60,7 +56,7 @@ public class WellsPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle(pagetitle);
+		setTitle(PAGE_TITLE);
 
 		Composite wellSelectionContainer = new Composite(parent, SWT.FILL);
 		GridLayout layout = new GridLayout(1, false);
@@ -133,7 +129,7 @@ public class WellsPage extends WizardPage {
 		wellTable.setLayout(layout);
 
 		// First column - Well Selection
-		TableViewerColumn tableViewerColumn = createTableViewerColumn(column_1);
+		TableViewerColumn tableViewerColumn = createTableViewerColumn("well selection");
 
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -142,7 +138,7 @@ public class WellsPage extends WizardPage {
 			}
 		});
 		// Second column - Well Name
-		tableViewerColumn = createTableViewerColumn(column_2);
+		tableViewerColumn = createTableViewerColumn("well name");
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {

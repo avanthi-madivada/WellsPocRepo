@@ -10,7 +10,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.ltts.wellspoc.PropertiesCache;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
+
+
 
 /**
  * The class is used for User Authentication.
@@ -25,7 +27,7 @@ public class LoginPage extends WizardPage {
 
 	
 	PropertiesCache prop = PropertiesCache.getInstance();	 
-	//acccess the property by calling getproperty method 
+	//read the title from property file
 	String pagetitle = prop.getProperty("LoginPage_page_title");
 	
 	/**
