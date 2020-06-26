@@ -10,7 +10,6 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.dataprovider.DataProvider;
-import com.ltts.wellspoc.dataprovider.WellNattable;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
@@ -39,6 +38,8 @@ public class WellsWizard extends Wizard {
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
 	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
+	
+	public static ArrayList<Well> getSelectedWellsList = new ArrayList<Well>();
 	
 	DataProvider dataProvider = new DataProvider();
 	int flag = 0;
@@ -86,9 +87,10 @@ public class WellsWizard extends Wizard {
 					flag = 1;
 					selectedWellsList.add(wellData.get(i)); 
 					rowCountList = selectedWellsList.size();
-					//dataProvider.getDataValue(selectedWellsList,1);
+					getSelectedWellsList = selectedWellsList;
+					Well wellData = dataProvider.updateWell(selectedWellsList);
 					//wellNattable.addAllLisFault(selectedWellsList);
-					wellView.createNatTable(selectedWellsList);
+					wellView.refreshNatTable();
 				}
 			}
 		}

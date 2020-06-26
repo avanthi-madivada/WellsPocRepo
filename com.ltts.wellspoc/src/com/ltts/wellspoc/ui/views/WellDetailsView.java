@@ -15,6 +15,8 @@ import org.eclipse.nebula.widgets.nattable.config.ConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
+import org.eclipse.nebula.widgets.nattable.data.ListDataProvider;
+import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultRowHeaderDataProvider;
@@ -42,7 +44,7 @@ import com.ltts.wellspoc.dataprovider.BodyLayerStack;
 import com.ltts.wellspoc.dataprovider.ColumnHeaderLayerStack;
 import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.dataprovider.RowHeaderLayerStack;
-import com.ltts.wellspoc.dataprovider.WellNattable;
+import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
 
 /**
@@ -58,12 +60,11 @@ public class WellDetailsView extends ViewPart {
 	private int statusRejected;
 	private int statusInProgress;
 	private boolean check = false;
-	private NatTable nattable;
+	private static NatTable nattable;
 	private static final String FOO_LABEL = "FOO";
 	private static final String CELL_LABEL = "DEMO";
 	public static Composite compositeParent;
 	
-	WellNattable wellNattable = new WellNattable();
 	/**
 	 *
 	 */
@@ -93,9 +94,11 @@ public class WellDetailsView extends ViewPart {
             properties[i]=(String) it.next();   
         }
         }
-        IDataProvider dataProvider = new DataProvider(properties.length,5);
+        IDataProvider dataProvider = new DataProvider(properties.length,WellsWizard.getSelectedWellsList.size());
         bodyLayer= new BodyLayerStack(dataProvider);
         //datalayer.addConfiguration(new 
+        
+       // IDataProvider listDataProvider = new ListDataProvider( WellsWizard.getSelectedWellsList, new ReflectiveColumnPropertyAccessor(properties));
 
         //Column Data Provider
         DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(properties);
@@ -106,6 +109,7 @@ public class WellDetailsView extends ViewPart {
         DefaultRowHeaderDataProvider rowdata = new DefaultRowHeaderDataProvider(dataProvider);
         RowHeaderLayerStack rowlayer = new RowHeaderLayerStack(rowdata);
 
+        
         //Corner Data Provider
         DefaultCornerDataProvider cornerdata = new DefaultCornerDataProvider(columnData, rowdata);
         DataLayer cornerDataLayer = new DataLayer(cornerdata);
@@ -117,19 +121,12 @@ public class WellDetailsView extends ViewPart {
         System.out.println("parent : "+parent);
         // Change for paint
         IConfigLabelAccumulator cellLabelAccumulator = new IConfigLabelAccumulator() {
-            //@Override
-            public void accumulateConfigLabels(LabelStack configLabels,int columnPosition, int rowPosition) {
 
-                int columnIndex = bodyLayer.getColumnIndexByPosition(columnPosition);
-                int rowIndex = bodyLayer.getRowIndexByPosition(rowPosition);
-                if (columnIndex == 2 && rowIndex == 45) {
-                    configLabels.addLabel(FOO_LABEL);
-                }
-                else if ((columnIndex == statusColumn) && (rowIndex == statusRejected) && (check ==true)) {
-                        configLabels.addLabel(CELL_LABEL);
-                }
-            }
-        };
+			@Override
+			public void accumulateConfigLabels(LabelStack configLabels, int columnPosition, int rowPosition) {
+				// TODO Auto-generated method stub
+				
+			}};
         bodyLayer.setConfigLabelAccumulator(cellLabelAccumulator);
 
         nattable.addConfiguration(new DefaultNatTableStyleConfiguration());
@@ -151,8 +148,8 @@ public class WellDetailsView extends ViewPart {
         nattable.configure();
 	}
 	
-	public void createNatTable(List listOfWellDetails) {
-		wellNattable.createNatTable(compositeParent, listOfWellDetails);
+	public void refreshNatTable() {
+		nattable.refresh();
 	}
 
 	@Override

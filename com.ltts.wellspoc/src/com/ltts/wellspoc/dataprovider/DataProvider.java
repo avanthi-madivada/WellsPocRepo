@@ -2,6 +2,7 @@ package com.ltts.wellspoc.dataprovider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,92 +25,103 @@ import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
 /**
- * @author Deepika KS
- * This class has methods which is used to populate data for coloumns and rows in nattable
+ * @author Deepika KS This class has methods which is used to populate data for
+ *         coloumns and rows in nattable
  *
  */
-public class DataProvider extends DummyBodyDataProvider implements IColumnAccessor<List<Well>>{
+public class DataProvider extends DummyBodyDataProvider {
 
-	
 	private String[] properties = new String[7];
-	List<Well> wellList = new ArrayList<Well>();
-	
+	 List<Well> wellList = new ArrayList<Well>();
+
 	static int columnCount = 0;
-	public static int rowCount= 0;
+	public static int rowCount = 0;
 	Well well = new Well();
-	
+
 	public DataProvider() {
 		super(columnCount, rowCount);
 	}
-    public DataProvider(int columnCount, int rowCount) {
-        super(columnCount, rowCount);
-    }
 
-    
+	public DataProvider(int columnCount, int rowCount) {
+		super(columnCount, rowCount);
+	}
 
 	/**
-     *@return number of columns 
-     */
-    @Override
-    public int getColumnCount() {
-        return properties.length;
-    }
+	 * @return number of columns
+	 */
+	@Override
+	public int getColumnCount() {
+		return properties.length;
+	}
 
-    /**
-     * @param columnIndex, rowIndex
-     * @return Object
-     */
-    @Override
-    public Object getDataValue(int columnIndex, int rowIndex) {
-    	well.setWellPlanName("WellPlan");
-    	well.setEasting(420107.6);
-    	well.setField("Ghawar");
-    	well.setAzimuth(180.0);
-    	well.setReservoir("Not Fm. 2 HD Top");
-    	well.setType("Horizontal");
-    	well.setNorthing(7244305.1);
-    	wellList.add(well);
-    	
-    	Map<String, String> map = new HashMap<>();
-    	String[] wellColumnNames = {"Well Name","Easting","Northing","Azimuth","Field","Reservoir","Type"};
+	/**
+	 * @param columnIndex, rowIndex
+	 * @return Object
+	 */
+	@Override
+	public Object getDataValue(int columnIndex, int rowIndex) {
+		if(!WellsWizard.getSelectedWellsList.isEmpty()) {
+			wellList = WellsWizard.getSelectedWellsList;
+		}else {
 		
-    	for(Well well : wellList) {
-    		map.put("Well Name", well.getWellPlanName());
-    		map.put("Easting", well.getEasting().toString());
-    		map.put("Northing", well.getNorthing().toString());
-    		map.put("Azimuth", well.getAzimuth().toString());
-    		map.put("Field", well.getField());
-    		map.put("Reservoir", well.getReservoir());
-    		map.put("Type", well.getType());
-    	}
-    	
-    	//DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(wellDetails);
-    	DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(wellColumnNames,map);
-         ColumnHeaderLayerStack columnlayer = new ColumnHeaderLayerStack(columnData);
-    	return columnlayer.getDataValueByPosition(columnIndex, rowIndex);
+		
+		well.setWellPlanName("WellPlan");
+		well.setEasting(420107.6);
+		well.setField("Ghawar");
+		well.setAzimuth(180.0);
+		well.setReservoir("Not Fm. 2 HD Top");
+		well.setType("Horizontal");
+		well.setNorthing(7244305.1);
+		wellList.add(well);
+		}
+		DefaultColumnHeaderDataProvider columnData = null;
+		ColumnHeaderLayerStack columnlayer = null;
+		String[] wellColumnNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
+		for (Well well : wellList) {
+			HashMap<String, String> map = new HashMap<String, String>() ;
+			map.put(new String("Well Name"), well.getWellPlanName());
+			map.put(new String("Easting"), well.getEasting().toString());
+			map.put(new String("Northing"), well.getNorthing().toString());
+			map.put(new String("Azimuth"), well.getAzimuth().toString());
+			map.put(new String("Field"), well.getField());
+			map.put(new String("Reservoir"), well.getReservoir());
+			map.put(new String("Type"), well.getType());
+		// DefaultColumnHeaderDataProvider columnData = new
+		// DefaultColumnHeaderDataProvider(wellDetails);
+		
+		
+		//RowHeaderLayerStack rowLayer = new RowHeaderLayerStack(columnData);
+		 columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
+		columnlayer= new ColumnHeaderLayerStack(columnData);
+		
+		}
+		return columnlayer.getDataValueByPosition(columnIndex, rowIndex);
 
-    }
+	}
 
-    /**
-     * @return number of rows
-     */
-    @Override
-    public int getRowCount() {
-    	return 1;
-       
-    }
+	/**
+	 * @return number of rows
+	 */
+	@Override
+	public int getRowCount() {
+		if(!WellsWizard.getSelectedWellsList.isEmpty()) {
+		return WellsWizard.getSelectedWellsList.size();
+		}else {
+			return 1;
+		}
 
-    
-    /**
-     *@param arg0, arg1, arg2
-     */
-    @Override
-    public void setDataValue(int arg0, int arg1, Object arg2) {
-    	//String[] wellDetails = {"Well plan1","420107.6","7244305.1","1000.0","Ghawar","Not Fm. 2 HD Top","Horizontal"};
-    	
-    	
-    	
-    }
+	}
+
+	/**
+	 * @param arg0, arg1, arg2
+	 */
+	@Override
+	public void setDataValue(int arg0, int arg1, Object arg2) {
+		// String[] wellDetails = {"Well
+		// plan1","420107.6","7244305.1","1000.0","Ghawar","Not Fm. 2 HD
+		// Top","Horizontal"};
+
+	}
 
 	/*
 	 * @Override public Object getDataValue(Well well, int columnIndex) {
@@ -142,53 +154,68 @@ public class DataProvider extends DummyBodyDataProvider implements IColumnAccess
 	 * }
 	 */
 
-	@Override
-	public Object getDataValue(List<Well> rowObject, int columnIndex) {
-		Map<String, String> map = new HashMap<>();
-    	String[] wellColumnNames = {"Well Name","Easting","Northing","Azimuth","Field","Reservoir","Type"};
-		
-    	for(Well well : rowObject) {
-    		System.out.println("Inside for loop : "+well.getWellPlanName());
-    		map.put("Well Name", well.getWellPlanName());
-    		map.put("Easting", well.getEasting().toString());
-    		map.put("Northing", well.getNorthing().toString());
-    		map.put("Azimuth", well.getAzimuth().toString());
-    		map.put("Field", well.getField());
-    		map.put("Reservoir", well.getReservoir());
-    		map.put("Type", well.getType());
-    	}
-		/*
-		 * IDataProvider bodyDataProvider = new ListDataProvider<Well>( rowObject,
-		 * (IColumnAccessor<Well>) new
-		 * ExtendedReflectiveColumnPropertyAccessor<Well>(wellColumnNames));
-		 * //DefaultColumnHeaderDataProvider columnData = new
-		 * DefaultColumnHeaderDataProvider(wellDetails); DefaultGridLayer gridLayer =
-		 * new DefaultGridLayer(bodyDataProvider, new
-		 * DefaultColumnHeaderDataProvider(wellColumnNames, map));
-		 * 
-		 * final DataLayer bodyDataLayer = (DataLayer) gridLayer.getBodyDataLayer();
-		 * 
-		 * final ColumnOverrideLabelAccumulator columnLabelAccumulator = new
-		 * ColumnOverrideLabelAccumulator(bodyDataLayer);
-		 * bodyDataLayer.setConfigLabelAccumulator(columnLabelAccumulator); return
-		 * columnLabelAccumulator;
-		 */
-		
-		  IColumnPropertyAccessor<Well> columnPropertyAccessor = new ExtendedReflectiveColumnPropertyAccessor<Well>(wellColumnNames); 
-		  IDataProvider listDataProvider = new ListOfDataProvider<Well>(rowObject,columnPropertyAccessor); 
-		  ILayer layer = new DataLayer(listDataProvider);
-		  System.out.println("@183 : "+layer.getColumnCount());
-		  
-		 // IDataProvider dataProvider = new DataProvider(properties.length,5);
-		return layer.getDataValueByPosition(columnIndex, 5);
-		 
-    	
+	/*
+	 * @Override public Object getDataValue(List<Well> rowObject, int columnIndex) {
+	 * Map<String, String> map = new HashMap<>(); String[] wellColumnNames =
+	 * {"Well Name","Easting","Northing","Azimuth","Field","Reservoir","Type"};
+	 * 
+	 * for(Well well : rowObject) {
+	 * System.out.println("Inside for loop : "+well.getWellPlanName());
+	 * map.put("Well Name", well.getWellPlanName()); map.put("Easting",
+	 * well.getEasting().toString()); map.put("Northing",
+	 * well.getNorthing().toString()); map.put("Azimuth",
+	 * well.getAzimuth().toString()); map.put("Field", well.getField());
+	 * map.put("Reservoir", well.getReservoir()); map.put("Type", well.getType()); }
+	 * 
+	 * 
+	 * IDataProvider bodyDataProvider = new ListDataProvider<Well>( rowObject,
+	 * (IColumnAccessor<Well>) new
+	 * ExtendedReflectiveColumnPropertyAccessor<Well>(wellColumnNames));
+	 * DefaultColumnHeaderDataProvider columnData = new
+	 * DefaultColumnHeaderDataProvider(wellColumnNames); DefaultGridLayer gridLayer
+	 * = new DefaultGridLayer(bodyDataProvider, new
+	 * DefaultColumnHeaderDataProvider(wellColumnNames, map));
+	 * 
+	 * final DataLayer bodyDataLayer = (DataLayer) gridLayer.getBodyDataLayer();
+	 * 
+	 * final ColumnOverrideLabelAccumulator columnLabelAccumulator = new
+	 * ColumnOverrideLabelAccumulator(bodyDataLayer);
+	 * bodyDataLayer.setConfigLabelAccumulator(columnLabelAccumulator); return
+	 * columnLabelAccumulator;
+	 * 
+	 * 
+	 * IColumnPropertyAccessor<Well> columnPropertyAccessor = new
+	 * ExtendedReflectiveColumnPropertyAccessor<Well>(wellColumnNames);
+	 * IDataProvider listDataProvider = new
+	 * ListOfDataProvider<Well>(rowObject,columnPropertyAccessor); ILayer layer =
+	 * new DataLayer(listDataProvider);
+	 * System.out.println("@183 : "+layer.getColumnCount());
+	 * 
+	 * // IDataProvider dataProvider = new DataProvider(properties.length,5); return
+	 * layer.getDataValueByPosition(columnIndex, 5);
+	 * 
+	 * 
+	 * DefaultColumnHeaderDataProvider columnData = new
+	 * DefaultColumnHeaderDataProvider(wellColumnNames,map); ColumnHeaderLayerStack
+	 * columnlayer = new ColumnHeaderLayerStack(columnData);
+	 * 
+	 * return columnlayer.getDataValueByPosition(colIndex, rowsIndex);
+	 * 
+	 * }
+	 */
+	
 
-	}
-
-	@Override
-	public void setDataValue(List<Well> rowObject, int columnIndex, Object newValue) {
-		// TODO Auto-generated method stub
-		
+	public Well updateWell(ArrayList<Well> selectedWellsList) {
+		Well well = new Well();
+		for(Well wellModel : selectedWellsList) {
+		well.setWellPlanName(wellModel.getWellPlanName());
+		well.setEasting(wellModel.getEasting());
+		well.setField(wellModel.getField());
+		well.setAzimuth(wellModel.getAzimuth());
+		well.setReservoir(wellModel.getReservoir());
+		well.setType(wellModel.getType());
+		well.setNorthing(wellModel.getNorthing());
+		}
+		return well;
 	}
 }
