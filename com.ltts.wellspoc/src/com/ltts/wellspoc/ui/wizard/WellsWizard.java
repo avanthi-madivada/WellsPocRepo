@@ -9,6 +9,7 @@ import org.eclipse.jface.wizard.Wizard;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * Class that re-implements the methods to perform special processing for the
@@ -23,8 +24,10 @@ public class WellsWizard extends Wizard {
 	LoginPage loginPage;
 	WellsPage wellsPage;
 
-	private static final String USERNAME = "admin";
-	private static final String PASSWORD = "admin";
+	//accessing username and password
+	PropertiesCache prop = PropertiesCache.getInstance();
+	private final String USERNAME=prop.getProperty("LoginPage_username");
+	private final String PASSWORD=prop.getProperty("LoginPage_password");
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
