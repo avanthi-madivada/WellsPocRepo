@@ -5,10 +5,18 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
+import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.views.WellDetailsView;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
@@ -23,6 +31,9 @@ public class WellsWizard extends Wizard {
 
 	LoginPage loginPage;
 	WellsPage wellsPage;
+	Composite parent;
+	
+	WellDetailsView wellView = new WellDetailsView();
 
 	//accessing username and password
 	PropertiesCache prop = PropertiesCache.getInstance();
@@ -31,7 +42,12 @@ public class WellsWizard extends Wizard {
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
-	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
+	List<Well> selectedWellsList = new ArrayList<Well>();
+	
+	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
+	
+	DataProvider dataProvider = new DataProvider();
+	int flag = 0;
 	boolean isFinishEnabled;
 
 	/**
@@ -75,15 +91,27 @@ public class WellsWizard extends Wizard {
 		if (getContainer().getCurrentPage() == wellsPage) {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
-					isFinishEnabled = true;
-					selectedWellsList.add(wellData.get(i));
+					flag = 1;
+					selectedWellsList.add(wellData.get(i)); 
+					wellData.get(i).setChecked(false);
 				}
 			}
 			for (int j = 0; j < wellData.size(); j++) {
 				wellData.get(j).setChecked(false);
 			}
 		}
-		return isFinishEnabled;
+		
+		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
+		if (wellDetailsViewInstance instanceof WellDetailsView) {
+			((WellDetailsView)wellDetailsViewInstance).setWellData(selectedWellsList);
+		}
+		
+		if (flag == 1) {
+			return true;
+		} else {
+			MessagesUtil.displayInformationDialog("Select anyone of the Wells");
+			return false;
+		}
 	}
 
 	/**
@@ -138,5 +166,20 @@ public class WellsWizard extends Wizard {
 		}
 		return null;
 	}
+	
+	private IViewPart getWellDetailsViewInstance() {
+		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage activePage = workbenchWindow.getActivePage();
+
+        try {
+            IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
+            return viewPart;
+        } catch (PartInitException e) {
+            String message = "Could not show view " + "Well Details View";
+//            LOG.warn(message, e);
+            return null;
+        }
+	}
+	
 
 }
