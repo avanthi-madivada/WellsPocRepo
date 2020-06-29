@@ -1,13 +1,16 @@
 package com.ltts.wellspoc.ui.wizard;
 
-import java.awt.RenderingHints;
-import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.models.Well;
@@ -37,9 +40,9 @@ public class WellsWizard extends Wizard {
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
-	ArrayList<Well> selectedWellsList = new ArrayList<Well>();
+	List<Well> selectedWellsList = new ArrayList<Well>();
 	
-	public static ArrayList<Well> getSelectedWellsList = new ArrayList<Well>();
+	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
 	
 	DataProvider dataProvider = new DataProvider();
 	int flag = 0;
@@ -86,14 +89,16 @@ public class WellsWizard extends Wizard {
 				if (wellData.get(i).isChecked()) {
 					flag = 1;
 					selectedWellsList.add(wellData.get(i)); 
-					rowCountList = selectedWellsList.size();
-					getSelectedWellsList = selectedWellsList;
-					Well wellData = dataProvider.updateWell(selectedWellsList);
-					//wellNattable.addAllLisFault(selectedWellsList);
-					wellView.refreshNatTable();
+					wellData.get(i).setChecked(false);
 				}
 			}
 		}
+		
+		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
+		if (wellDetailsViewInstance instanceof WellDetailsView) {
+			((WellDetailsView)wellDetailsViewInstance).setWellData(selectedWellsList);
+		}
+		
 		if (flag == 1) {
 			return true;
 		} else {
@@ -148,6 +153,20 @@ public class WellsWizard extends Wizard {
 
 		}
 		return null;
+	}
+	
+	private IViewPart getWellDetailsViewInstance() {
+		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage activePage = workbenchWindow.getActivePage();
+
+        try {
+            IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
+            return viewPart;
+        } catch (PartInitException e) {
+            String message = "Could not show view " + "Well Details View";
+//            LOG.warn(message, e);
+            return null;
+        }
 	}
 	
 }
