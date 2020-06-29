@@ -10,13 +10,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.ltts.wellspoc.ui.util.PropertiesCache;
+
 /**
  * The class is used for User Authentication.
  * 
  * @author Ranjith D
  */
 public class LoginPage extends WizardPage {
-	private static final String PAGE_TITLE = "User Authentication";
+	
+	PropertiesCache prop = PropertiesCache.getInstance();	 
+	//read the title from property file
+	String pagetitle = prop.getProperty("LoginPage_page_title");
+	;
 	protected static Text userNameText = null;
 	protected static Text passWordText = null;
 
@@ -38,20 +44,17 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle(PAGE_TITLE);
+		setTitle(pagetitle);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
-		layout.marginHeight = 50;
-		layout.marginRight = 25;
-		layout.marginTop = 80;
-		userAuthenticationContainer.setBounds(500, 500, 1000, 1000);
+		layout.marginHeight = 150;
 		userAuthenticationContainer.setLayout(layout);
 		userAuthenticationContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// User Name
 		Label userNameLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		userNameLabel.setText("User Name");
+		userNameLabel.setText("Username");
 		GridData gridDataUserNameLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		gridDataUserNameLabel.widthHint = 65;
 		userNameLabel.setLayoutData(gridDataUserNameLabel);

@@ -17,6 +17,7 @@ import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.views.WellDetailsView;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * Class that re-implements the methods to perform special processing for the
@@ -34,9 +35,10 @@ public class WellsWizard extends Wizard {
 	
 	WellDetailsView wellView = new WellDetailsView();
 
-	private static final String USERNAME = "admin";
-	private static final String PASSWORD = "admin";
-	public static int rowCountList =0;
+	//accessing username and password
+	PropertiesCache prop = PropertiesCache.getInstance();
+	private final String USERNAME=prop.getProperty("LoginPage_username");
+	private final String PASSWORD=prop.getProperty("LoginPage_password");
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
@@ -46,6 +48,7 @@ public class WellsWizard extends Wizard {
 	
 	DataProvider dataProvider = new DataProvider();
 	int flag = 0;
+	boolean isFinishEnabled;
 
 	/**
 	 * Provides the title for the wizard.
@@ -84,6 +87,7 @@ public class WellsWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
+		isFinishEnabled = false;
 		if (getContainer().getCurrentPage() == wellsPage) {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
@@ -91,6 +95,9 @@ public class WellsWizard extends Wizard {
 					selectedWellsList.add(wellData.get(i)); 
 					wellData.get(i).setChecked(false);
 				}
+			}
+			for (int j = 0; j < wellData.size(); j++) {
+				wellData.get(j).setChecked(false);
 			}
 		}
 		
@@ -108,15 +115,20 @@ public class WellsWizard extends Wizard {
 	}
 
 	/**
-	 * Enables Finish button only if the current page is the last page.
+	 * Enables Finish button when any one of the wells is selected.
 	 */
 
 	@Override
 	public boolean canFinish() {
-		if (getContainer().getCurrentPage() == wellsPage) {
-			return true;
+		isFinishEnabled = false;
+		for (int i = 0; i < wellData.size(); i++) {
+			if (wellData.get(i).isChecked()) {
+				isFinishEnabled = true;
+				break;
+			}
 		}
-		return false;
+		return isFinishEnabled;
+
 	}
 
 	/**
@@ -169,4 +181,5 @@ public class WellsWizard extends Wizard {
         }
 	}
 	
+
 }
