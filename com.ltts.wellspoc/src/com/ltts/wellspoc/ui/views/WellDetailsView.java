@@ -75,7 +75,7 @@ public class WellDetailsView extends ViewPart {
 		IConfigRegistry configRegistry = new ConfigRegistry();
 
 		// property names of the Person class
-		String[] propertyNames = { "wellPlanName", "easting", "northing", "azimuth", "field", "reservoir", "type" };
+		String[] propertyNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
 
 		// mapping from property to label, needed for column header labels
 		Map<String, String> propertyToLabelMap = new HashMap<String, String>();
