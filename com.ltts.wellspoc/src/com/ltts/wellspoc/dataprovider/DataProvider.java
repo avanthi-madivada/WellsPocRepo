@@ -2,24 +2,10 @@ package com.ltts.wellspoc.dataprovider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.nebula.widgets.nattable.NatTable;
-import org.eclipse.nebula.widgets.nattable.data.ExtendedReflectiveColumnPropertyAccessor;
-import org.eclipse.nebula.widgets.nattable.data.IColumnAccessor;
-import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
-import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
-import org.eclipse.nebula.widgets.nattable.data.ListDataProvider;
-import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DummyBodyDataProvider;
-import org.eclipse.nebula.widgets.nattable.grid.layer.DefaultGridLayer;
-import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
-import org.eclipse.nebula.widgets.nattable.layer.ILayer;
-import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnOverrideLabelAccumulator;
-import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.wizard.WellsWizard;
@@ -32,7 +18,7 @@ import com.ltts.wellspoc.ui.wizard.WellsWizard;
 public class DataProvider extends DummyBodyDataProvider {
 
 	private String[] properties = new String[7];
-	 List<Well> wellList = new ArrayList<Well>();
+	List<Well> wellList = new ArrayList<Well>();
 
 	static int columnCount = 0;
 	public static int rowCount = 0;
@@ -54,31 +40,96 @@ public class DataProvider extends DummyBodyDataProvider {
 		return properties.length;
 	}
 
+//	/**
+//	 * @param columnIndex, rowIndex
+//	 * @return Object
+//	 */
+//	@Override
+//	public Object getDataValue(int columnIndex, int rowIndex) {
+//		if (!WellsWizard.getSelectedWellsList.isEmpty()) {
+//			wellList = WellsWizard.getSelectedWellsList;
+//		} else {
+//
+//			well.setWellPlanName("WellPlan111");
+//			well.setEasting(420107.6);
+//			well.setField("Ghawar");
+//			well.setAzimuth(180.0);
+//			well.setReservoir("Not Fm. 2 HD Top");
+//			well.setType("Horizontal");
+//			well.setNorthing(7244305.1);
+//			wellList.add(well);
+//
+//			well.setWellPlanName("WellPlan112");
+//			well.setEasting(422234.4);
+//			well.setField("Sohar");
+//			well.setAzimuth(280.0);
+//			well.setReservoir("Not Fm. 2 HD Top");
+//			well.setType("Vertical");
+//			well.setNorthing(7343305.1);
+//			wellList.add(well);
+//
+//		}
+//		DefaultColumnHeaderDataProvider columnData = null;
+//		ColumnHeaderLayerStack columnlayer = null;
+//		String[] wellColumnNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
+//		HashMap<String, String> map = null;
+//		for (Well well : wellList) {
+//			map = new HashMap<String, String>();
+//			map.put(new String("Well Name"), well.getWellPlanName());
+//			map.put(new String("Easting"), well.getEasting().toString());
+//			map.put(new String("Northing"), well.getNorthing().toString());
+//			map.put(new String("Azimuth"), well.getAzimuth().toString());
+//			map.put(new String("Field"), well.getField());
+//			map.put(new String("Reservoir"), well.getReservoir());
+//			map.put(new String("Type"), well.getType());
+//
+//			columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
+//			columnlayer = new ColumnHeaderLayerStack(columnData);
+//
+//			// RowHeaderLayerStack rowLayer = new RowHeaderLayerStack(columnData);
+//
+//		}
+//		// columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
+//		// columnlayer= new ColumnHeaderLayerStack(columnData);
+//		return columnlayer.getDataValueByPosition(columnIndex, rowIndex);
+//
+//	}
+	
 	/**
 	 * @param columnIndex, rowIndex
 	 * @return Object
 	 */
 	@Override
 	public Object getDataValue(int columnIndex, int rowIndex) {
-		if(!WellsWizard.getSelectedWellsList.isEmpty()) {
+		if (!WellsWizard.getSelectedWellsList.isEmpty()) {
 			wellList = WellsWizard.getSelectedWellsList;
-		}else {
-		
-		
-		well.setWellPlanName("WellPlan");
-		well.setEasting(420107.6);
-		well.setField("Ghawar");
-		well.setAzimuth(180.0);
-		well.setReservoir("Not Fm. 2 HD Top");
-		well.setType("Horizontal");
-		well.setNorthing(7244305.1);
-		wellList.add(well);
+		} else {
+
+			well.setWellPlanName("WellPlan111");
+			well.setEasting(420107.6);
+			well.setField("Ghawar");
+			well.setAzimuth(180.0);
+			well.setReservoir("Not Fm. 2 HD Top");
+			well.setType("Horizontal");
+			well.setNorthing(7244305.1);
+			wellList.add(well);
+
+			well.setWellPlanName("WellPlan112");
+			well.setEasting(422234.4);
+			well.setField("Sohar");
+			well.setAzimuth(280.0);
+			well.setReservoir("Not Fm. 2 HD Top");
+			well.setType("Vertical");
+			well.setNorthing(7343305.1);
+			wellList.add(well);
+
 		}
 		DefaultColumnHeaderDataProvider columnData = null;
 		ColumnHeaderLayerStack columnlayer = null;
 		String[] wellColumnNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
+		HashMap<String, String> map = null;
 		for (Well well : wellList) {
-			HashMap<String, String> map = new HashMap<String, String>() ;
+			map = new HashMap<String, String>();
 			map.put(new String("Well Name"), well.getWellPlanName());
 			map.put(new String("Easting"), well.getEasting().toString());
 			map.put(new String("Northing"), well.getNorthing().toString());
@@ -86,27 +137,28 @@ public class DataProvider extends DummyBodyDataProvider {
 			map.put(new String("Field"), well.getField());
 			map.put(new String("Reservoir"), well.getReservoir());
 			map.put(new String("Type"), well.getType());
-		// DefaultColumnHeaderDataProvider columnData = new
-		// DefaultColumnHeaderDataProvider(wellDetails);
-		
-		
-		//RowHeaderLayerStack rowLayer = new RowHeaderLayerStack(columnData);
-		 columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
-		columnlayer= new ColumnHeaderLayerStack(columnData);
-		
+
+			columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
+			columnlayer = new ColumnHeaderLayerStack(columnData);
+
+			// RowHeaderLayerStack rowLayer = new RowHeaderLayerStack(columnData);
+
 		}
+		// columnData = new DefaultColumnHeaderDataProvider(wellColumnNames, map);
+		// columnlayer= new ColumnHeaderLayerStack(columnData);
 		return columnlayer.getDataValueByPosition(columnIndex, rowIndex);
 
 	}
+
 
 	/**
 	 * @return number of rows
 	 */
 	@Override
 	public int getRowCount() {
-		if(!WellsWizard.getSelectedWellsList.isEmpty()) {
-		return WellsWizard.getSelectedWellsList.size();
-		}else {
+		if (!WellsWizard.getSelectedWellsList.isEmpty()) {
+			return WellsWizard.getSelectedWellsList.size();
+		} else {
 			return 1;
 		}
 
@@ -203,18 +255,17 @@ public class DataProvider extends DummyBodyDataProvider {
 	 * 
 	 * }
 	 */
-	
 
-	public Well updateWell(ArrayList<Well> selectedWellsList) {
+	public Well updateWell(List<Well> selectedWellsList) {
 		Well well = new Well();
-		for(Well wellModel : selectedWellsList) {
-		well.setWellPlanName(wellModel.getWellPlanName());
-		well.setEasting(wellModel.getEasting());
-		well.setField(wellModel.getField());
-		well.setAzimuth(wellModel.getAzimuth());
-		well.setReservoir(wellModel.getReservoir());
-		well.setType(wellModel.getType());
-		well.setNorthing(wellModel.getNorthing());
+		for (Well wellModel : selectedWellsList) {
+			well.setWellPlanName(wellModel.getWellPlanName());
+			well.setEasting(wellModel.getEasting());
+			well.setField(wellModel.getField());
+			well.setAzimuth(wellModel.getAzimuth());
+			well.setReservoir(wellModel.getReservoir());
+			well.setType(wellModel.getType());
+			well.setNorthing(wellModel.getNorthing());
 		}
 		return well;
 	}
