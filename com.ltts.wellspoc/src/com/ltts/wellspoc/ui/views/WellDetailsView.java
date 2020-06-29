@@ -75,27 +75,27 @@ public class WellDetailsView extends ViewPart {
 		IConfigRegistry configRegistry = new ConfigRegistry();
 
 		// property names of the Person class
-		String[] propertyNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
+		//String[] propertyNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
 
 		// mapping from property to label, needed for column header labels
 		Map<String, String> propertyToLabelMap = new HashMap<String, String>();
-		propertyToLabelMap.put("Well Name", "Well Name");
-		propertyToLabelMap.put("Easting", "Easting");
-		propertyToLabelMap.put("Northing", "Northing");
-		propertyToLabelMap.put("Azimuth", "Azimuth");
-		propertyToLabelMap.put("Field", "Field");
-		propertyToLabelMap.put("Reservoir", "Reservoir");
-		propertyToLabelMap.put("Type", "Type");
+		propertyToLabelMap.put("wellPlanName", "Well Name");
+		propertyToLabelMap.put("easting", "Easting");
+		propertyToLabelMap.put("northing", "Northing");
+		propertyToLabelMap.put("azimuth", "Azimuth");
+		propertyToLabelMap.put("field", "Field");
+		propertyToLabelMap.put("reservoir", "Reservoir");
+		propertyToLabelMap.put("type", "Type");
 
 		IColumnPropertyAccessor<Well> columnPropertyAccessor = new ReflectiveColumnPropertyAccessor<Well>(
-				propertyNames);
+				propertyToLabelMap.keySet().toArray(new String[propertyToLabelMap.size()]));
 
 		bodyDataProvider = new ListDataProvider<Well>(wellList, columnPropertyAccessor);
 		bodyLayer = new BodyLayerStack(bodyDataProvider);
 
 
 		// Column Data Provider
-		DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(propertyNames);
+		DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(propertyToLabelMap.values().toArray(new String[propertyToLabelMap.size()]));
 		ColumnHeaderLayerStack columnlayer = new ColumnHeaderLayerStack(columnData);
 
 		// Row Data Provider
