@@ -2,6 +2,7 @@ package com.ltts.wellspoc.ui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public class WellDetailsView extends ViewPart {
 		//String[] propertyNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
 
 		// mapping from property to label, needed for column header labels
-		Map<String, String> propertyToLabelMap = new HashMap<String, String>();
+		Map<String, String> propertyToLabelMap = new LinkedHashMap<String, String>();
 		propertyToLabelMap.put("wellPlanName", "Well Name");
 		propertyToLabelMap.put("easting", "Easting");
 		propertyToLabelMap.put("northing", "Northing");
