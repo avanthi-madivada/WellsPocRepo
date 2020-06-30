@@ -16,12 +16,14 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * The class is used for Well Selection.
@@ -30,11 +32,13 @@ import com.ltts.wellspoc.models.WellDataProvider;
  *
  */
 public class WellsPage extends WizardPage {
-	private static String PAGE_TITLE = "Wells Selection";
+	PropertiesCache prop = PropertiesCache.getInstance();	 
+	//read the title from property file
+    String PAGE_TITLE = prop.getProperty("WellsPage_title");
 
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
-
+	boolean isNextEnabled;
 	WellsWizard wellswizard = new WellsWizard();
 
 	/**
@@ -54,11 +58,15 @@ public class WellsPage extends WizardPage {
 	public void createControl(Composite parent) {
 		setTitle(PAGE_TITLE);
 
-		Composite wellSelectionContainer = new Composite(parent, SWT.FILL);
+		Composite wellSelectionContainer = new Composite(parent, SWT.FILL  | SWT.BORDER);
 		GridLayout layout = new GridLayout(1, false);
 		wellSelectionContainer.setLayout(layout);
 		wellSelectionContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
+		Label welltabelLabel = new Label(wellSelectionContainer, SWT.NONE);
+		welltabelLabel.setText("Select the Wells to view the details:");
+
+		
 		Table wellTable = createTable(wellSelectionContainer);
 		viewer.setInput(wellData);
 
@@ -69,7 +77,7 @@ public class WellsPage extends WizardPage {
 					TableItem item = (TableItem) e.item;
 					Well wellData = (Well) item.getData();
 					wellData.setChecked(item.getChecked());
-					wellswizard.canFinish();
+					canFlipToNextPage();
 					getWizard().getContainer().updateButtons();
 				}
 
@@ -125,7 +133,7 @@ public class WellsPage extends WizardPage {
 		wellTable.setLayout(layout);
 
 		// First column - Well Selection
-		TableViewerColumn tableViewerColumn = createTableViewerColumn("wellSelection");
+		TableViewerColumn tableViewerColumn = createTableViewerColumn("Well Selection");
 
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -134,7 +142,7 @@ public class WellsPage extends WizardPage {
 			}
 		});
 		// Second column - Well Name
-		tableViewerColumn = createTableViewerColumn("wellName");
+		tableViewerColumn = createTableViewerColumn("Well Name");
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -164,6 +172,24 @@ public class WellsPage extends WizardPage {
 	@Override
 	public IWizardPage getPreviousPage() {
 		return null;
+	}
+	
+	/**
+	 * Enable/disable the Next Button in Well Selection Page
+	 */
+	@Override
+	public boolean canFlipToNextPage() {
+		isNextEnabled = false;
+
+		for (int i = 0; i < wellData.size(); i++) {
+			if (wellData.get(i).isChecked()) {
+				isNextEnabled = true;
+				break;
+			}
+		}
+
+		return isNextEnabled;
+
 	}
 
 }

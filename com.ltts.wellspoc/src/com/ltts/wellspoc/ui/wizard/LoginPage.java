@@ -21,8 +21,7 @@ public class LoginPage extends WizardPage {
 	
 	PropertiesCache prop = PropertiesCache.getInstance();	 
 	//read the title from property file
-	String pagetitle = prop.getProperty("LoginPage_page_title");
-	;
+	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	protected static Text userNameText = null;
 	protected static Text passWordText = null;
 
@@ -44,7 +43,7 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle(pagetitle);
+		setTitle(PAGE_TITLE);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
