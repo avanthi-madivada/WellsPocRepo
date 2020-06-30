@@ -49,7 +49,6 @@ public class WellsWizard extends Wizard {
 	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
 	
 	DataProvider dataProvider = new DataProvider();
-	int flag = 0;
 	boolean isFinishEnabled;
 
 	/**
@@ -101,16 +100,6 @@ public class WellsWizard extends Wizard {
 				}
 			}
 			updateWellDetails();
-			for (int j = 0; j < selectedWellsList.size(); j++) {
-				System.out.println(selectedWellsList.size());
-				System.out.println(selectedWellsList.get(j).getWellPlanName());
-				System.out.println(selectedWellsList.get(j).getAzimuth());
-				System.out.println(selectedWellsList.get(j).getEasting());
-				System.out.println(selectedWellsList.get(j).getNorthing());
-				System.out.println("reservoir : "+selectedWellsList.get(j).getReservoir());
-				System.out.println(selectedWellsList.get(j).getType());
-				System.out.println(selectedWellsList.get(j).getField());
-			}
 		}
 		
 		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
@@ -134,28 +123,23 @@ public class WellsWizard extends Wizard {
 			}
 		} catch (Exception e) {
 			MessagesUtil.logError(WellsPage.class.getName(), e.getMessage());
-
 		}
 		if (AddNewWellPage.checkBoxButton.getSelection() == true) {
 			try {
-				if (AddNewWellPage.wellNameText.getText().isEmpty() || AddNewWellPage.northingText.getValue() == 0.0
-						|| AddNewWellPage.eastingText.getValue() == 0.0 || AddNewWellPage.azimuthText.getValue() == 0.0
-						|| AddNewWellPage.selectedField.isEmpty() || AddNewWellPage.selectedReservoir.isEmpty()) {
+				if (AddNewWellPage.wellNameText.getText().isEmpty() || Double.parseDouble(AddNewWellPage.northingText.getText()) == 0.0		
+					|| Double.parseDouble(AddNewWellPage.eastingText.getText()) == 0.0 || Double.parseDouble(AddNewWellPage.azimuthText.getText()) == 0.0
+					|| AddNewWellPage.selectedField.isEmpty() || AddNewWellPage.selectedReservoir.isEmpty()) {
+					
 					return isFinishEnabled;
-
 				} else {
 					isFinishEnabled = true;
 				}
 			}
-
 			catch (Exception e) {
 				MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
-
 			}
 		}
-
 		return isFinishEnabled;
-
 	}
 
 	/**
@@ -198,19 +182,17 @@ public class WellsWizard extends Wizard {
 	 * Updates model instance with data from UI.
 	 */
 	public void updateWellDetails() {
-
 		well.setWellPlanName(AddNewWellPage.wellNameText.getText());
-		well.setEasting(AddNewWellPage.eastingText.getValue());
-		well.setNorthing(AddNewWellPage.northingText.getValue());
-		well.setAzimuth(AddNewWellPage.azimuthText.getValue());
+		well.setEasting(Double.parseDouble(AddNewWellPage.eastingText.getText()));
+		well.setNorthing(Double.parseDouble(AddNewWellPage.northingText.getText()));
+		well.setAzimuth(Double.parseDouble(AddNewWellPage.azimuthText.getText()));
 		well.setField(AddNewWellPage.selectedField);
 		well.setReservoir(AddNewWellPage.selectedReservoir);
-		well.setType(AddNewWellPage.selectedRadio);
-		
+		well.setType(AddNewWellPage.wellTypeHorizontalRadio.getText());
+		 
 		wellData.add(well);
 		selectedWellsList.add(well);
 		isFinishEnabled = true;
-
 	}
 	
 	private IViewPart getWellDetailsViewInstance() {
@@ -226,6 +208,4 @@ public class WellsWizard extends Wizard {
             return null;
         }
 	}
-	
-
 }

@@ -33,13 +33,9 @@ public class LoginPage extends WizardPage {
 	protected LoginPage(String pageName) {
 		super(pageName);
 	}
-
-	/*
-	 * This method used to create UI for login page (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.
-	 * Composite)
+	
+	/**
+	 * This method is used to create UI for login page.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -96,11 +92,8 @@ public class LoginPage extends WizardPage {
 		setControl(userAuthenticationContainer);
 	}
 
-	/*
-	 * This method is used to enable/disable for Next Button in Login Page
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
+	/**
+	 * Enable/disable the Next Button in Login Page.
 	 */
 	@Override
 	public boolean canFlipToNextPage() {

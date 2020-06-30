@@ -17,8 +17,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.ltts.wellspoc.ui.util.DecimalNumberManager;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
+import com.ltts.wellspoc.models.Well;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * The class is used to add new well.
@@ -33,8 +34,11 @@ public class AddNewWellPage extends WizardPage {
 	protected static Label wellNameLabel;
 	protected static Text wellNameText;
 	protected static Label eastingLabel;
+	protected static Text eastingText;
 	protected static Label northingLabel;
+	protected static Text northingText;
 	protected static Label azimuthLabel;
+	protected static Text azimuthText;
 	protected static Label fieldLabel;
 	protected static Combo fieldCombo;
 	protected static Label reservoirLabel;
@@ -45,25 +49,23 @@ public class AddNewWellPage extends WizardPage {
 	protected static Button wellTypeDeviatedRadio;
 	protected static Button wellTypeSWellRadio;
 
-	protected static String selectedRadio = "Horizontal";
+	protected static String selectedRadio;
 	protected static String selectedReservoir;
 	protected static String selectedField;
 	
+	// Min and Max value for azimuth.
+	Double azimuthMinValue = 1.0;
+	Double azimuthMaxValue = 360.0;
+	
 	String[] fieldsData = { "Salala", "Ghawar" };
 	String[] reservoirData = { "Not Fm 2D Top" };
-
-	static DecimalNumberManager eastingText;
-	static DecimalNumberManager northingText;
-	static DecimalNumberManager azimuthText;
-
-	DecimalNumberManager decimalNumberManager;
 	
 	PropertiesCache prop = PropertiesCache.getInstance();	 
 	//read the title from property file
     String PAGE_TITLE = prop.getProperty("AddNewWellPage_title");
 	
 	WellsWizard wellswizard = new WellsWizard();
-	
+	Well well = new Well();
 	boolean isChecked = false;
 
 	/**
@@ -91,8 +93,9 @@ public class AddNewWellPage extends WizardPage {
 		addWellPageContainer.setLayout(layout);
 		addWellPageContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
+		//check box - to be enabled to add new well details.
 		checkBoxButton = new Button(addWellPageContainer, SWT.CHECK);
-		checkBoxButton.setText("Click to add new well.");
+		checkBoxButton.setText("Click to add new well details.");
 
 		checkBoxButton.addSelectionListener(new SelectionAdapter() {
 
@@ -108,13 +111,13 @@ public class AddNewWellPage extends WizardPage {
 					isChecked = false;
 					isCheckBoxSelected(isChecked);
 				}
-
+				wellswizard.canFinish();
+				getWizard().getContainer().updateButtons();
 			}
 		});
 
 		addwellGroup = new Group(addWellPageContainer, SWT.NONE);
 		GridLayout groupLayout = new GridLayout(2, false);
-//		addwellGroup.setFont(new Font(null, "Times New Roman", 11, SWT.BOLD));
 		groupLayout.verticalSpacing = 10;
 		addwellGroup.setLayout(groupLayout);
 		GridData gridDataAddWellGroup = new GridData(SWT.FILL, SWT.FILL, true, false);
@@ -125,13 +128,83 @@ public class AddNewWellPage extends WizardPage {
 		wellNameLabel = new Label(addwellGroup, SWT.NONE);
 		wellNameLabel.setText("Well Name");
 
-		
 		wellNameText = new Text(addwellGroup, SWT.BORDER);
 		GridData gridDatawellNameText = new GridData();
 		gridDatawellNameText.widthHint = 100;
 		gridDatawellNameText.horizontalIndent = 7;
 		wellNameText.setLayoutData(gridDatawellNameText);
 
+		// Easting
+		eastingLabel = new Label(addwellGroup, SWT.NONE);
+		eastingLabel.setText("Easting");
+		
+		eastingText = new Text(addwellGroup, SWT.BORDER);
+		GridData gridDataeastingText = new GridData();
+		gridDataeastingText.widthHint = 100;
+		gridDataeastingText.horizontalIndent = 7;
+		eastingText.setLayoutData(gridDataeastingText);
+
+		// Northing
+		northingLabel = new Label(addwellGroup, SWT.NONE);
+		northingLabel.setText("Northing");
+		
+		northingText = new Text(addwellGroup, SWT.BORDER);
+		GridData gridDatanorthingText = new GridData();
+		gridDatanorthingText.widthHint = 100;
+		gridDatanorthingText.horizontalIndent = 7;
+		northingText.setLayoutData(gridDatanorthingText);
+				
+		// Azimuth
+		azimuthLabel = new Label(addwellGroup, SWT.NONE);
+		azimuthLabel.setText("Azimuth");
+	
+		azimuthText = new Text(addwellGroup, SWT.BORDER);
+		GridData gridDataazimuthText = new GridData();
+		gridDataazimuthText.widthHint = 100;
+		gridDataazimuthText.horizontalIndent = 7;
+		azimuthText.setLayoutData(gridDataazimuthText);
+		
+		// Field
+		fieldLabel = new Label(addwellGroup, SWT.NONE);
+		fieldLabel.setText("Field");
+	
+		fieldCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
+		fieldCombo.setItems(fieldsData);
+		GridData gridDatafieldCombo = new GridData();
+		gridDatafieldCombo.widthHint = 86;
+		gridDatafieldCombo.horizontalIndent = 7;
+		fieldCombo.setLayoutData(gridDatafieldCombo);
+
+		// Reservoir
+		reservoirLabel = new Label(addwellGroup, SWT.NONE);
+		reservoirLabel.setText("Reservoir");
+	
+		reservoirCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
+		reservoirCombo.setItems(reservoirData);
+		GridData gridDatareservoirCombo = new GridData();
+		gridDatareservoirCombo.widthHint = 86;
+		gridDatareservoirCombo.horizontalIndent = 7;
+		reservoirCombo.setLayoutData(gridDatareservoirCombo);
+		
+		// Well Type
+		wellTypelabel = new Label(addwellGroup, SWT.NONE);
+		wellTypelabel.setText("Well Type ");
+		
+		Composite radioComposite = new Composite(addwellGroup, SWT.NONE);
+		radioComposite.setLayout(new RowLayout());
+
+		wellTypeHorizontalRadio = new Button(radioComposite, SWT.RADIO);
+		wellTypeHorizontalRadio.setText("Horizontal");
+		wellTypeHorizontalRadio.setSelection(true);
+		
+		wellTypeVerticalRadio = new Button(radioComposite, SWT.RADIO);
+		wellTypeVerticalRadio.setText("Vertical");
+		
+		wellTypeDeviatedRadio = new Button(radioComposite, SWT.RADIO);
+		wellTypeDeviatedRadio.setText("Deviated");
+		
+		wellTypeSWellRadio = new Button(radioComposite, SWT.RADIO);
+		wellTypeSWellRadio.setText("S-Well");
 		
 		wellNameText.addModifyListener(new ModifyListener() {
 			@Override
@@ -140,79 +213,37 @@ public class AddNewWellPage extends WizardPage {
 				getWizard().getContainer().updateButtons();
 			}
 		});
-
-		// Easting
-		eastingLabel = new Label(addwellGroup, SWT.NONE);
-		eastingLabel.setText("Easting");
-
-		eastingText = new DecimalNumberManager("Easting", addwellGroup);
-
 		
-		 eastingText.addModifyListener(new WellDetailsModifyListener(eastingText));
-
-		// Northing
-		northingLabel = new Label(addwellGroup, SWT.NONE);
-		northingLabel.setText("Northing");
-
-		
-		northingText = new DecimalNumberManager("Northing", addwellGroup);
-
-		
-		northingText.addModifyListener(new WellDetailsModifyListener(northingText));
-
-		// Azimuth
-		azimuthLabel = new Label(addwellGroup, SWT.NONE);
-		azimuthLabel.setText("Azimuth");
-		
-
-		
-		azimuthText = new DecimalNumberManager("Azimuth", addwellGroup, 0.0,360.0);
-		azimuthText.addModifyListener(new WellDetailsModifyListener(azimuthText));
-
-		// Field
-		fieldLabel = new Label(addwellGroup, SWT.NONE);
-		fieldLabel.setText("Field");
-
-		
-		fieldCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
-		fieldCombo.setItems(fieldsData);
-		GridData gridDatafieldCombo = new GridData();
-		gridDatafieldCombo.widthHint = 86;
-		gridDatafieldCombo.horizontalIndent = 7;
-		fieldCombo.setLayoutData(gridDatafieldCombo);
-
-		fieldCombo.addSelectionListener(new SelectionAdapter() {
-
+		eastingText.addModifyListener(new ModifyListener() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-
-				int index = fieldCombo.getSelectionIndex();
-				selectedField = fieldCombo.getItem(index);
+			public void modifyText(ModifyEvent e) {
+				MessagesUtil.restrictEnteredChars(eastingText,Double.MIN_VALUE,Double.MAX_VALUE);
 				wellswizard.canFinish();
 				getWizard().getContainer().updateButtons();
-
 			}
 		});
-
-		// Reservoir
-		reservoirLabel = new Label(addwellGroup, SWT.NONE);
-		reservoirLabel.setText("Reservoir");
-
 		
-		reservoirCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
-
-		reservoirCombo.setItems(reservoirData);
-		GridData gridDatareservoirCombo = new GridData();
-		gridDatareservoirCombo.widthHint = 86;
-		gridDatareservoirCombo.horizontalIndent = 7;
-		reservoirCombo.setLayoutData(gridDatareservoirCombo);
-
+		azimuthText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				MessagesUtil.restrictEnteredChars(azimuthText,azimuthMinValue,azimuthMaxValue);
+				wellswizard.canFinish();
+				getWizard().getContainer().updateButtons();
+			}
+		});
+		
+		northingText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				MessagesUtil.restrictEnteredChars(northingText,Double.MIN_VALUE,Double.MAX_VALUE);
+				wellswizard.canFinish();
+				getWizard().getContainer().updateButtons();
+			}
+		});
 		
 		reservoirCombo.addSelectionListener(new SelectionAdapter() {
-
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-
 				int index = reservoirCombo.getSelectionIndex();
 				selectedReservoir = reservoirCombo.getItem(index);
 				wellswizard.canFinish();
@@ -220,38 +251,22 @@ public class AddNewWellPage extends WizardPage {
 
 			}
 		});
-
-		// Well Type
-		wellTypelabel = new Label(addwellGroup, SWT.NONE);
-		wellTypelabel.setText("Well Type ");
-
 		
-		Composite radioComposite = new Composite(addwellGroup, SWT.NONE);
-		radioComposite.setLayout(new RowLayout());
-
-		wellTypeHorizontalRadio = new Button(radioComposite, SWT.RADIO);
-		wellTypeHorizontalRadio.setText("Horizontal");
-		wellTypeHorizontalRadio.setSelection(true);
-
-		
-		wellTypeVerticalRadio = new Button(radioComposite, SWT.RADIO);
-		wellTypeVerticalRadio.setText("Vertical");
-
-		
-		wellTypeDeviatedRadio = new Button(radioComposite, SWT.RADIO);
-		wellTypeDeviatedRadio.setText("Deviated");
-
-		
-		wellTypeSWellRadio = new Button(radioComposite, SWT.RADIO);
-		wellTypeSWellRadio.setText("S-Well");
-
+		fieldCombo.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int index = fieldCombo.getSelectionIndex();
+				selectedField = fieldCombo.getItem(index);
+				wellswizard.canFinish();
+				getWizard().getContainer().updateButtons();
+			}
+		});
 		
 		wellTypeHorizontalRadio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				wellTypeHorizontalRadio = (Button) e.getSource();
 				selectedRadio = wellTypeHorizontalRadio.getText();
-
 			}
 		});
 
@@ -260,7 +275,6 @@ public class AddNewWellPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				wellTypeVerticalRadio = (Button) e.getSource();
 				selectedRadio = wellTypeVerticalRadio.getText();
-
 			}
 		});
 
@@ -269,7 +283,6 @@ public class AddNewWellPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				wellTypeDeviatedRadio = (Button) e.getSource();
 				selectedRadio = wellTypeDeviatedRadio.getText();
-
 			}
 		});
 
@@ -278,14 +291,16 @@ public class AddNewWellPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				wellTypeSWellRadio = (Button) e.getSource();
 				selectedRadio = wellTypeSWellRadio.getText();
-
 			}
 		});
-
 		isCheckBoxSelected(isChecked);
 		setControl(addwellGroup);
 	}
 
+	/**
+	 * Enable/Disable the UI according to the check box state.
+	 * @param isChecked
+	 */
 	private void isCheckBoxSelected(boolean isChecked) {	
 		wellNameText.setEnabled(isChecked);
 		wellNameLabel.setEnabled(isChecked);
@@ -304,28 +319,5 @@ public class AddNewWellPage extends WizardPage {
 		wellTypeVerticalRadio.setEnabled(isChecked);
 		wellTypeHorizontalRadio.setEnabled(isChecked);
 		wellTypeDeviatedRadio.setEnabled(isChecked);
-	}
-
-	/**
-	 * Inner class for AddNewWellPage Text Listeners
-	 *
-	 */
-	private class WellDetailsModifyListener implements ModifyListener {
-
-		DecimalNumberManager decimalNumberManager;
-
-		public WellDetailsModifyListener(DecimalNumberManager decimalNumberManager) {
-			this.decimalNumberManager = decimalNumberManager;
-		}
-
-		@Override
-		public void modifyText(ModifyEvent e) {
-
-			decimalNumberManager.restrictEnteredChars();
-			wellswizard.canFinish();
-			getWizard().getContainer().updateButtons();
-		}
-	}
-
-	
+	}	
 }

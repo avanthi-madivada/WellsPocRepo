@@ -4,8 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 /**
  * Utility class with methods to display error, warnings and logging.
@@ -14,8 +17,12 @@ import org.eclipse.swt.widgets.Shell;
  *
  */
 public class MessagesUtil {
-	//Gets the active shell.
+	// Gets the active shell.
 	private static Shell defaultShell = Display.getDefault().getActiveShell();
+
+	private static final Device device = Display.getCurrent();;
+	private static final Color red = new Color(device, 255, 0, 0);
+	private final static Color black = new Color(device, 0, 0, 0);
 
 	/**
 	 * Logs the error message with provided class name.
@@ -63,5 +70,76 @@ public class MessagesUtil {
 	 */
 	public static boolean askQuestionDialog(String question) {
 		return MessageDialog.openQuestion(defaultShell, "Question", question);
+	}
+
+	/**
+	 * Restricts the entry of invalid characters.
+	 * 
+	 * @param textItem
+	 * @param minValue
+	 * @param maxValue
+	 */
+	public static void restrictEnteredChars(Text textItem, Double minValue, Double maxValue) {
+		String allowedCharacters = "0123456789.,-";
+		String text = textItem.getText();
+		textItem.setForeground(black);
+		for (int i = 0; i < text.length(); i++) {
+			char charBefore = '\t';
+			if (i >= 2) {
+				charBefore = text.charAt(i - 2);
+			}
+			char character = text.charAt(i);
+			boolean isAllowed = allowedCharacters.indexOf(character) > -1;
+
+			if (!isAllowed) {
+				textItem.setForeground(red);
+				return;
+			} else if (charBefore == '.') {
+				textItem.setForeground(red);
+				return;
+			}
+		}
+		checkInLimit(textItem, minValue, maxValue);
+	}
+
+	/**
+	 * Checks if the entered chars is number or not.
+	 * 
+	 * @param textItem
+	 */
+	private static void checkIfNumber(Text textItem) {
+		String textEntered = textItem.getText();
+		try {
+			textItem.setForeground(black);
+			Double.valueOf(textEntered);
+			return;
+		} catch (NumberFormatException exception) {
+			textItem.setForeground(red);
+			return;
+		}
+	}
+
+	/**
+	 * Checks if the given number is within the provided min and max range.
+	 * 
+	 * @param textItem
+	 * @param minValue
+	 * @param maxValue
+	 */
+	private static void checkInLimit(Text textItem, Double minValue, Double maxValue) {
+		checkIfNumber(textItem);
+		String textEntered = textItem.getText();
+		try {
+			Double enteredDouble = Double.valueOf(textEntered);
+			if (enteredDouble < minValue || enteredDouble > maxValue) {
+				textItem.setForeground(red);
+				return;
+			} else {
+				textItem.setForeground(black);
+				return;
+			}
+		} catch (NumberFormatException exception) {
+			return;
+		}
 	}
 }
