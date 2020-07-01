@@ -110,10 +110,11 @@ public class AddNewWellPage extends WizardPage {
 					
 					isChecked = false;
 					isCheckBoxSelected(isChecked);
-				}
+				}	
 				wellswizard.canFinish();
 				getWizard().getContainer().updateButtons();
 			}
+			
 		});
 
 		addwellGroup = new Group(addWellPageContainer, SWT.NONE);
@@ -143,7 +144,8 @@ public class AddNewWellPage extends WizardPage {
 		gridDataeastingText.widthHint = 100;
 		gridDataeastingText.horizontalIndent = 7;
 		eastingText.setLayoutData(gridDataeastingText);
-
+		eastingText.setToolTipText("The entered value should be decimal and should have only one digit after decimal.");
+		
 		// Northing
 		northingLabel = new Label(addwellGroup, SWT.NONE);
 		northingLabel.setText("Northing");
@@ -153,7 +155,8 @@ public class AddNewWellPage extends WizardPage {
 		gridDatanorthingText.widthHint = 100;
 		gridDatanorthingText.horizontalIndent = 7;
 		northingText.setLayoutData(gridDatanorthingText);
-				
+		northingText.setToolTipText("The entered value should be decimal and should have only one digit after decimal.");
+			
 		// Azimuth
 		azimuthLabel = new Label(addwellGroup, SWT.NONE);
 		azimuthLabel.setText("Azimuth");
@@ -163,6 +166,7 @@ public class AddNewWellPage extends WizardPage {
 		gridDataazimuthText.widthHint = 100;
 		gridDataazimuthText.horizontalIndent = 7;
 		azimuthText.setLayoutData(gridDataazimuthText);
+		azimuthText.setToolTipText("The entered double value should be in between 1 and 360 and should have only one digit after decimal.");
 		
 		// Field
 		fieldLabel = new Label(addwellGroup, SWT.NONE);

@@ -23,6 +23,7 @@ public class MessagesUtil {
 	private static final Device device = Display.getCurrent();;
 	private static final Color red = new Color(device, 255, 0, 0);
 	private final static Color black = new Color(device, 0, 0, 0);
+	public static boolean isValid = true;
 
 	/**
 	 * Logs the error message with provided class name.
@@ -32,7 +33,7 @@ public class MessagesUtil {
 	 */
 	public static void logError(String className, String errorMessage) {
 		Logger logger = Logger.getLogger(className);
-		logger.log(Level.ALL, "Error msg");
+		logger.log(Level.ALL, errorMessage);
 	}
 
 	/**
@@ -93,9 +94,11 @@ public class MessagesUtil {
 
 			if (!isAllowed) {
 				textItem.setForeground(red);
+				isValid = false;
 				return;
 			} else if (charBefore == '.') {
 				textItem.setForeground(red);
+				isValid = false;
 				return;
 			}
 		}
@@ -114,6 +117,7 @@ public class MessagesUtil {
 			Double.valueOf(textEntered);
 			return;
 		} catch (NumberFormatException exception) {
+			isValid = false;
 			textItem.setForeground(red);
 			return;
 		}
@@ -132,14 +136,16 @@ public class MessagesUtil {
 		try {
 			Double enteredDouble = Double.valueOf(textEntered);
 			if (enteredDouble < minValue || enteredDouble > maxValue) {
+				isValid = false;
 				textItem.setForeground(red);
 				return;
 			} else {
 				textItem.setForeground(black);
+				isValid = true;
 				return;
 			}
 		} catch (NumberFormatException exception) {
-			return;
+			isValid = false;
 		}
 	}
 }

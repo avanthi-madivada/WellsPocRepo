@@ -33,13 +33,13 @@ public class WellsWizard extends Wizard {
 	WellsPage wellsPage;
 	AddNewWellPage addNewWellPage;
 	Composite parent;
-	
+
 	WellDetailsView wellView = new WellDetailsView();
 
-	//accessing user name and password
+	// accessing user name and password
 	PropertiesCache prop = PropertiesCache.getInstance();
-	private final String USERNAME=prop.getProperty("LoginPage_username");
-	private final String PASSWORD=prop.getProperty("LoginPage_password");
+	private final String USERNAME = prop.getProperty("LoginPage_username");
+	private final String PASSWORD = prop.getProperty("LoginPage_password");
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
@@ -47,7 +47,7 @@ public class WellsWizard extends Wizard {
 	Well well = new Well();
 
 	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
-	
+
 	DataProvider dataProvider = new DataProvider();
 	boolean isFinishEnabled;
 
@@ -95,25 +95,25 @@ public class WellsWizard extends Wizard {
 			for (int i = 0; i < wellData.size(); i++) {
 				if (wellData.get(i).isChecked()) {
 					isFinishEnabled = true;
-					selectedWellsList.add(wellData.get(i)); 
+					selectedWellsList.add(wellData.get(i));
 					wellData.get(i).setChecked(false);
 				}
 			}
-			updateWellDetails();
+			if (AddNewWellPage.checkBoxButton.getSelection() == true) {
+				updateWellDetails();
+			}
 		}
-		
+
 		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
 		if (wellDetailsViewInstance instanceof WellDetailsView) {
-			((WellDetailsView)wellDetailsViewInstance).setWellData(selectedWellsList);
+			((WellDetailsView) wellDetailsViewInstance).setWellData(selectedWellsList);
 		}
-		
 		return isFinishEnabled;
 	}
 
 	/**
 	 * Enable/disable the finish button in Add New Well Page.
 	 */
-
 	@Override
 	public boolean canFinish() {
 		isFinishEnabled = false;
@@ -124,20 +124,28 @@ public class WellsWizard extends Wizard {
 		} catch (Exception e) {
 			MessagesUtil.logError(WellsPage.class.getName(), e.getMessage());
 		}
-		if (AddNewWellPage.checkBoxButton.getSelection() == true) {
-			try {
-				if (AddNewWellPage.wellNameText.getText().isEmpty() || Double.parseDouble(AddNewWellPage.northingText.getText()) == 0.0		
-					|| Double.parseDouble(AddNewWellPage.eastingText.getText()) == 0.0 || Double.parseDouble(AddNewWellPage.azimuthText.getText()) == 0.0
-					|| AddNewWellPage.selectedField.isEmpty() || AddNewWellPage.selectedReservoir.isEmpty()) {
-					
-					return isFinishEnabled;
+		try {
+			if (getContainer().getCurrentPage() == addNewWellPage) {
+				if (AddNewWellPage.checkBoxButton.getSelection() == true) {
+					if (AddNewWellPage.wellNameText.getText().isEmpty()
+							|| Double.parseDouble(AddNewWellPage.northingText.getText()) == 0.0
+							|| Double.parseDouble(AddNewWellPage.eastingText.getText()) == 0.0
+							|| Double.parseDouble(AddNewWellPage.azimuthText.getText()) == 0.0
+							|| AddNewWellPage.selectedField.isEmpty() || AddNewWellPage.selectedReservoir.isEmpty()
+							|| MessagesUtil.isValid == false) {
+
+						return isFinishEnabled;
+
+					} else {
+						isFinishEnabled = true;
+					}
 				} else {
 					isFinishEnabled = true;
 				}
 			}
-			catch (Exception e) {
-				MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
-			}
+
+		} catch (Exception e) {
+			MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 		}
 		return isFinishEnabled;
 	}
@@ -149,7 +157,6 @@ public class WellsWizard extends Wizard {
 	public IWizardPage getNextPage(IWizardPage page) {
 		if (getContainer().getCurrentPage() == wellsPage) {
 			return addNewWellPage;
-
 		}
 		if (getContainer().getCurrentPage() == loginPage) {
 			try {
@@ -169,7 +176,6 @@ public class WellsWizard extends Wizard {
 					MessagesUtil.displayErrorDialog("Incorrect password");
 
 				}
-
 			} catch (Exception e) {
 				MessagesUtil.logError(LoginPage.class.getName(), e.getMessage());
 
@@ -177,7 +183,7 @@ public class WellsWizard extends Wizard {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Updates model instance with data from UI.
 	 */
@@ -188,24 +194,22 @@ public class WellsWizard extends Wizard {
 		well.setAzimuth(Double.parseDouble(AddNewWellPage.azimuthText.getText()));
 		well.setField(AddNewWellPage.selectedField);
 		well.setReservoir(AddNewWellPage.selectedReservoir);
-		well.setType(AddNewWellPage.wellTypeHorizontalRadio.getText());
-		 
+		well.setType(AddNewWellPage.selectedRadio);
+
 		wellData.add(well);
 		selectedWellsList.add(well);
 		isFinishEnabled = true;
 	}
-	
+
 	private IViewPart getWellDetailsViewInstance() {
 		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage activePage = workbenchWindow.getActivePage();
 
-        try {
-            IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
-            return viewPart;
-        } catch (PartInitException e) {
-            String message = "Could not show view " + "Well Details View";
-//            LOG.warn(message, e);
-            return null;
-        }
+		try {
+			IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
+			return viewPart;
+		} catch (PartInitException e) {
+			return null;
+		}
 	}
 }
