@@ -118,13 +118,6 @@ public class WellsWizard extends Wizard {
 	public boolean canFinish() {
 		isFinishEnabled = false;
 		try {
-			if (getContainer().getCurrentPage() == wellsPage) {
-				return isFinishEnabled;
-			}
-		} catch (Exception e) {
-			MessagesUtil.logError(WellsPage.class.getName(), e.getMessage());
-		}
-		try {
 			if (getContainer().getCurrentPage() == addNewWellPage) {
 				if (AddNewWellPage.checkBoxButton.getSelection() == true) {
 					if (AddNewWellPage.wellNameText.getText().isEmpty()
