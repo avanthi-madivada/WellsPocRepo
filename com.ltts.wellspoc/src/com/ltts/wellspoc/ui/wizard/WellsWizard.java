@@ -154,7 +154,7 @@ public class WellsWizard extends Wizard {
 		if (getContainer().getCurrentPage() == loginPage) {
 			try {
 				String userNameCheck = LoginPage.userNameText.getText();
-				String passwordCheck = LoginPage.passWordText.getText();
+				String passwordCheck = LoginPage.passwordText.getText();
 
 				if (userNameCheck.contentEquals(USERNAME) && passwordCheck.contentEquals(PASSWORD)) {
 					return wellsPage;

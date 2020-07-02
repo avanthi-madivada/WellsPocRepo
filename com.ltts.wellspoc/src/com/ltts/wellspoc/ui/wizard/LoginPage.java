@@ -23,7 +23,7 @@ public class LoginPage extends WizardPage {
 	//read the title from property file
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	protected static Text userNameText = null;
-	protected static Text passWordText = null;
+	protected static Text passwordText = null;
 
 	/**
 	 * Constructor for Login
@@ -62,18 +62,18 @@ public class LoginPage extends WizardPage {
 		userNameText.setToolTipText("Default Username is 'admin'");
 
 		// Password
-		Label passwardLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		passwardLabel.setText("Password");
+		Label passwordLabel = new Label(userAuthenticationContainer, SWT.NONE);
+		passwordLabel.setText("Password");
 		GridData gridDataPasswordLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		gridDataPasswordLabel.widthHint = 65;
-		passwardLabel.setLayoutData(gridDataPasswordLabel);
+		passwordLabel.setLayoutData(gridDataPasswordLabel);
 
-		passWordText = new Text(userAuthenticationContainer, SWT.PASSWORD | SWT.BORDER);
+		passwordText = new Text(userAuthenticationContainer, SWT.PASSWORD | SWT.BORDER);
 		GridData gridDataPasswordText = new GridData(GridData.GRAB_HORIZONTAL);
 		gridDataPasswordText.widthHint = 100;
-		passWordText.setLayoutData(gridDataPasswordText);
-		passWordText.setTextLimit(15);
-		passWordText.setToolTipText("Default Password is 'admin'");
+		passwordText.setLayoutData(gridDataPasswordText);
+		passwordText.setTextLimit(15);
+		passwordText.setToolTipText("Default Password is 'admin'");
 
 		userNameText.addModifyListener(new ModifyListener() {
 			@Override
@@ -82,7 +82,7 @@ public class LoginPage extends WizardPage {
 				getWizard().getContainer().updateButtons();
 			}
 		});
-		passWordText.addModifyListener(new ModifyListener() {
+		passwordText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 				canFlipToNextPage();
@@ -97,7 +97,7 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
-		if (userNameText.getText().isEmpty() || passWordText.getText().isEmpty()) {
+		if (userNameText.getText().isEmpty() || passwordText.getText().isEmpty()) {
 			return false;
 		} else {
 			return true;
