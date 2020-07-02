@@ -9,6 +9,7 @@ public enum LoginPageViewMgr {
 	LoginPageUISupport loginPageUISupport;
 	protected WizardLoginPage page;
 	
+	
 	public void createLoginPageViewUI(Composite parent, WizardLoginPage  wizardLoginPage) {
 		this.page = wizardLoginPage;
 		loginPageUI = new LoginPageUI(parent);

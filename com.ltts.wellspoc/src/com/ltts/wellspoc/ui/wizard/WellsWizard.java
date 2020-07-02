@@ -55,7 +55,6 @@ public class WellsWizard extends Wizard {
 	DataProvider dataProvider = new DataProvider();
 	boolean isFinishEnabled;
 
-	
 	/**
 	 * Provides the title for the wizard.
 	 */

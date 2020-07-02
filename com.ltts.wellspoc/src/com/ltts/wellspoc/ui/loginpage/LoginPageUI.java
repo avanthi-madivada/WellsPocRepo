@@ -16,6 +16,7 @@ public class LoginPageUI {
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	public static Text userNameText = null;
 	public static Text passwordText = null;
+	
 	/**
 	 * This method is used to create UI for login page.
 	 */
