@@ -22,5 +22,4 @@ public enum LoginPageModelMgr {
 		}
 		return userModel;
 	}
-
 }

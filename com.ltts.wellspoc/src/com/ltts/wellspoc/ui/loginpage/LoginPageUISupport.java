@@ -25,7 +25,6 @@ public class LoginPageUISupport {
 //			wizardLoginPage.getWizard().getContainer().updateButtons();
 		}
 	});
-	
 	}
 
 }

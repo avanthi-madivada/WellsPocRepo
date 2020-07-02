@@ -22,7 +22,6 @@ public class WizardLoginPage extends WizardPage {
 		setControl(parent);
 		setTitle(PAGE_TITLE);
 	}
-
 	/**
 	 * Enable/disable the Next Button in Login Page.
 	 */
