@@ -21,8 +21,7 @@ public class LoginPage extends WizardPage {
 	
 	PropertiesCache prop = PropertiesCache.getInstance();	 
 	//read the title from property file
-	String pagetitle = prop.getProperty("LoginPage_page_title");
-	;
+	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	protected static Text userNameText = null;
 	protected static Text passWordText = null;
 
@@ -34,17 +33,13 @@ public class LoginPage extends WizardPage {
 	protected LoginPage(String pageName) {
 		super(pageName);
 	}
-
-	/*
-	 * This method used to create UI for login page (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.
-	 * Composite)
+	
+	/**
+	 * This method is used to create UI for login page.
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		setTitle(pagetitle);
+		setTitle(PAGE_TITLE);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
@@ -97,11 +92,8 @@ public class LoginPage extends WizardPage {
 		setControl(userAuthenticationContainer);
 	}
 
-	/*
-	 * This method is used to enable/disable for Next Button in Login Page
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
+	/**
+	 * Enable/disable the Next Button in Login Page.
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
