@@ -118,8 +118,8 @@ public class AddNewWellPage extends WizardPage {
 		});
 
 		addwellGroup = new Group(addWellPageContainer, SWT.NONE);
-		GridLayout groupLayout = new GridLayout(2, false);
-		groupLayout.verticalSpacing = 10;
+		GridLayout groupLayout = new GridLayout(2, true);
+		//groupLayout.verticalSpacing = 10;
 		addwellGroup.setLayout(groupLayout);
 		GridData gridDataAddWellGroup = new GridData(SWT.FILL, SWT.FILL, true, false);
 		addwellGroup.setLayoutData(gridDataAddWellGroup);
@@ -128,71 +128,78 @@ public class AddNewWellPage extends WizardPage {
 		// Well Name
 		wellNameLabel = new Label(addwellGroup, SWT.NONE);
 		wellNameLabel.setText("Well Name");
+		wellNameLabel.setLayoutData(getLabelGridData());
 
 		wellNameText = new Text(addwellGroup, SWT.BORDER);
-		GridData gridDatawellNameText = new GridData();
-		gridDatawellNameText.widthHint = 100;
-		gridDatawellNameText.horizontalIndent = 7;
-		wellNameText.setLayoutData(gridDatawellNameText);
+		//GridData gridDatawellNameText = new GridData();
+		//gridDatawellNameText.widthHint = 100;
+		//gridDatawellNameText.horizontalIndent = 7;
+		wellNameText.setLayoutData(getGridData());
 
 		// Easting
 		eastingLabel = new Label(addwellGroup, SWT.NONE);
 		eastingLabel.setText("Easting");
+		eastingLabel.setLayoutData(getLabelGridData());
 		
 		eastingText = new Text(addwellGroup, SWT.BORDER);
-		GridData gridDataeastingText = new GridData();
-		gridDataeastingText.widthHint = 100;
-		gridDataeastingText.horizontalIndent = 7;
-		eastingText.setLayoutData(gridDataeastingText);
+		//GridData gridDataeastingText = new GridData();
+		//gridDataeastingText.widthHint = 100;
+		//gridDataeastingText.horizontalIndent = 7;
+		eastingText.setLayoutData(getGridData());
 		eastingText.setToolTipText("The entered value should be decimal and should have only one digit after decimal.");
 		
 		// Northing
 		northingLabel = new Label(addwellGroup, SWT.NONE);
 		northingLabel.setText("Northing");
+		northingLabel.setLayoutData(getLabelGridData());
 		
 		northingText = new Text(addwellGroup, SWT.BORDER);
-		GridData gridDatanorthingText = new GridData();
-		gridDatanorthingText.widthHint = 100;
-		gridDatanorthingText.horizontalIndent = 7;
-		northingText.setLayoutData(gridDatanorthingText);
+		//GridData gridDatanorthingText = new GridData();
+		//gridDatanorthingText.widthHint = 100;
+		//gridDatanorthingText.horizontalIndent = 7;
+		northingText.setLayoutData(getGridData());
 		northingText.setToolTipText("The entered value should be decimal and should have only one digit after decimal.");
 			
 		// Azimuth
 		azimuthLabel = new Label(addwellGroup, SWT.NONE);
 		azimuthLabel.setText("Azimuth");
+		azimuthLabel.setLayoutData(getLabelGridData());
 	
 		azimuthText = new Text(addwellGroup, SWT.BORDER);
-		GridData gridDataazimuthText = new GridData();
-		gridDataazimuthText.widthHint = 100;
-		gridDataazimuthText.horizontalIndent = 7;
-		azimuthText.setLayoutData(gridDataazimuthText);
+		//GridData gridDataazimuthText = new GridData();
+		//gridDataazimuthText.widthHint = 100;
+		//gridDataazimuthText.horizontalIndent = 7;
+		azimuthText.setLayoutData(getGridData());
 		azimuthText.setToolTipText("The entered double value should be in between 1 and 360 and should have only one digit after decimal.");
 		
 		// Field
 		fieldLabel = new Label(addwellGroup, SWT.NONE);
 		fieldLabel.setText("Field");
+		fieldLabel.setLayoutData(getLabelGridData());
 	
 		fieldCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
 		fieldCombo.setItems(fieldsData);
-		GridData gridDatafieldCombo = new GridData();
-		gridDatafieldCombo.widthHint = 86;
-		gridDatafieldCombo.horizontalIndent = 7;
-		fieldCombo.setLayoutData(gridDatafieldCombo);
+//		GridData gridDatafieldCombo = new GridData();
+//		gridDatafieldCombo.widthHint = 86;
+//		gridDatafieldCombo.horizontalIndent = 7;
+		fieldCombo.setLayoutData(getGridData());
 
 		// Reservoir
 		reservoirLabel = new Label(addwellGroup, SWT.NONE);
 		reservoirLabel.setText("Reservoir");
+		reservoirLabel.setLayoutData(getLabelGridData());
 	
 		reservoirCombo = new Combo(addwellGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
 		reservoirCombo.setItems(reservoirData);
 		GridData gridDatareservoirCombo = new GridData();
 		gridDatareservoirCombo.widthHint = 86;
 		gridDatareservoirCombo.horizontalIndent = 7;
-		reservoirCombo.setLayoutData(gridDatareservoirCombo);
+		reservoirCombo.setLayoutData(getGridData());
 		
 		// Well Type
 		wellTypelabel = new Label(addwellGroup, SWT.NONE);
 		wellTypelabel.setText("Well Type ");
+		wellTypelabel.setLayoutData(getLabelGridData());
 		
 		Composite radioComposite = new Composite(addwellGroup, SWT.NONE);
 		radioComposite.setLayout(new RowLayout());
@@ -323,5 +330,18 @@ public class AddNewWellPage extends WizardPage {
 		wellTypeVerticalRadio.setEnabled(isChecked);
 		wellTypeHorizontalRadio.setEnabled(isChecked);
 		wellTypeDeviatedRadio.setEnabled(isChecked);
-	}	
+	}
+	
+	private GridData getGridData() {
+		GridData gridData = new GridData();
+		gridData.widthHint = 100;
+		gridData.horizontalIndent = 5;
+		return gridData;
+	}
+	
+	private GridData getLabelGridData() {
+		GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		gridData.widthHint = 100;
+		return gridData;
+	}
 }
