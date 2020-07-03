@@ -1,4 +1,4 @@
-package com.ltts.wellspoc.ui.loginpage;
+package com.ltts.wellspoc.ui.login;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -9,7 +9,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 
-public class LoginPageUI {
+public class LoginUI {
+
 	
 	PropertiesCache prop = PropertiesCache.getInstance();	 
 	//read the title from property file
@@ -20,7 +21,7 @@ public class LoginPageUI {
 	/**
 	 * This method is used to create UI for login page.
 	 */
-	public LoginPageUI(Composite parent) {
+	public LoginUI(Composite parent) {
 //		setTitle(PAGE_TITLE);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);

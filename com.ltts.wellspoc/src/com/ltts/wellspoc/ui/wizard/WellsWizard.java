@@ -13,12 +13,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.ltts.wellspoc.dataprovider.DataProvider;
-import com.ltts.wellspoc.models.UserModel;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-import com.ltts.wellspoc.ui.loginpage.LoginPageModelMgr;
-import com.ltts.wellspoc.ui.loginpage.LoginPageUI;
-import com.ltts.wellspoc.ui.loginpage.WizardLoginPage;
+import com.ltts.wellspoc.ui.login.LoginUI;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.views.WellDetailsView;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
@@ -32,8 +29,8 @@ import com.ltts.wellspoc.ui.util.PropertiesCache;
  */
 
 public class WellsWizard extends Wizard {
-
-	WizardLoginPage wizardloginPage;
+	
+	LoginPage loginPage;
 	WellsPage wellsPage;
 	AddNewWellPage addNewWellPage;
 	Composite parent;
@@ -68,10 +65,10 @@ public class WellsWizard extends Wizard {
 	 */
 	@Override
 	public void addPages() {
-		wizardloginPage = new WizardLoginPage("Login Page");
+		loginPage = new LoginPage("Login Page");
 		wellsPage = new WellsPage("Well Selection");
 		addNewWellPage = new AddNewWellPage("Add New Well Page");
-		addPage(wizardloginPage);
+		addPage(loginPage);
 		addPage(wellsPage);
 		addPage(addNewWellPage);
 	}
@@ -155,14 +152,14 @@ public class WellsWizard extends Wizard {
 		if (getContainer().getCurrentPage() == wellsPage) {
 			return addNewWellPage;
 		}
-		if (getContainer().getCurrentPage() == wizardloginPage) {
+		if (getContainer().getCurrentPage() == loginPage) {
 			
 			try {
-				String userNameCheck = LoginPageUI.userNameText.getText();
-				String passwordCheck = LoginPageUI.passwordText.getText();
+				String userNameCheck = LoginUI.userNameText.getText();
+				String passwordCheck = LoginUI.passwordText.getText();
 
 				if (userNameCheck.contentEquals(USERNAME) && passwordCheck.contentEquals(PASSWORD)) {
-					MessagesUtil.displayInformationDialog("correct username and password");
+					MessagesUtil.displayInformationDialog("correct username and password"); // To be removed, added to check the flow.
 					return wellsPage;
 				} else if (!userNameCheck.equals(USERNAME) && !passwordCheck.equals(PASSWORD)) {
 					MessagesUtil.displayErrorDialog("Incorrect username and password");
@@ -175,7 +172,7 @@ public class WellsWizard extends Wizard {
 
 				}
 			} catch (Exception e) {
-				MessagesUtil.logError(LoginPageUI.class.getName(), e.getMessage());
+				MessagesUtil.logError(LoginUI.class.getName(), e.getMessage());
 
 			}
 		}
