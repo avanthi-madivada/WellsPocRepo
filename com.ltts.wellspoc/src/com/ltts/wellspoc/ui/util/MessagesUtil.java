@@ -110,7 +110,7 @@ public class MessagesUtil {
 	 * 
 	 * @param textItem
 	 */
-	private static void checkIfNumber(Text textItem) {
+	public static void checkIfNumber(Text textItem) {
 		String textEntered = textItem.getText();
 		try {
 			textItem.setForeground(black);
@@ -130,7 +130,7 @@ public class MessagesUtil {
 	 * @param minValue
 	 * @param maxValue
 	 */
-	private static void checkInLimit(Text textItem, Double minValue, Double maxValue) {
+	public static void checkInLimit(Text textItem, Double minValue, Double maxValue) {
 		checkIfNumber(textItem);
 		String textEntered = textItem.getText();
 		try {
