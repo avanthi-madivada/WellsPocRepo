@@ -59,6 +59,7 @@ public class WellTest extends TestCase {
 		return isValid;
 	}
 	
+	//northing field
 	@Test
 	public void test_getWellNorthing() {
 		
@@ -67,6 +68,7 @@ public class WellTest extends TestCase {
 		assertEquals("Test for northing attribute",wellInstance.getNorthing(),7244305.1);
 	}
 	
+	//azimuth field
 	@Test
 	public void test_getWellAzimuth() {
 		
