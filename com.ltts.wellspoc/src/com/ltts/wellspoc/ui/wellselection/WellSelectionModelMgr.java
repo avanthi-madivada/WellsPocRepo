@@ -41,7 +41,7 @@ public enum WellSelectionModelMgr {
 
 		Well wellData = (Well) item.getData();
 		wellData.setChecked(item.getChecked());
-				notifyListeners(this,"","","");
+		notifyListeners(this,"","","");
 			}	
 		
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {

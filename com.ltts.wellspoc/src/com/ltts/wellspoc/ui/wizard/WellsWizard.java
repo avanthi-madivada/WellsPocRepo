@@ -16,7 +16,6 @@ import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellUI;
-import com.ltts.wellspoc.ui.login.LoginModelMgr;
 import com.ltts.wellspoc.ui.login.LoginUI;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.views.WellDetailsView;
@@ -46,7 +45,7 @@ public class WellsWizard extends Wizard {
 
 	DataProvider dataProvider = new DataProvider();
 	boolean isFinishEnabled;
-
+	boolean isEntered;
 	LoginUI loginUI;
 	AddNewWellUI addNewWellUI;
 
@@ -142,11 +141,8 @@ public class WellsWizard extends Wizard {
 //		} 
 		} catch (Exception e) {
 			MessagesUtil.logError(AddNewWellUI.class.getName(), e.getMessage());
-
 		}
-
 		return isFinishEnabled;
-
 	}
 
 	/**
@@ -166,7 +162,7 @@ public class WellsWizard extends Wizard {
 	/**
 	 * Updates model instance with data from UI.
 	 */
-	public void updateWellDetails() {
+	private void updateWellDetails() {
 //		well.setWellPlanName(addNewWellUI.wellNameText.getText());
 //		well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
 //		well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));

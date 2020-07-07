@@ -13,6 +13,7 @@ public class AddNewWellUISupport {
 
 	AddNewWellUI addNewWellUI;
 	Well wellModel;
+
 //	boolean isChecked = false;
 	public AddNewWellUISupport(AddNewWellUI addNewWellUI, Well wellModel) {
 		this.addNewWellUI = addNewWellUI;
@@ -27,6 +28,7 @@ public class AddNewWellUISupport {
 
 				if (addNewWellUI.checkBoxButton.getSelection() == true) {
 
+					//need to be changed.
 					AddNewWellModelMgr.INSTANCE.isChecked = true;
 					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
 				} else {
