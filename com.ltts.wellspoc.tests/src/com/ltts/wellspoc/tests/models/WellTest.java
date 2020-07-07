@@ -84,6 +84,7 @@ public class WellTest extends TestCase {
 		assertEquals("Test for well field attribute", "Ghawar", wellInstance.getField());
 	}
 	
+	//type field
 	@Test
 	public void test_getWellType() {
 		assertNotNull(wellInstance.getType());
