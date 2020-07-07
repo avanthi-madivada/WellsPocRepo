@@ -12,12 +12,11 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import com.ltts.wellspoc.dataprovider.DataProvider;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
-import com.ltts.wellspoc.ui.views.WellDetailsView;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
+import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * Class that re-implements the methods to perform special processing for the
@@ -48,7 +47,6 @@ public class WellsWizard extends Wizard {
 
 	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
 
-	DataProvider dataProvider = new DataProvider();
 	boolean isFinishEnabled;
 
 	/**

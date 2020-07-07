@@ -13,6 +13,10 @@ public class Well {
 	private String reservoir;
 	private String type;
 	private boolean isChecked;
+	
+	public enum WellType {
+		HORIZONTAL, VERTICAL, DEVIATED, SWELL
+	}
 
 	/**
 	 * @return WellName
