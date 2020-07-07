@@ -11,18 +11,16 @@ import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 public class LoginUI {
 
-	
-	PropertiesCache prop = PropertiesCache.getInstance();	 
-	//read the title from property file
+	PropertiesCache prop = PropertiesCache.getInstance();
+	// read the title from property file
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
-	public static Text userNameText = null;
-	public static Text passwordText = null;
-	
+	public Text userNameText = null;
+	public Text passwordText = null;
+
 	/**
 	 * This method is used to create UI for login page.
 	 */
 	public LoginUI(Composite parent) {
-//		setTitle(PAGE_TITLE);
 
 		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
@@ -58,9 +56,5 @@ public class LoginUI {
 		passwordText.setTextLimit(15);
 		passwordText.setToolTipText("Default Password is 'admin'");
 
-		
-//		setControl(userAuthenticationContainer);
 	}
-
-
 }

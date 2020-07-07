@@ -1,27 +1,24 @@
 package com.ltts.wellspoc.ui.login;
 
 import org.eclipse.swt.widgets.Composite;
-import com.ltts.wellspoc.ui.wizard.LoginPage;
+
+import com.ltts.wellspoc.models.UserModel;
 
 public enum LoginViewMgr {
-	
+
 	INSTANCE;
+
 	LoginUI loginUI;
-	LoginUISupport loginUISupport;
-	protected LoginPage page;
-	
-	public void createLoginViewUI(Composite parent, LoginPage loginPage) {
-		this.page = loginPage;
+	UserModel userModel;
+
+	public void createLoginViewUI(Composite parent) {
 		loginUI = new LoginUI(parent);
-		LoginModelMgr.INSTANCE.getUserModel();
-		loginUISupport =  new LoginUISupport(loginUI);
+		userModel = LoginModelMgr.INSTANCE.getUserModel();
+		new LoginUISupport(loginUI, userModel);
 	}
+
 	public LoginUI getLoginUI() {
 		return loginUI;
 	}
 
-
-	public LoginUISupport getLoginUISupport() {
-		return loginUISupport;
-	}
 }

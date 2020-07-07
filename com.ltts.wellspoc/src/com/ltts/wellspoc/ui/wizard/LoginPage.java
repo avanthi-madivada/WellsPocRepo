@@ -1,12 +1,14 @@
 package com.ltts.wellspoc.ui.wizard;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import com.ltts.wellspoc.ui.login.LoginUI;
+import com.ltts.wellspoc.ui.login.LoginModelMgr;
 import com.ltts.wellspoc.ui.login.LoginViewMgr;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
@@ -14,12 +16,16 @@ import com.ltts.wellspoc.ui.util.PropertiesCache;
  * 
  * @author Ranjith D
  */
-public class LoginPage extends WizardPage {
-	
-	LoginPage loginPage;
-	PropertiesCache prop = PropertiesCache.getInstance();	 
-	//read the title from property file
+public class LoginPage extends WizardPage implements PropertyChangeListener {
+
+	// accessing user name and password
+	PropertiesCache prop = PropertiesCache.getInstance();
+	private final String USERNAME = prop.getProperty("LoginPage_username");
+	private final String PASSWORD = prop.getProperty("LoginPage_password");
+
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
+	public Text userNameText = null;
+	public Text passwordText = null;
 
 	/**
 	 * Constructor for Login
@@ -28,15 +34,16 @@ public class LoginPage extends WizardPage {
 	 */
 	protected LoginPage(String pageName) {
 		super(pageName);
+		LoginModelMgr.INSTANCE.addChangeListener(this);
 	}
-	
+
 	/**
 	 * This method is used to create UI for login page.
 	 */
 	@Override
 	public void createControl(Composite parent) {
 		setTitle(PAGE_TITLE);
-		LoginViewMgr.INSTANCE.createLoginViewUI(parent, loginPage);
+		LoginViewMgr.INSTANCE.createLoginViewUI(parent);
 		setControl(parent);
 	}
 
@@ -45,11 +52,20 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
-		if (LoginUI.userNameText.getText().isEmpty() || LoginUI.passwordText.getText().isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
+		if (LoginModelMgr.INSTANCE.getUserModel().getUserName() != null
+				&& LoginModelMgr.INSTANCE.getUserModel().getPassword() != null) {
+			if (LoginModelMgr.INSTANCE.getUserModel().getUserName().equals(USERNAME)
+					&& LoginModelMgr.INSTANCE.getUserModel().getPassword().equals(PASSWORD)) {
 
+				return true;
+			}
+		}
+		return false;
 	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		this.getWizard().getContainer().updateButtons();
+	}
+
 }
