@@ -1,7 +1,6 @@
 package com.ltts.wellspoc.ui.views;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +23,7 @@ import org.eclipse.nebula.widgets.nattable.grid.data.DefaultRowHeaderDataProvide
 import org.eclipse.nebula.widgets.nattable.grid.layer.CornerLayer;
 import org.eclipse.nebula.widgets.nattable.grid.layer.GridLayer;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
-import org.eclipse.nebula.widgets.nattable.layer.LabelStack;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnLabelAccumulator;
-import org.eclipse.nebula.widgets.nattable.layer.cell.IConfigLabelAccumulator;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
 import org.eclipse.nebula.widgets.nattable.style.Style;
@@ -37,11 +34,10 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.ltts.wellspoc.dataprovider.BodyLayerStack;
 import com.ltts.wellspoc.dataprovider.ColumnHeaderLayerStack;
-import com.ltts.wellspoc.dataprovider.EditConfiguration;
 import com.ltts.wellspoc.dataprovider.RowHeaderLayerStack;
+import com.ltts.wellspoc.dataprovider.WellEditConfiguration;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * @author Deepika KS WellDetailsView is a subclass of ViewPart which is used to
@@ -51,11 +47,6 @@ import com.ltts.wellspoc.ui.util.MessagesUtil;
 public class WellDetailsView extends ViewPart {
 
 	public static BodyLayerStack bodyLayer;
-	// private String[] properties = new String[7];
-	private int statusColumn;
-	private int statusRejected;
-	private int statusInProgress;
-	private boolean check = false;
 	private static NatTable natTable;
 	private static final String FOO_LABEL = "FOO";
 	private static final String CELL_LABEL = "DEMO";
@@ -79,10 +70,6 @@ public class WellDetailsView extends ViewPart {
 		gridData.widthHint = (int) 110;
 		IConfigRegistry configRegistry = new ConfigRegistry();
 
-		// property names of the Person class
-		//String[] propertyNames = { "Well Name", "Easting", "Northing", "Azimuth", "Field", "Reservoir", "Type" };
-
-		// mapping from property to label, needed for column header labels
 		Map<String, String> propertyToLabelMap = new LinkedHashMap<String, String>();
 		propertyToLabelMap.put("wellPlanName", "Well Name");
 		propertyToLabelMap.put("easting", "Easting");
@@ -98,14 +85,12 @@ public class WellDetailsView extends ViewPart {
 		bodyDataProvider = new ListDataProvider<Well>(wellList, columnPropertyAccessor);
 		bodyLayer = new BodyLayerStack(bodyDataProvider);
 
-		
-        
 		// Column Data Provider ..column labels-propertytolabelmap.values
-		DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(propertyToLabelMap.values().toArray(new String[propertyToLabelMap.size()]));
+		DefaultColumnHeaderDataProvider columnData = new DefaultColumnHeaderDataProvider(
+				propertyToLabelMap.values().toArray(new String[propertyToLabelMap.size()]));
 		ColumnHeaderLayerStack columnlayer = new ColumnHeaderLayerStack(columnData);
 
 		// Row Data Provider
-
 		DefaultRowHeaderDataProvider rowdata = new DefaultRowHeaderDataProvider(bodyDataProvider);
 		RowHeaderLayerStack rowlayer = new RowHeaderLayerStack(rowdata);
 
@@ -116,33 +101,16 @@ public class WellDetailsView extends ViewPart {
 
 		GridLayer gridlayer = new GridLayer(bodyLayer, columnlayer, rowlayer, cornerLayer);
 		natTable = new NatTable(parent, gridlayer, false);
-		System.out.println("parent : " + parent);
-		
+
 		// Apply a ColumnLabelAccumulator to address the columns in the
-        // EditConfiguration class
-        ColumnLabelAccumulator columnLabelAccumulator = new ColumnLabelAccumulator(bodyDataProvider);
-        bodyLayer.setConfigLabelAccumulator(columnLabelAccumulator);
-        
-		// Change for paint
-		/*IConfigLabelAccumulator cellLabelAccumulator = new IConfigLabelAccumulator() {
-
-			@Override
-			public void accumulateConfigLabels(LabelStack configLabels, int columnPosition, int rowPosition) {
-				// TODO Auto-generated method stub
-				// Person p = bodyDataProvider.getRowObject(rowPosition);
-			      //  if (p != null) {
-			         //   configLabels.addLabel(
-			          //      p.getGender().equals(Gender.FEMALE) ? FEMALE_LABEL : MALE_LABEL);
-
-			}
-		};
-		*/
-		//bodyLayer.setConfigLabelAccumulator(cellLabelAccumulator);
+		// EditConfiguration class
+		ColumnLabelAccumulator columnLabelAccumulator = new ColumnLabelAccumulator(bodyDataProvider);
+		bodyLayer.setConfigLabelAccumulator(columnLabelAccumulator);
 
 		natTable.addConfiguration(new DefaultNatTableStyleConfiguration());
 		// add the EditConfiguration to enable editing support
-        natTable.addConfiguration(new EditConfiguration());
-        
+		natTable.addConfiguration(new WellEditConfiguration());
+
 		natTable.addConfiguration(new AbstractRegistryConfiguration() {
 			// @Override
 			public void configureRegistry(IConfigRegistry configRegistry) {
@@ -156,8 +124,8 @@ public class WellDetailsView extends ViewPart {
 				configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
 						CELL_LABEL);
 				configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE,
-                        IEditableRule.ALWAYS_EDITABLE,"easting");
-				
+						IEditableRule.ALWAYS_EDITABLE, "easting");
+
 			}
 		});
 
@@ -166,10 +134,8 @@ public class WellDetailsView extends ViewPart {
 		natTable.configure();
 	}
 
-
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
 	}
 
 	public void setWellData(List<Well> selectedWells) {
