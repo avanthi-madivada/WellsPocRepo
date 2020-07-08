@@ -14,15 +14,16 @@ public class LoginUI {
 	PropertiesCache prop = PropertiesCache.getInstance();
 	// read the title from property file
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
-	public Text userNameText = null;
-	public Text passwordText = null;
+	public Text userNameText;
+	public Text passwordText;
+	public Composite userAuthenticationContainer;
 
 	/**
 	 * This method is used to create UI for login page.
 	 */
 	public LoginUI(Composite parent) {
 
-		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
+		userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
 		GridLayout layout = new GridLayout(2, true);
 		layout.marginHeight = 150;
 		userAuthenticationContainer.setLayout(layout);
@@ -56,5 +57,9 @@ public class LoginUI {
 		passwordText.setTextLimit(15);
 		passwordText.setToolTipText("Default Password is 'admin'");
 
+	}
+
+	public Composite getUserAuthenticationContainer() {
+		return userAuthenticationContainer;
 	}
 }

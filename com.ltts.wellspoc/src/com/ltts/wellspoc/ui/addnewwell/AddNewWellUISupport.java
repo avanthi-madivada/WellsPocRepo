@@ -14,7 +14,7 @@ public class AddNewWellUISupport {
 	AddNewWellUI addNewWellUI;
 	Well wellModel;
 
-//	boolean isChecked = false;
+	boolean isChecked = false;
 	public AddNewWellUISupport(AddNewWellUI addNewWellUI, Well wellModel) {
 		this.addNewWellUI = addNewWellUI;
 		addModifyListener();
@@ -27,15 +27,18 @@ public class AddNewWellUISupport {
 			public void widgetSelected(SelectionEvent event) {
 
 				if (addNewWellUI.checkBoxButton.getSelection() == true) {
-
 					//need to be changed.
-					AddNewWellModelMgr.INSTANCE.isChecked = true;
-					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
+//					AddNewWellModelMgr.INSTANCE.isChecked = true;
+//					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
+					isChecked = true;
+					addNewWellUI.isCheckBoxSelected(isChecked);
 				} else {
-
-					AddNewWellModelMgr.INSTANCE.isChecked = false;
-					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
+//					AddNewWellModelMgr.INSTANCE.isChecked = false;
+//					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
+					isChecked = false;
+					addNewWellUI.isCheckBoxSelected(isChecked);
 				}
+//				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 
 		});

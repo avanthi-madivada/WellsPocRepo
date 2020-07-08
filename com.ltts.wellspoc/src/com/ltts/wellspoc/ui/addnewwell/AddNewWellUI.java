@@ -12,7 +12,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ltts.wellspoc.models.Well;
-
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
@@ -55,13 +54,15 @@ public class AddNewWellUI {
 
 	WellsWizard wellswizard = new WellsWizard();
 	Well well = new Well();
-	
 
+	boolean isValid;
+	boolean isChecked = false;
+	public Composite addWellPageContainer;
 	AddNewWellUISupport addNewWellUISupport;
 
 	public AddNewWellUI(Composite parent) {
 
-		Composite addWellPageContainer = new Composite(parent, SWT.BORDER);
+		addWellPageContainer = new Composite(parent, SWT.BORDER);
 		GridLayout layout = new GridLayout(1, false);
 		layout.verticalSpacing = 15;
 		layout.marginTop = 10;
@@ -160,7 +161,6 @@ public class AddNewWellUI {
 		wellTypeSWellRadio.setText("S-Well");
 
 		isCheckBoxSelected(false);
-//		setControl(addwellGroup);
 	}
 
 	private GridData getGridData() {
@@ -199,6 +199,38 @@ public class AddNewWellUI {
 		wellTypeVerticalRadio.setEnabled(isChecked);
 		wellTypeHorizontalRadio.setEnabled(isChecked);
 		wellTypeDeviatedRadio.setEnabled(isChecked);
+	}
+
+	public Text getWellNameText() {
+		return wellNameText;
+	}
+
+	public Text getEastingText() {
+		return eastingText;
+	}
+
+	public Text getNorthingText() {
+		return northingText;
+	}
+
+	public Text getAzimuthText() {
+		return azimuthText;
+	}
+
+	public String getSelectedRadio() {
+		return selectedRadio;
+	}
+
+	public String getSelectedReservoir() {
+		return selectedReservoir;
+	}
+
+	public String getSelectedField() {
+		return selectedField;
+	}
+
+	public Composite getAddWellPageContainer() {
+		return addWellPageContainer;
 	}
 
 }

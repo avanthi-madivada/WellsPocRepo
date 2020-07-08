@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 import com.ltts.wellspoc.ui.wellselection.WellSelectionModelMgr;
 import com.ltts.wellspoc.ui.wellselection.WellSelectionViewMgr;
@@ -24,7 +25,6 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 	PropertiesCache prop = PropertiesCache.getInstance();
 	// read the title from property file
 	String PAGE_TITLE = prop.getProperty("WellsPage_title");
-
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	boolean isNextEnabled;
 
@@ -44,7 +44,7 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 	@Override
 	public void createControl(Composite parent) {
 		setTitle(PAGE_TITLE);
-		WellSelectionViewMgr.INSTANCE.createWellSelectionViewUI(parent);
+		parent = WellSelectionViewMgr.INSTANCE.createWellSelectionViewUI(parent);
 		setControl(parent);
 	}
 
@@ -73,6 +73,10 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		this.getWizard().getContainer().updateButtons();
+		try {
+			this.getWizard().getContainer().updateButtons();
+		} catch (Exception e) {
+			MessagesUtil.logError(WellsPage.class.getName(), e.getMessage());
+		}
 	}
 }

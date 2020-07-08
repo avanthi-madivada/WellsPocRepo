@@ -16,12 +16,13 @@ public class LoginUISupport {
 	}
 
 	private void addModifyListener() {
+
 		loginUI.userNameText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 //				if(loginUI.userNameText.getText().contentEquals("admin")) {
 				LoginModelMgr.INSTANCE.changeModelFromUI();
-				
+
 //                }
 			}
 		});
@@ -33,5 +34,6 @@ public class LoginUISupport {
 //                }
 			}
 		});
+
 	}
 }

@@ -9,44 +9,40 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 
-
 public enum WellSelectionModelMgr {
-	
-	INSTANCE;
-	
-	Well wellModel;
 
+	INSTANCE;
+
+	Well wellModel;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
-
-	
 	public Well getWellModel() {
-		
-		if(wellModel == null) {
+
+		if (wellModel == null) {
 			this.createWellModel();
 		}
 		return wellModel;
 	}
 
 	void createWellModel() {
-		if(wellModel == null) {
+		if (wellModel == null) {
 			wellModel = new Well();
 		}
 	}
+
 	public void addChangeListener(PropertyChangeListener newListener) {
 		wellModelChangeisteners.add(newListener);
-    }
-	
-	public void changeModelFromUI(TableItem item) {
+	}
 
+	public void changeModelFromUI(TableItem item) {
 		Well wellData = (Well) item.getData();
 		wellData.setChecked(item.getChecked());
-		notifyListeners(this,"","","");
-			}	
-		
+		notifyListeners(this, "", "", "");
+	}
+
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {
 		for (PropertyChangeListener listner : wellModelChangeisteners) {
-        	listner.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
-        }
-    }
+			listner.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
+		}
+	}
 }

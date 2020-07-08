@@ -6,9 +6,11 @@ import java.beans.PropertyChangeListener;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
-import com.ltts.wellspoc.ui.util.PropertiesCache;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
+import com.ltts.wellspoc.ui.addnewwell.AddNewWellUI;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellViewMgr;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * The class is used to add new well.
@@ -21,6 +23,9 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	PropertiesCache prop = PropertiesCache.getInstance();
 	// read the title from property file
 	String PAGE_TITLE = prop.getProperty("AddNewWellPage_title");
+
+	boolean isFinishEnabled;
+	AddNewWellUI addNewWellUI;
 
 	/**
 	 * Constructor for AddNewWellPage
@@ -39,12 +44,36 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	public void createControl(Composite parent) {
 
 		setTitle(PAGE_TITLE);
-		AddNewWellViewMgr.INSTANCE.createAddNewViewMgr(parent);
+
+		parent = AddNewWellViewMgr.INSTANCE.createAddNewViewMgr(parent);
 		setControl(parent);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		this.getWizard().getContainer().updateButtons();
+		try {
+			this.getWizard().getContainer().updateButtons();
+		} catch (Exception e) {
+			MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
+		}
 	}
+
+	public boolean isValid() {
+		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
+		if (addNewWellUI.getWellNameText().getText().isEmpty()
+				|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
+				|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
+				|| Double.parseDouble((addNewWellUI.getAzimuthText().getText())) == 0.0
+				|| addNewWellUI.getSelectedField().isEmpty() || addNewWellUI.getSelectedReservoir().isEmpty()
+				|| MessagesUtil.isValid == false) {
+
+			isFinishEnabled = false;
+
+		} else {
+			isFinishEnabled = true;
+		}
+		return isFinishEnabled;
+
+	}
+
 }

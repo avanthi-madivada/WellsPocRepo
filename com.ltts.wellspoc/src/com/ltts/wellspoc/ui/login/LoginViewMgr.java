@@ -11,10 +11,12 @@ public enum LoginViewMgr {
 	LoginUI loginUI;
 	UserModel userModel;
 
-	public void createLoginViewUI(Composite parent) {
+	public Composite createLoginViewUI(Composite parent) {
 		loginUI = new LoginUI(parent);
 		userModel = LoginModelMgr.INSTANCE.getUserModel();
 		new LoginUISupport(loginUI, userModel);
+		
+		return loginUI.getUserAuthenticationContainer();
 	}
 
 	public LoginUI getLoginUI() {

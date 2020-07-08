@@ -14,11 +14,10 @@ public class WellSelectionUI {
 	String PAGE_TITLE = prop.getProperty("WellsPage_title");
 
 	Composite wellSelectionContainer;
-//	WellSelectionUISupport wellSelectionUISupport;
+
+	
 
 	public WellSelectionUI(Composite parent) {
-
-//		setTitle(PAGE_TITLE);
 
 		wellSelectionContainer = new Composite(parent, SWT.FILL | SWT.BORDER);
 		GridLayout layout = new GridLayout(1, false);
@@ -28,7 +27,19 @@ public class WellSelectionUI {
 		Label welltabelLabel = new Label(wellSelectionContainer, SWT.NONE);
 		welltabelLabel.setText("Select the wells to view the details:");
 
-//		setControl(wellSelectionContainer);
+	}
+  
+	public GridData getGridData() {
+		GridData gridData = new GridData();
+		gridData.verticalAlignment = GridData.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessVerticalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
+		gridData.heightHint = 100;
+		return gridData;
 	}
 
+	public Composite getWellSelectionContainer() {
+		return wellSelectionContainer;
+	}
 }

@@ -10,11 +10,14 @@ public enum AddNewWellViewMgr {
 
 	AddNewWellUI addNewWellUI;
 	Well wellModel;
-
-	public void createAddNewViewMgr(Composite parent) {
+	AddNewWellUISupport addNewWellUISupport;
+	
+	public Composite createAddNewViewMgr(Composite parent) {
 		addNewWellUI = new AddNewWellUI(parent);
 		wellModel = AddNewWellModelMgr.INSTANCE.getWellModel();
 		new AddNewWellUISupport(addNewWellUI, wellModel);
+		
+		return addNewWellUI.getAddWellPageContainer();
 	}
 
 	public AddNewWellUI getAddNewWellUI() {
