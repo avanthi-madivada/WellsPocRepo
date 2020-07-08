@@ -6,17 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.nebula.widgets.nattable.NatTable;
-import org.eclipse.nebula.widgets.nattable.config.AbstractRegistryConfiguration;
-import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.config.ConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
-import org.eclipse.nebula.widgets.nattable.config.IEditableRule;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.data.ListDataProvider;
 import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
-import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultRowHeaderDataProvider;
@@ -24,10 +20,6 @@ import org.eclipse.nebula.widgets.nattable.grid.layer.CornerLayer;
 import org.eclipse.nebula.widgets.nattable.grid.layer.GridLayer;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnLabelAccumulator;
-import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
-import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
-import org.eclipse.nebula.widgets.nattable.style.Style;
-import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
@@ -48,9 +40,6 @@ public class WellDetailsView extends ViewPart {
 
 	public static BodyLayerStack bodyLayer;
 	private static NatTable natTable;
-	private static final String FOO_LABEL = "FOO";
-	private static final String CELL_LABEL = "DEMO";
-	public static Composite compositeParent;
 	private List<Well> wellList = new ArrayList<Well>();
 	IDataProvider bodyDataProvider = null;
 
@@ -59,11 +48,10 @@ public class WellDetailsView extends ViewPart {
 	}
 
 	/**
-	 *
+	 * This method helps to create nattable view with required data
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		compositeParent = parent;
 
 		GridData gridData = new GridData();
 		gridData.heightHint = (int) 24;
@@ -111,24 +99,6 @@ public class WellDetailsView extends ViewPart {
 		// add the EditConfiguration to enable editing support
 		natTable.addConfiguration(new WellEditConfiguration());
 
-		natTable.addConfiguration(new AbstractRegistryConfiguration() {
-			// @Override
-			public void configureRegistry(IConfigRegistry configRegistry) {
-				Style cellStyle = new Style();
-				cellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_YELLOW);
-				configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
-						FOO_LABEL);
-
-				cellStyle = new Style();
-				cellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_RED);
-				configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
-						CELL_LABEL);
-				configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE,
-						IEditableRule.ALWAYS_EDITABLE, "easting");
-
-			}
-		});
-
 		natTable.setLayoutData(gridData);
 		natTable.setConfigRegistry(configRegistry);
 		natTable.configure();
@@ -138,6 +108,9 @@ public class WellDetailsView extends ViewPart {
 	public void setFocus() {
 	}
 
+	/**
+	 * @param List of Well with updated data
+	 */
 	public void setWellData(List<Well> selectedWells) {
 		WellDataProvider.wellDataProvider.getUpdateWell(selectedWells);
 		natTable.refresh();
