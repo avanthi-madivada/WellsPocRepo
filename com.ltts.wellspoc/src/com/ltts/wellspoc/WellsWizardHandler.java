@@ -3,7 +3,7 @@ package com.ltts.wellspoc;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -24,8 +24,17 @@ public class WellsWizardHandler extends AbstractHandler {
 		WizardDialog wizardDialog = new WizardDialog(Display.getDefault().getActiveShell(), new WellsWizard());
 		wizardDialog.setPageSize(600, 400);
 //		wizardDialog.setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.BORDER);
-		wizardDialog.open();
+		wizardDialog.setShellStyle(SWT.CLOSE|SWT.MIN|SWT.RESIZE);
+		
+		if(wizardDialog.open() == Window.OK) {
+			System.out.println("OK");
+		}
+		else {
+			System.out.println("Cancel");
+		}
 		return null;
+		
+		
 	}
 
 }
