@@ -23,15 +23,14 @@ public class WellsWizardHandler extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		WizardDialog wizardDialog = new WizardDialog(Display.getDefault().getActiveShell(), new WellsWizard());
 		wizardDialog.setPageSize(600, 400);
-//		wizardDialog.setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.BORDER);
-		wizardDialog.setShellStyle(SWT.CLOSE|SWT.MIN|SWT.RESIZE);
+	wizardDialog.setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.BORDER);
+		//wizardDialog.setShellStyle(SWT.CLOSE|SWT.MIN|SWT.RESIZE);
 		
-		if(wizardDialog.open() == Window.OK) {
-			System.out.println("OK");
-		}
-		else {
-			System.out.println("Cancel");
-		}
+		/*
+		 * if(wizardDialog.open() == Window.OK) { System.out.println("OK"); } else {
+		 * System.out.println("Cancel"); }
+		 */
+	   wizardDialog.open();
 		return null;
 		
 		

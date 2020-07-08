@@ -125,9 +125,11 @@ public class WellsPage extends WizardPage {
 	 */
 	private void createColumns(Table wellTable) {
 		TableLayout layout = new TableLayout();
-
+//45
+		//250
 		layout.addColumnData(new ColumnWeightData(45, true));
 		layout.addColumnData(new ColumnWeightData(250, true));
+
 		wellTable.setLayout(layout);
 
 		// First column - Well Selection
@@ -137,6 +139,7 @@ public class WellsPage extends WizardPage {
 			@Override
 			public String getText(Object element) {
 				return " ";
+				
 			}
 		});
 		// Second column - Well Name
@@ -157,7 +160,9 @@ public class WellsPage extends WizardPage {
 	 */
 	private TableViewerColumn createTableViewerColumn(String name) {
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(viewer, SWT.CENTER);
+		
 		TableColumn tableColumn = tableViewerColumn.getColumn();
+		
 		tableColumn.setText(name);
 		tableColumn.setMoveable(true);
 
