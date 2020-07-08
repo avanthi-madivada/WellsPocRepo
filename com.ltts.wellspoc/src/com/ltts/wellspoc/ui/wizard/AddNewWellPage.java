@@ -51,10 +51,8 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		try {
+		if(this.getWizard().getContainer() !=null) {
 			this.getWizard().getContainer().updateButtons();
-		} catch (Exception e) {
-			MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 		}
 	}
 
