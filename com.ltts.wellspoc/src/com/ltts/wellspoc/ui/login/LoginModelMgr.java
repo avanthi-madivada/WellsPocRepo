@@ -6,8 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ltts.wellspoc.models.UserModel;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 
+/**
+ * creates user Model instance.
+ * 
+ * @author Ranjith D
+ *
+ */
 public enum LoginModelMgr {
 
 	INSTANCE;
@@ -16,25 +21,40 @@ public enum LoginModelMgr {
 	LoginUI loginUI;
 	private List<PropertyChangeListener> userModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
+	/**
+	 * provides user Model instance.
+	 * 
+	 * @return
+	 */
 	public UserModel getUserModel() {
 		if (userModel == null) {
 			this.createUserModel();
 		}
-//		this.changeUIFromModel();
+
 		return userModel;
 	}
 
+	/**
+	 * creates user Model instance.
+	 */
 	public void createUserModel() {
 		if (userModel == null) {
 			userModel = new UserModel();
 		}
-
 	}
 
+	/**
+	 * adds the current instance listeners to wellModelChangeisteners.
+	 * 
+	 * @param newListener
+	 */
 	public void addChangeListener(PropertyChangeListener newListener) {
 		userModelChangeisteners.add(newListener);
 	}
 
+	/**
+	 * updates the model values from UI.
+	 */
 	public void changeModelFromUI() {
 
 		if (LoginViewMgr.INSTANCE.loginUI.userNameText.getText() != null) {
@@ -48,20 +68,11 @@ public enum LoginModelMgr {
 		}
 	}
 
-	public void changeUIFromModel() {
-		try {
-			if (LoginViewMgr.INSTANCE.userModel.getUserName() != null
-					&& LoginViewMgr.INSTANCE.userModel.getUserName() == "admin") {
-				loginUI.userNameText.setText("admin");
-			}
-			if (LoginViewMgr.INSTANCE.userModel.getPassword() != null
-					&& LoginViewMgr.INSTANCE.userModel.getPassword() == "admin") {
-				loginUI.passwordText.setText("admin");
-			}
-		} catch (Exception e) {
-			MessagesUtil.logError(LoginModelMgr.class.getName(), e.getMessage());
-		}
-	}
+// 	To do
+
+//	public void changeUIFromModel() {
+//	
+//	}
 
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {
 		for (PropertyChangeListener listner : userModelChangeisteners) {

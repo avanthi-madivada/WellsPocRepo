@@ -9,6 +9,12 @@ import org.eclipse.swt.widgets.Button;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
+/**
+ * synchronize UI and model instance.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class AddNewWellUISupport {
 
 	AddNewWellUI addNewWellUI;
@@ -20,6 +26,9 @@ public class AddNewWellUISupport {
 		addModifyListener();
 	}
 
+	/**
+	 * method to create listeners.
+	 */
 	private void addModifyListener() {
 		addNewWellUI.checkBoxButton.addSelectionListener(new SelectionAdapter() {
 
@@ -27,18 +36,14 @@ public class AddNewWellUISupport {
 			public void widgetSelected(SelectionEvent event) {
 
 				if (addNewWellUI.checkBoxButton.getSelection() == true) {
-					//need to be changed.
-//					AddNewWellModelMgr.INSTANCE.isChecked = true;
-//					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
 					isChecked = true;
 					addNewWellUI.isCheckBoxSelected(isChecked);
 				} else {
-//					AddNewWellModelMgr.INSTANCE.isChecked = false;
-//					addNewWellUI.isCheckBoxSelected(AddNewWellModelMgr.INSTANCE.isChecked);
+
 					isChecked = false;
 					addNewWellUI.isCheckBoxSelected(isChecked);
 				}
-//				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
+				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 
 		});

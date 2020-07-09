@@ -12,9 +12,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ltts.wellspoc.models.Well;
-import com.ltts.wellspoc.ui.util.PropertiesCache;
 import com.ltts.wellspoc.ui.wizard.WellsWizard;
 
+/**
+ * class to create the UI widgets for AdNewWellPage.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class AddNewWellUI {
 
 	public Button checkBoxButton;
@@ -48,18 +53,18 @@ public class AddNewWellUI {
 	String[] fieldsData = { "Salala", "Ghawar" };
 	String[] reservoirData = { "Not Fm 2D Top" };
 
-	PropertiesCache prop = PropertiesCache.getInstance();
-	// read the title from property file
-	String PAGE_TITLE = prop.getProperty("AddNewWellPage_title");
-
 	WellsWizard wellswizard = new WellsWizard();
 	Well well = new Well();
 
-	boolean isValid;
 	boolean isChecked = false;
 	public Composite addWellPageContainer;
 	AddNewWellUISupport addNewWellUISupport;
 
+	/**
+	 * method to create the UI.
+	 * 
+	 * @param parent
+	 */
 	public AddNewWellUI(Composite parent) {
 
 		addWellPageContainer = new Composite(parent, SWT.BORDER);
@@ -75,7 +80,6 @@ public class AddNewWellUI {
 
 		addwellGroup = new Group(addWellPageContainer, SWT.NONE);
 		GridLayout groupLayout = new GridLayout(2, true);
-		// groupLayout.verticalSpacing = 10;
 		addwellGroup.setLayout(groupLayout);
 		GridData gridDataAddWellGroup = new GridData(SWT.FILL, SWT.FILL, true, false);
 		addwellGroup.setLayoutData(gridDataAddWellGroup);
@@ -201,36 +205,67 @@ public class AddNewWellUI {
 		wellTypeDeviatedRadio.setEnabled(isChecked);
 	}
 
+	/**
+	 * @return wellNameText
+	 */
 	public Text getWellNameText() {
 		return wellNameText;
 	}
 
+	/**
+	 * @return eastingText
+	 */
 	public Text getEastingText() {
 		return eastingText;
 	}
 
+	/**
+	 * @return northingText
+	 */
 	public Text getNorthingText() {
 		return northingText;
 	}
 
+	/**
+	 * @return azimuthText
+	 */
 	public Text getAzimuthText() {
 		return azimuthText;
 	}
 
+	/**
+	 * @return selectedRadio
+	 */
 	public String getSelectedRadio() {
 		return selectedRadio;
 	}
 
+	/**
+	 * @return selectedReservoir
+	 */
 	public String getSelectedReservoir() {
 		return selectedReservoir;
 	}
 
+	/**
+	 * @return selectedField
+	 */
 	public String getSelectedField() {
 		return selectedField;
 	}
 
+	/**
+	 * @return addWellPageContainer
+	 */
 	public Composite getAddWellPageContainer() {
 		return addWellPageContainer;
+	}
+
+	/**
+	 * @return checkBoxButton
+	 */
+	public Button getCheckBoxButton() {
+		return checkBoxButton;
 	}
 
 }

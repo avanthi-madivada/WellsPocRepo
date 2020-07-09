@@ -49,7 +49,6 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	public void createControl(Composite parent) {
 
 		setTitle(PAGE_TITLE);
-
 		parent = LoginViewMgr.INSTANCE.createLoginViewUI(parent);
 		setControl(parent);
 
@@ -71,13 +70,20 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		return false;
 	}
 
+	/**
+	 * updates the wizard buttons.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if(this.getWizard().getContainer() !=null) {
+		if (this.getWizard().getContainer() != null) {
 			this.getWizard().getContainer().updateButtons();
 		}
 	}
 
+	/**
+	 * validates the user name and password entered.
+	 * @return
+	 */
 	public boolean isValid() {
 		isValid = false;
 		if (LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
@@ -87,15 +93,16 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
 				&& !LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
-			isValid = false;
+
 			MessagesUtil.displayErrorDialog("Incorrect username and password");
 
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)) {
+
 			MessagesUtil.displayErrorDialog("Incorrect username");
-			isValid = false;
+
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+
 			MessagesUtil.displayErrorDialog("Incorrect password");
-			isValid = false;
 		}
 		return isValid;
 	}

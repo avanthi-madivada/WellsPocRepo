@@ -6,17 +6,21 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.ltts.wellspoc.ui.util.PropertiesCache;
-
+/**
+ * Class to create UI widgets for Well Selection Page.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class WellSelectionUI {
-	PropertiesCache prop = PropertiesCache.getInstance();
-	// read the title from property file
-	String PAGE_TITLE = prop.getProperty("WellsPage_title");
 
 	Composite wellSelectionContainer;
 
-	
-
+	/**
+	 * Creates UI widgets
+	 * 
+	 * @param parent
+	 */
 	public WellSelectionUI(Composite parent) {
 
 		wellSelectionContainer = new Composite(parent, SWT.FILL | SWT.BORDER);
@@ -28,7 +32,7 @@ public class WellSelectionUI {
 		welltabelLabel.setText("Select the wells to view the details:");
 
 	}
-  
+
 	public GridData getGridData() {
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = GridData.FILL;
@@ -39,6 +43,9 @@ public class WellSelectionUI {
 		return gridData;
 	}
 
+	/**
+	 * @return wellSelectionContainer
+	 */
 	public Composite getWellSelectionContainer() {
 		return wellSelectionContainer;
 	}

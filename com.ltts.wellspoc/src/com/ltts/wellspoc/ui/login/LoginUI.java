@@ -7,19 +7,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.ltts.wellspoc.ui.util.PropertiesCache;
-
+/**
+ * Class to create UI widgets for login page.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class LoginUI {
-
-	PropertiesCache prop = PropertiesCache.getInstance();
-	// read the title from property file
-	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	public Text userNameText;
 	public Text passwordText;
 	public Composite userAuthenticationContainer;
 
 	/**
-	 * This method is used to create UI for login page.
+	 * creates UI for login page.
 	 */
 	public LoginUI(Composite parent) {
 
@@ -59,7 +59,11 @@ public class LoginUI {
 
 	}
 
+	/**
+	 * @return userAuthenticationContainer
+	 */
 	public Composite getUserAuthenticationContainer() {
 		return userAuthenticationContainer;
 	}
+
 }

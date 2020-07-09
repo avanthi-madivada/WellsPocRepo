@@ -8,6 +8,12 @@ import java.util.List;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
+/**
+ * creates well Model instance for AddNewWellPage.
+ * 
+ * @author Ranjith D
+ *
+ */
 public enum AddNewWellModelMgr {
 
 	INSTANCE;
@@ -16,6 +22,11 @@ public enum AddNewWellModelMgr {
 	AddNewWellUI addNewWellUI;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
+	/**
+	 * provides well Model instance.
+	 * 
+	 * @return
+	 */
 	public Well getWellModel() {
 		if (wellModel == null) {
 			this.createWellModel();
@@ -23,6 +34,9 @@ public enum AddNewWellModelMgr {
 		return wellModel;
 	}
 
+	/**
+	 * creates well Model instance.
+	 */
 	public void createWellModel() {
 		if (wellModel == null) {
 			wellModel = new Well();
@@ -30,13 +44,22 @@ public enum AddNewWellModelMgr {
 
 	}
 
+	/**
+	 * adds the current instance listeners to wellModelChangeisteners.
+	 * 
+	 * @param newListener
+	 */
 	public void addChangeListener(PropertyChangeListener newListener) {
 		wellModelChangeisteners.add(newListener);
 	}
 
+	/**
+	 * updates the model values from UI.
+	 */
 	public void changeModelFromUI() {
 
 		try {
+
 			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellNameText.getText() != null) {
 				wellModel.setWellPlanName(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellNameText.getText());
 				notifyListeners(this, "", "", "");

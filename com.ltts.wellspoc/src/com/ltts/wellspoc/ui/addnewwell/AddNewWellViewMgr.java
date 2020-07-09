@@ -4,14 +4,24 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.models.Well;
 
+/**
+ * Instantiates UI for AddNewWellPage.
+ * @author Ranjith D
+ *
+ */
 public enum AddNewWellViewMgr {
 
 	INSTANCE;
 
 	AddNewWellUI addNewWellUI;
 	Well wellModel;
-	AddNewWellUISupport addNewWellUISupport;
 	
+	/**
+	 * instantiates model instance and updates UI with the values.
+	 * 
+	 * @param parent
+	 * @return
+	 */
 	public Composite createAddNewViewMgr(Composite parent) {
 		addNewWellUI = new AddNewWellUI(parent);
 		wellModel = AddNewWellModelMgr.INSTANCE.getWellModel();
@@ -20,6 +30,10 @@ public enum AddNewWellViewMgr {
 		return addNewWellUI.getAddWellPageContainer();
 	}
 
+	/**
+	 * get AddNewWellUI
+	 * @return
+	 */
 	public AddNewWellUI getAddNewWellUI() {
 		return addNewWellUI;
 	}

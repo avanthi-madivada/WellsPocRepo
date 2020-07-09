@@ -19,6 +19,11 @@ import org.eclipse.swt.widgets.TableItem;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 
+/**
+ * Synchronize UI and model instance.
+ * @author Ranjith D
+ *
+ */
 public class WellSelectionUISupport {
 
 	WellSelectionUI wellSelectionUI;
@@ -34,6 +39,9 @@ public class WellSelectionUISupport {
 		addModifyListener();
 	}
 
+	/**
+	 * Method to create listeners.
+	 */
 	private void addModifyListener() {
 		wellTable.addSelectionListener(new SelectionAdapter() {
 			@Override

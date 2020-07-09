@@ -32,12 +32,9 @@ public class WellsWizard extends Wizard {
 	WellsPage wellsPage;
 	AddNewWellPage addNewWellPage;
 
-
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
-
 	List<Well> selectedWellsList = new ArrayList<Well>();
 	Well well = new Well();
-
 	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
 
 	boolean isFinishEnabled;
@@ -91,9 +88,7 @@ public class WellsWizard extends Wizard {
 					wellData.get(i).setChecked(false);
 				}
 			}
-//		if (AddNewWellModelMgr.INSTANCE.isChecked == true) {     // need to find alternate way.
 			updateWellDetails();
-//			}
 		}
 
 		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
@@ -107,8 +102,6 @@ public class WellsWizard extends Wizard {
 	/**
 	 * Enable/disable the finish button in Add New Well Page.
 	 */
-
-	
 	@Override
 	public boolean canFinish() {
 		isFinishEnabled = false;
@@ -117,24 +110,16 @@ public class WellsWizard extends Wizard {
 		}
 		try {
 			if (getContainer().getCurrentPage() == addNewWellPage) {
-//				if (AddNewWellModelMgr.INSTANCE.isChecked == true) {  // need to find alternate way.
 				if (addNewWellPage.isValid()) {
 
 					isFinishEnabled = true;
-
-				} else {
-					isFinishEnabled = false;
 				}
 			}
-		
-//		} 
 		} catch (Exception e) {
 			MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 		}
 		return isFinishEnabled;
 	}
-
-	
 
 	/**
 	 * Validates the user name and password and returns the next page accordingly.
@@ -155,22 +140,23 @@ public class WellsWizard extends Wizard {
 	/**
 	 * Updates model instance with data from UI.
 	 */
-	private void updateWellDetails() {
+	protected void updateWellDetails() {
 
 		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
 
-		well.setWellPlanName(addNewWellUI.wellNameText.getText());
-		well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
-		well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
-		well.setAzimuth(Double.parseDouble(addNewWellUI.azimuthText.getText()));
-		well.setField(addNewWellUI.selectedField);
-		well.setReservoir(addNewWellUI.selectedReservoir);
-		well.setType(addNewWellUI.selectedRadio);
+		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
+			well.setWellPlanName(addNewWellUI.wellNameText.getText());
+			well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
+			well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
+			well.setAzimuth(Double.parseDouble(addNewWellUI.azimuthText.getText()));
+			well.setField(addNewWellUI.selectedField);
+			well.setReservoir(addNewWellUI.selectedReservoir);
+			well.setType(addNewWellUI.selectedRadio);
 
-		wellData.add(well);
-		selectedWellsList.add(well);
-		isFinishEnabled = true;
-		
+			wellData.add(well);
+			selectedWellsList.add(well);
+			isFinishEnabled = true;
+		}
 	}
 
 	private IViewPart getWellDetailsViewInstance() {

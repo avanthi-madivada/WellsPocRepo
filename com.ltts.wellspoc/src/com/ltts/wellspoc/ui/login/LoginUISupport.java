@@ -5,6 +5,12 @@ import org.eclipse.swt.events.ModifyListener;
 
 import com.ltts.wellspoc.models.UserModel;
 
+/**
+ * Synchronize UI and Model instance for Login Page.
+ * 
+ * @author Ranjith D
+ *
+ */
 public class LoginUISupport {
 
 	LoginUI loginUI;
@@ -15,23 +21,21 @@ public class LoginUISupport {
 		addModifyListener();
 	}
 
+	/**
+	 * Method to create listeners.
+	 */
 	private void addModifyListener() {
 
 		loginUI.userNameText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-//				if(loginUI.userNameText.getText().contentEquals("admin")) {
 				LoginModelMgr.INSTANCE.changeModelFromUI();
-
-//                }
 			}
 		});
 		loginUI.passwordText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-//				if(loginUI.passwordText.getText().contentEquals("admin")) {
 				LoginModelMgr.INSTANCE.changeModelFromUI();
-//                }
 			}
 		});
 

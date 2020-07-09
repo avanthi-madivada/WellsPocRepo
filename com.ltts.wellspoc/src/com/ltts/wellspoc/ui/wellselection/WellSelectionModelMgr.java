@@ -9,6 +9,11 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 
+/**
+ * Creates well Model instance.
+ * @author Ranjith D
+ *
+ */
 public enum WellSelectionModelMgr {
 
 	INSTANCE;
@@ -16,6 +21,10 @@ public enum WellSelectionModelMgr {
 	Well wellModel;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
+	/**
+	 * provides well Model instance.
+	 * @return
+	 */
 	public Well getWellModel() {
 
 		if (wellModel == null) {
@@ -24,12 +33,20 @@ public enum WellSelectionModelMgr {
 		return wellModel;
 	}
 
-	void createWellModel() {
+	/**
+	 * creates well Model instance.
+	 */
+	public void createWellModel() {
 		if (wellModel == null) {
 			wellModel = new Well();
 		}
 	}
 
+	/**
+	 * adds the current instance listeners to wellModelChangeisteners.
+	 * 
+	 * @param newListener
+	 */
 	public void addChangeListener(PropertyChangeListener newListener) {
 		wellModelChangeisteners.add(newListener);
 	}

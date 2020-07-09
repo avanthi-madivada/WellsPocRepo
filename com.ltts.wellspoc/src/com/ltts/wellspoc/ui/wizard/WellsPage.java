@@ -10,7 +10,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 import com.ltts.wellspoc.ui.wellselection.WellSelectionModelMgr;
 import com.ltts.wellspoc.ui.wellselection.WellSelectionViewMgr;
@@ -71,6 +70,9 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 		return isNextEnabled;
 	}
 
+	/**
+	 * updates the wizard buttons.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		if (this.getWizard().getContainer() != null) {

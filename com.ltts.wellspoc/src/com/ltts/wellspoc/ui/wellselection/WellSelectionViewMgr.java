@@ -4,6 +4,11 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.ltts.wellspoc.models.Well;
 
+/**
+ * Instantiates UI for Well Selection Page.
+ * @author Ranjith D
+ *
+ */
 public enum WellSelectionViewMgr {
 
 	INSTANCE;
@@ -11,6 +16,11 @@ public enum WellSelectionViewMgr {
 	WellSelectionUI wellSelectionUI;
 	Well wellModel;
 
+	/**
+	 * instantiates model instance and updates UI with the values.
+	 * @param parent
+	 * @return
+	 */
 	public Composite createWellSelectionViewUI(Composite parent) {
 
 		wellSelectionUI = new WellSelectionUI(parent);
@@ -20,6 +30,10 @@ public enum WellSelectionViewMgr {
 		return wellSelectionUI.getWellSelectionContainer();
 	}
 
+	/**
+	 * get WellSelectionUI
+	 * @return
+	 */
 	public WellSelectionUI getWellSelectionUI() {
 		return wellSelectionUI;
 	}

@@ -25,6 +25,7 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	String PAGE_TITLE = prop.getProperty("AddNewWellPage_title");
 
 	boolean isFinishEnabled;
+	boolean isChecked;
 	AddNewWellUI addNewWellUI;
 
 	/**
@@ -49,24 +50,37 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 		setControl(parent);
 	}
 
+	/**
+	 * updates the wizard buttons.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if(this.getWizard().getContainer() !=null) {
+		if (this.getWizard().getContainer() != null) {
 			this.getWizard().getContainer().updateButtons();
 		}
 	}
 
+	/**
+	 *  validates the UI components.
+	 * @return
+	 */
 	public boolean isValid() {
 		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
-		if (addNewWellUI.getWellNameText().getText().isEmpty()
-				|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
-				|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
-				|| Double.parseDouble((addNewWellUI.getAzimuthText().getText())) == 0.0
-				|| addNewWellUI.getSelectedField().isEmpty() || addNewWellUI.getSelectedReservoir().isEmpty()
-				|| MessagesUtil.isValid == false) {
 
-			isFinishEnabled = false;
+		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
 
+			if (addNewWellUI.getWellNameText().getText().isEmpty()
+					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
+					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
+					|| Double.parseDouble((addNewWellUI.getAzimuthText().getText())) == 0.0
+					|| addNewWellUI.getSelectedField().isEmpty() || addNewWellUI.getSelectedReservoir().isEmpty()
+					|| MessagesUtil.isValid == false) {
+
+				isFinishEnabled = false;
+
+			} else {
+				isFinishEnabled = true;
+			}
 		} else {
 			isFinishEnabled = true;
 		}
