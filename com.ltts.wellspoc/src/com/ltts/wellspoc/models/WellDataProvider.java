@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Class that provides the data for the Well Table.
+ * 
  * @author Ranjith D
  *
  */
@@ -31,17 +32,17 @@ public class WellDataProvider {
 		wellData.add(
 				new Well("Well 10", 580107.6, 6744305.1, 160.0, "Ghawar", "Not Fm. 2 HD Top", "Horizontal", false));
 
-		//wellDetailsData.addAll(wellData);
+		// wellDetailsData.addAll(wellData);
 	}
 
 	public List<Well> getWellDetailsData() {
 		return wellDetailsData;
 	}
-	
+
 	public List<Well> getWell() {
 		return wellData;
 	}
-	
+
 	public List<Well> getUpdateWell(List<Well> selectedWells) {
 		wellDetailsData.clear();
 		wellDetailsData.addAll(selectedWells);

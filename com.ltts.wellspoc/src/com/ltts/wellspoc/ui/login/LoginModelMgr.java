@@ -18,7 +18,6 @@ public enum LoginModelMgr {
 	INSTANCE;
 
 	UserModel userModel;
-	LoginUI loginUI;
 	private List<PropertyChangeListener> userModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
 	/**
@@ -67,12 +66,6 @@ public enum LoginModelMgr {
 			notifyListeners(this, "", "", "");
 		}
 	}
-
-// 	To do
-
-//	public void changeUIFromModel() {
-//	
-//	}
 
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {
 		for (PropertyChangeListener listner : userModelChangeisteners) {

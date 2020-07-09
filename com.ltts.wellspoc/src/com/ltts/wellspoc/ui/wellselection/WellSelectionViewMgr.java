@@ -6,6 +6,7 @@ import com.ltts.wellspoc.models.Well;
 
 /**
  * Instantiates UI for Well Selection Page.
+ * 
  * @author Ranjith D
  *
  */
@@ -18,6 +19,7 @@ public enum WellSelectionViewMgr {
 
 	/**
 	 * instantiates model instance and updates UI with the values.
+	 * 
 	 * @param parent
 	 * @return
 	 */
@@ -26,12 +28,13 @@ public enum WellSelectionViewMgr {
 		wellSelectionUI = new WellSelectionUI(parent);
 		wellModel = WellSelectionModelMgr.INSTANCE.getWellModel();
 		new WellSelectionUISupport(wellSelectionUI, wellModel);
-		
+
 		return wellSelectionUI.getWellSelectionContainer();
 	}
 
 	/**
 	 * get WellSelectionUI
+	 * 
 	 * @return
 	 */
 	public WellSelectionUI getWellSelectionUI() {

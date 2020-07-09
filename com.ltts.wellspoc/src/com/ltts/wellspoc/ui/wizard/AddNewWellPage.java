@@ -25,7 +25,6 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	String PAGE_TITLE = prop.getProperty("AddNewWellPage_title");
 
 	boolean isFinishEnabled;
-	boolean isChecked;
 	AddNewWellUI addNewWellUI;
 
 	/**
@@ -45,7 +44,6 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	public void createControl(Composite parent) {
 
 		setTitle(PAGE_TITLE);
-
 		parent = AddNewWellViewMgr.INSTANCE.createAddNewViewMgr(parent);
 		setControl(parent);
 	}
@@ -61,14 +59,13 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 	}
 
 	/**
-	 *  validates the UI components.
-	 * @return
+	 * validates the UI components.
+	 * 
 	 */
 	public boolean isValid() {
+
 		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
-
 		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
-
 			if (addNewWellUI.getWellNameText().getText().isEmpty()
 					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
 					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
@@ -77,7 +74,6 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 					|| MessagesUtil.isValid == false) {
 
 				isFinishEnabled = false;
-
 			} else {
 				isFinishEnabled = true;
 			}
@@ -85,7 +81,6 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 			isFinishEnabled = true;
 		}
 		return isFinishEnabled;
-
 	}
 
 }

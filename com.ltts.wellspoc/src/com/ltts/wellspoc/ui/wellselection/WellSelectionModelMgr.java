@@ -11,6 +11,7 @@ import com.ltts.wellspoc.models.Well;
 
 /**
  * Creates well Model instance.
+ * 
  * @author Ranjith D
  *
  */
@@ -23,6 +24,7 @@ public enum WellSelectionModelMgr {
 
 	/**
 	 * provides well Model instance.
+	 * 
 	 * @return
 	 */
 	public Well getWellModel() {

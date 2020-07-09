@@ -6,6 +6,7 @@ import com.ltts.wellspoc.models.Well;
 
 /**
  * Instantiates UI for AddNewWellPage.
+ * 
  * @author Ranjith D
  *
  */
@@ -15,7 +16,7 @@ public enum AddNewWellViewMgr {
 
 	AddNewWellUI addNewWellUI;
 	Well wellModel;
-	
+
 	/**
 	 * instantiates model instance and updates UI with the values.
 	 * 
@@ -26,12 +27,13 @@ public enum AddNewWellViewMgr {
 		addNewWellUI = new AddNewWellUI(parent);
 		wellModel = AddNewWellModelMgr.INSTANCE.getWellModel();
 		new AddNewWellUISupport(addNewWellUI, wellModel);
-		
+
 		return addNewWellUI.getAddWellPageContainer();
 	}
 
 	/**
 	 * get AddNewWellUI
+	 * 
 	 * @return
 	 */
 	public AddNewWellUI getAddNewWellUI() {

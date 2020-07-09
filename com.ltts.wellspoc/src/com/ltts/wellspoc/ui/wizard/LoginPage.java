@@ -8,7 +8,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import com.ltts.wellspoc.ui.login.LoginModelMgr;
-import com.ltts.wellspoc.ui.login.LoginUI;
 import com.ltts.wellspoc.ui.login.LoginViewMgr;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
@@ -29,7 +28,6 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	public Text userNameText = null;
 	public Text passwordText = null;
 	boolean isValid;
-	LoginUI loginUI;
 
 	/**
 	 * Constructor for Login
@@ -82,6 +80,7 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 
 	/**
 	 * validates the user name and password entered.
+	 * 
 	 * @return
 	 */
 	public boolean isValid() {

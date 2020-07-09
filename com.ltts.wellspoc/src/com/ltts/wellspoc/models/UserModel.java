@@ -2,6 +2,8 @@ package com.ltts.wellspoc.models;
 
 /**
  * class representing user.
+ * 
+ * @author 40006037
  *
  */
 public class UserModel {

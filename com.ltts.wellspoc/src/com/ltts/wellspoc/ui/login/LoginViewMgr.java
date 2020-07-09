@@ -19,6 +19,7 @@ public enum LoginViewMgr {
 
 	/**
 	 * instantiates model instance and updates UI with the values.
+	 * 
 	 * @param parent
 	 * @return
 	 */
@@ -26,12 +27,13 @@ public enum LoginViewMgr {
 		loginUI = new LoginUI(parent);
 		userModel = LoginModelMgr.INSTANCE.getUserModel();
 		new LoginUISupport(loginUI, userModel);
-		
+
 		return loginUI.getUserAuthenticationContainer();
 	}
 
 	/**
 	 * get LoginUI
+	 * 
 	 * @return
 	 */
 	public LoginUI getLoginUI() {

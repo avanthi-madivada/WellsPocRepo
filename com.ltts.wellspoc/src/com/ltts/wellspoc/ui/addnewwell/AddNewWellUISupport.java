@@ -21,6 +21,7 @@ public class AddNewWellUISupport {
 	Well wellModel;
 
 	boolean isChecked = false;
+
 	public AddNewWellUISupport(AddNewWellUI addNewWellUI, Well wellModel) {
 		this.addNewWellUI = addNewWellUI;
 		addModifyListener();

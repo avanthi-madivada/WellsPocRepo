@@ -76,6 +76,7 @@ public class WellsWizard extends Wizard {
 	/**
 	 * Checks for the selected wells and stores the corresponding well objects in
 	 * the selectedWellsList on click of Finish button.
+	 * 
 	 */
 	@Override
 	public boolean performFinish() {
@@ -88,14 +89,14 @@ public class WellsWizard extends Wizard {
 					wellData.get(i).setChecked(false);
 				}
 			}
-			updateWellDetails();
-		}
 
+			updateWellDetails();
+
+		}
 		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
 		if (wellDetailsViewInstance instanceof WellDetailsView) {
 			((WellDetailsView) wellDetailsViewInstance).setWellData(selectedWellsList);
 		}
-
 		return isFinishEnabled;
 	}
 
@@ -122,7 +123,7 @@ public class WellsWizard extends Wizard {
 	}
 
 	/**
-	 * Validates the user name and password and returns the next page accordingly.
+	 * returns the next page.
 	 */
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
@@ -145,6 +146,7 @@ public class WellsWizard extends Wizard {
 		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
 
 		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
+
 			well.setWellPlanName(addNewWellUI.wellNameText.getText());
 			well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
 			well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
@@ -156,6 +158,7 @@ public class WellsWizard extends Wizard {
 			wellData.add(well);
 			selectedWellsList.add(well);
 			isFinishEnabled = true;
+
 		}
 	}
 

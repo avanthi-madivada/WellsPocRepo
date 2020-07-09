@@ -21,13 +21,13 @@ import com.ltts.wellspoc.models.WellDataProvider;
 
 /**
  * Synchronize UI and model instance.
+ * 
  * @author Ranjith D
  *
  */
 public class WellSelectionUISupport {
 
 	WellSelectionUI wellSelectionUI;
-	Well wellModel;
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Table wellTable;
@@ -128,7 +128,7 @@ public class WellSelectionUISupport {
 		TableColumn tableColumn = tableViewerColumn.getColumn();
 		tableColumn.setText(name);
 		tableColumn.setMoveable(true);
-		
+
 		return tableViewerColumn;
 	}
 }

@@ -57,6 +57,7 @@ public class LoginUI {
 		passwordText.setTextLimit(15);
 		passwordText.setToolTipText("Default Password is 'admin'");
 
+		changeUIFromModel();
 	}
 
 	/**
@@ -64,6 +65,19 @@ public class LoginUI {
 	 */
 	public Composite getUserAuthenticationContainer() {
 		return userAuthenticationContainer;
+	}
+
+	/**
+	 * updates UI from model.
+	 */
+	public void changeUIFromModel() {
+
+		if (LoginModelMgr.INSTANCE.getUserModel().getUserName() != null
+				&& LoginModelMgr.INSTANCE.getUserModel().getPassword() != null) {
+			userNameText.setText(LoginModelMgr.INSTANCE.getUserModel().getUserName());
+			passwordText.setText(LoginModelMgr.INSTANCE.getUserModel().getPassword());
+		}
+
 	}
 
 }
