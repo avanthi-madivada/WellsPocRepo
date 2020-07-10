@@ -5,9 +5,16 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * creates well Model instance for AddNewWellPage.
@@ -142,7 +149,7 @@ public enum AddNewWellModelMgr {
 	/**
 	 * updates the selected wells to the list.
 	 */
-	public void updateSelectedWells() {
+	private void updateSelectedWells() {
 
 		AddNewWellModelMgr.INSTANCE.selectedWellsList.clear();
 
@@ -157,7 +164,7 @@ public enum AddNewWellModelMgr {
 	/**
 	 * Updates new well details to the selected list and model.
 	 */
-	protected void updateWellDetails() {
+	private void updateWellDetails() {
 
 		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
 		Well well = new Well();
@@ -210,7 +217,26 @@ public enum AddNewWellModelMgr {
 
 			updateSelectedWells();
 		}
+
+		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
+		if (wellDetailsViewInstance instanceof WellDetailsView) {
+			((WellDetailsView) wellDetailsViewInstance).setWellData(selectedWellsList);
+
+		}
+
 		return isFinishEnabled;
+	}
+
+	private IViewPart getWellDetailsViewInstance() {
+		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage activePage = workbenchWindow.getActivePage();
+
+		try {
+			IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
+			return viewPart;
+		} catch (PartInitException e) {
+			return null;
+		}
 	}
 
 }

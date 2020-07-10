@@ -4,16 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
-import com.ltts.wellspoc.ui.views.WellDetailsView;
 
 /**
  * Class that re-implements the methods to perform special processing for the
@@ -71,12 +65,6 @@ public class WellsWizard extends Wizard {
 			}
 		}
 
-		IViewPart wellDetailsViewInstance = getWellDetailsViewInstance();
-		if (wellDetailsViewInstance instanceof WellDetailsView) {
-			((WellDetailsView) wellDetailsViewInstance).setWellData(AddNewWellModelMgr.INSTANCE.selectedWellsList);
-
-		}
-
 		return isFinishEnabled;
 	}
 
@@ -101,15 +89,4 @@ public class WellsWizard extends Wizard {
 		return isValid;
 	}
 
-	private IViewPart getWellDetailsViewInstance() {
-		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IWorkbenchPage activePage = workbenchWindow.getActivePage();
-
-		try {
-			IViewPart viewPart = activePage.showView("com.ltts.wellspoc.welldetailsview");
-			return viewPart;
-		} catch (PartInitException e) {
-			return null;
-		}
-	}
 }
