@@ -136,7 +136,6 @@ public enum AddNewWellModelMgr {
 			if (addNewWellUI.getWellNameText().getText().isEmpty()
 					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
 					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
-					|| Double.parseDouble((addNewWellUI.getAzimuthText().getText())) == 0.0
 					|| addNewWellUI.getSelectedField().isEmpty() || addNewWellUI.getSelectedReservoir().isEmpty()
 					|| MessagesUtil.isValid == false) {
 

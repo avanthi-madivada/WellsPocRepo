@@ -106,13 +106,18 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		}
 		return isValid;
 	}
-	
+
 	@Override
 	public IWizardPage getNextPage() {
 		if (isValid()) {
 			return WellsWizard.wellsPage;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean isPageComplete() {
+		return false;
 	}
 
 }

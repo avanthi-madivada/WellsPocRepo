@@ -79,10 +79,15 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 			this.getWizard().getContainer().updateButtons();
 		}
 	}
-	
+
 	@Override
 	public IWizardPage getNextPage() {
-			return WellsWizard.addNewWellPage;
-		
+		return WellsWizard.addNewWellPage;
+
+	}
+
+	@Override
+	public boolean isPageComplete() {
+		return false;
 	}
 }

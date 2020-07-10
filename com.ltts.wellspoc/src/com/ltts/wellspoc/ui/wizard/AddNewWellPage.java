@@ -53,4 +53,8 @@ public class AddNewWellPage extends WizardPage implements PropertyChangeListener
 		}
 	}
 
+	@Override
+	public boolean isPageComplete() {
+		return true;
+	}
 }

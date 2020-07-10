@@ -59,7 +59,7 @@ public class WellsWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		isFinishEnabled = false;
-		if (getContainer().getCurrentPage() == addNewWellPage) {
+		if (getContainer().getCurrentPage().isPageComplete()) {
 			if (AddNewWellModelMgr.INSTANCE.finishPressed()) {
 				isFinishEnabled = true;
 			}
@@ -74,17 +74,16 @@ public class WellsWizard extends Wizard {
 	@Override
 	public boolean canFinish() {
 		isValid = false;
-		if (getContainer().getCurrentPage() == loginPage || getContainer().getCurrentPage() == wellsPage) {
-			return isValid;
-		}
-		try {
-			if (getContainer().getCurrentPage() == addNewWellPage) {
-				if (AddNewWellModelMgr.INSTANCE.isValid()) {
-					isValid = true;
-				}
+		
+		if(getContainer().getCurrentPage().isPageComplete()) {
+			try {
+					if (AddNewWellModelMgr.INSTANCE.isValid()) {
+						isValid = true;
+					}
+				
+			} catch (Exception e) {
+				MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 			}
-		} catch (Exception e) {
-			MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 		}
 		return isValid;
 	}

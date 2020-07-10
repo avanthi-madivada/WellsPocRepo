@@ -44,7 +44,7 @@ public class AddNewWellUI {
 	public String selectedField;
 
 	// Min and Max value for azimuth.
-	Double azimuthMinValue = 1.0;
+	Double azimuthMinValue = 0.0;
 	Double azimuthMaxValue = 360.0;
 
 	String[] fieldsData = { "Salala", "Ghawar" };
