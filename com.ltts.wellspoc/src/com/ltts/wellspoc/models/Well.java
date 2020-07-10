@@ -120,27 +120,6 @@ public class Well {
 		this.isChecked = isChecked;
 	}
 
-	/**
-	 * @param wellPlanName
-	 * @param easting
-	 * @param northing
-	 * @param azimuth
-	 * @param field
-	 * @param reservoir
-	 * @param type
-	 */
-	public Well(String wellPlanName, Double easting, Double northing, Double azimuth, String field, String reservoir,
-			String type) {
-		super();
-		this.wellPlanName = wellPlanName;
-		this.easting = easting;
-		this.northing = northing;
-		this.azimuth = azimuth;
-		this.field = field;
-		this.reservoir = reservoir;
-		this.type = type;
-	}
-
 	public Well() {
 	}
 

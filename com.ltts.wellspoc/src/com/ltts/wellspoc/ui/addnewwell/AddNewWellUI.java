@@ -11,9 +11,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.ltts.wellspoc.models.Well;
-import com.ltts.wellspoc.ui.wizard.WellsWizard;
-
 /**
  * class to create the UI widgets for AdNewWellPage.
  * 
@@ -53,12 +50,8 @@ public class AddNewWellUI {
 	String[] fieldsData = { "Salala", "Ghawar" };
 	String[] reservoirData = { "Not Fm 2D Top" };
 
-	WellsWizard wellswizard = new WellsWizard();
-	Well well = new Well();
-
 	boolean isChecked = false;
 	public Composite addWellPageContainer;
-	AddNewWellUISupport addNewWellUISupport;
 
 	/**
 	 * method to create the UI.

@@ -3,6 +3,7 @@ package com.ltts.wellspoc.ui.wizard;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -104,6 +105,14 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 			MessagesUtil.displayErrorDialog("Incorrect password");
 		}
 		return isValid;
+	}
+	
+	@Override
+	public IWizardPage getNextPage() {
+		if (isValid()) {
+			return WellsWizard.wellsPage;
+		}
+		return null;
 	}
 
 }

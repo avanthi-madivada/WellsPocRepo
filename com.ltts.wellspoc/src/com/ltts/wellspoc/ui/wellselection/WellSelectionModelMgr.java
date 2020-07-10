@@ -53,6 +53,11 @@ public enum WellSelectionModelMgr {
 		wellModelChangeisteners.add(newListener);
 	}
 
+	/**
+	 * updates the isChecked value in the model as per the check box state in UI.
+	 * 
+	 * @param item
+	 */
 	public void changeModelFromUI(TableItem item) {
 		Well wellData = (Well) item.getData();
 		wellData.setChecked(item.getChecked());

@@ -36,6 +36,7 @@ public class WellSelectionUISupport {
 		this.wellSelectionUI = wellSelectionUI;
 		wellTable = createTable(wellSelectionUI.wellSelectionContainer);
 		viewer.setInput(wellData);
+		changeUIFromModel();
 		addModifyListener();
 	}
 
@@ -43,7 +44,9 @@ public class WellSelectionUISupport {
 	 * Method to create listeners.
 	 */
 	private void addModifyListener() {
+
 		wellTable.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (e.detail == SWT.CHECK) {
@@ -52,6 +55,7 @@ public class WellSelectionUISupport {
 				}
 			}
 		});
+//		}
 	}
 
 	/**
@@ -131,4 +135,15 @@ public class WellSelectionUISupport {
 
 		return tableViewerColumn;
 	}
+
+	/**
+	 * changes the state of check box in UI.
+	 */
+	private void changeUIFromModel() {
+		for (TableItem item : wellTable.getItems()) {
+			Well wellData = (Well) item.getData();
+			item.setChecked(wellData.isChecked());
+		}
+	}
+
 }

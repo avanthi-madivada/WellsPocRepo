@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ltts.wellspoc.models.Well;
+import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
@@ -20,7 +21,13 @@ public enum AddNewWellModelMgr {
 
 	Well wellModel;
 	AddNewWellUI addNewWellUI;
+	boolean isValid;
+	boolean isFinishEnabled;
+	boolean isValidWellName;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
+
+	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
+	public List<Well> selectedWellsList = new ArrayList<Well>();
 
 	/**
 	 * provides well Model instance.
@@ -98,7 +105,7 @@ public enum AddNewWellModelMgr {
 				notifyListeners(this, "", "", "");
 			}
 		} catch (Exception e) {
-			MessagesUtil.logError(AddNewWellUISupport.class.getName(), e.getMessage());
+			MessagesUtil.logError(AddNewWellModelMgr.class.getName(), e.getMessage());
 		}
 	}
 
@@ -106,6 +113,104 @@ public enum AddNewWellModelMgr {
 		for (PropertyChangeListener listner : wellModelChangeisteners) {
 			listner.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
 		}
+	}
+
+	/**
+	 * validates the UI components.
+	 * 
+	 */
+	public boolean isValid() {
+
+		isValid = true;
+		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
+
+		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
+
+			if (addNewWellUI.getWellNameText().getText().isEmpty()
+					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
+					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
+					|| Double.parseDouble((addNewWellUI.getAzimuthText().getText())) == 0.0
+					|| addNewWellUI.getSelectedField().isEmpty() || addNewWellUI.getSelectedReservoir().isEmpty()
+					|| MessagesUtil.isValid == false) {
+
+				isValid = false;
+			}
+		}
+		return isValid;
+	}
+
+	/**
+	 * updates the selected wells to the list.
+	 */
+	public void updateSelectedWells() {
+
+		AddNewWellModelMgr.INSTANCE.selectedWellsList.clear();
+
+		for (int i = 0; i < wellData.size(); i++) {
+			if (wellData.get(i).isChecked()) {
+				isFinishEnabled = true;
+				selectedWellsList.add(wellData.get(i));
+			}
+		}
+	}
+
+	/**
+	 * Updates new well details to the selected list and model.
+	 */
+	protected void updateWellDetails() {
+
+		addNewWellUI = AddNewWellViewMgr.INSTANCE.getAddNewWellUI();
+		Well well = new Well();
+
+		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
+
+			well.setWellPlanName(addNewWellUI.wellNameText.getText());
+			well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
+			well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
+			well.setAzimuth(Double.parseDouble(addNewWellUI.azimuthText.getText()));
+			well.setField(addNewWellUI.selectedField);
+			well.setReservoir(addNewWellUI.selectedReservoir);
+			well.setType(addNewWellUI.selectedRadio);
+			well.setChecked(true);
+
+			wellData.add(well);
+			selectedWellsList.add(well);
+			isFinishEnabled = true;
+
+		}
+	}
+
+	/**
+	 * checks the Well Name's uniqueness and if it is valid updates the well details
+	 * and selected wells.
+	 * 
+	 * @return
+	 */
+	public boolean finishPressed() {
+		isValidWellName = true;
+		isFinishEnabled = false;
+		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
+
+			for (int i = 0; i < wellData.size(); i++) {
+
+				if (wellData.get(i).getWellPlanName().equals(addNewWellUI.wellNameText.getText())) {
+					MessagesUtil.displayErrorDialog(addNewWellUI.wellNameText.getText() + " already exists");
+					isValidWellName = false;
+					break;
+				}
+			}
+			if (isValidWellName) {
+
+				updateSelectedWells();
+				updateWellDetails();
+			} else {
+				isFinishEnabled = false;
+			}
+		} else {
+
+			updateSelectedWells();
+		}
+		return isFinishEnabled;
 	}
 
 }

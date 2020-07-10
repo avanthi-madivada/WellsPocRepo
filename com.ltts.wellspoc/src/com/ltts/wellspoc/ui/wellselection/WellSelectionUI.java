@@ -49,4 +49,5 @@ public class WellSelectionUI {
 	public Composite getWellSelectionContainer() {
 		return wellSelectionContainer;
 	}
+
 }

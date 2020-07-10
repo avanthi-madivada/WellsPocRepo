@@ -18,8 +18,6 @@ import com.ltts.wellspoc.ui.util.MessagesUtil;
 public class AddNewWellUISupport {
 
 	AddNewWellUI addNewWellUI;
-	Well wellModel;
-
 	boolean isChecked = false;
 
 	public AddNewWellUISupport(AddNewWellUI addNewWellUI, Well wellModel) {
