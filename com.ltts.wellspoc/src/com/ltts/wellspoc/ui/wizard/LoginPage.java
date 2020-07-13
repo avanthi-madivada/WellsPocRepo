@@ -1,15 +1,16 @@
 package com.ltts.wellspoc.ui.wizard;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.ltts.wellspoc.ui.login.LoginModelMgr;
+import com.ltts.wellspoc.ui.login.LoginViewMgr;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
@@ -17,13 +18,17 @@ import com.ltts.wellspoc.ui.util.PropertiesCache;
  * 
  * @author Ranjith D
  */
-public class LoginPage extends WizardPage {
-	
-	PropertiesCache prop = PropertiesCache.getInstance();	 
-	//read the title from property file
+public class LoginPage extends WizardPage implements PropertyChangeListener {
+
+	// accessing user name and password
+	PropertiesCache prop = PropertiesCache.getInstance();
+	private final String USERNAME = prop.getProperty("LoginPage_username");
+	private final String PASSWORD = prop.getProperty("LoginPage_password");
+
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
-	protected static Text userNameText = null;
-	protected static Text passWordText = null;
+	public Text userNameText = null;
+	public Text passwordText = null;
+	boolean isValid;
 
 	/**
 	 * Constructor for Login
@@ -32,64 +37,20 @@ public class LoginPage extends WizardPage {
 	 */
 	protected LoginPage(String pageName) {
 		super(pageName);
+		LoginModelMgr.INSTANCE.addChangeListener(this);
+
 	}
-	
+
 	/**
 	 * This method is used to create UI for login page.
 	 */
 	@Override
 	public void createControl(Composite parent) {
+
 		setTitle(PAGE_TITLE);
+		parent = LoginViewMgr.INSTANCE.createLoginViewUI(parent);
+		setControl(parent);
 
-		Composite userAuthenticationContainer = new Composite(parent, SWT.NULL | SWT.BORDER);
-		GridLayout layout = new GridLayout(2, true);
-		layout.marginHeight = 150;
-		userAuthenticationContainer.setLayout(layout);
-		userAuthenticationContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		// User Name
-		Label userNameLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		userNameLabel.setText("Username");
-		GridData gridDataUserNameLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		gridDataUserNameLabel.widthHint = 65;
-		userNameLabel.setLayoutData(gridDataUserNameLabel);
-
-		userNameText = new Text(userAuthenticationContainer, SWT.BORDER);
-		GridData gridDataUserNameText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataUserNameText.widthHint = 100;
-		userNameText.setLayoutData(gridDataUserNameText);
-		userNameText.setTextLimit(15);
-		userNameText.setToolTipText("Default Username is 'admin'");
-
-		// Password
-		Label passwardLabel = new Label(userAuthenticationContainer, SWT.NONE);
-		passwardLabel.setText("Password");
-		GridData gridDataPasswordLabel = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		gridDataPasswordLabel.widthHint = 65;
-		passwardLabel.setLayoutData(gridDataPasswordLabel);
-
-		passWordText = new Text(userAuthenticationContainer, SWT.PASSWORD | SWT.BORDER);
-		GridData gridDataPasswordText = new GridData(GridData.GRAB_HORIZONTAL);
-		gridDataPasswordText.widthHint = 100;
-		passWordText.setLayoutData(gridDataPasswordText);
-		passWordText.setTextLimit(15);
-		passWordText.setToolTipText("Default Password is 'admin'");
-
-		userNameText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				canFlipToNextPage();
-				getWizard().getContainer().updateButtons();
-			}
-		});
-		passWordText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				canFlipToNextPage();
-				getWizard().getContainer().updateButtons();
-			}
-		});
-		setControl(userAuthenticationContainer);
 	}
 
 	/**
@@ -97,10 +58,66 @@ public class LoginPage extends WizardPage {
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
-		if (userNameText.getText().isEmpty() || passWordText.getText().isEmpty()) {
-			return false;
-		} else {
-			return true;
+		if (LoginModelMgr.INSTANCE.getUserModel().getUserName() != null
+				&& LoginModelMgr.INSTANCE.getUserModel().getPassword() != null) {
+			if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().isEmpty()
+					&& !LoginModelMgr.INSTANCE.getUserModel().getPassword().isEmpty()) {
+
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * updates the wizard buttons.
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (this.getWizard().getContainer() != null) {
+			this.getWizard().getContainer().updateButtons();
 		}
 	}
+
+	/**
+	 * validates the user name and password entered.
+	 * 
+	 * @return
+	 */
+	public boolean isValid() {
+		isValid = false;
+		if (LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
+				&& LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+
+			isValid = true;
+
+		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
+				&& !LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+
+			MessagesUtil.displayErrorDialog("Incorrect username and password");
+
+		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)) {
+
+			MessagesUtil.displayErrorDialog("Incorrect username");
+
+		} else if (!LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+
+			MessagesUtil.displayErrorDialog("Incorrect password");
+		}
+		return isValid;
+	}
+
+	@Override
+	public IWizardPage getNextPage() {
+		if (isValid()) {
+			return WellsWizard.wellsPage;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isPageComplete() {
+		return false;
+	}
+
 }
