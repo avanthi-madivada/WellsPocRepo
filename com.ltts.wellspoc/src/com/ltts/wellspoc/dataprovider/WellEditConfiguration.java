@@ -7,10 +7,21 @@ import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.IEditableRule;
 import org.eclipse.nebula.widgets.nattable.data.convert.DefaultDoubleDisplayConverter;
+import org.eclipse.nebula.widgets.nattable.data.validate.ContextualDataValidator;
+import org.eclipse.nebula.widgets.nattable.data.validate.DataValidator;
+import org.eclipse.nebula.widgets.nattable.data.validate.IDataValidator;
+import org.eclipse.nebula.widgets.nattable.data.validate.ValidationFailedException;
 import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
+import org.eclipse.nebula.widgets.nattable.edit.editor.TextCellEditor;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnLabelAccumulator;
+import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
+import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
+import org.eclipse.nebula.widgets.nattable.style.IStyle;
+import org.eclipse.nebula.widgets.nattable.style.Style;
+import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
+import org.eclipse.swt.SWT;
 
 /**
  * @author Deepika This class provides nattable to edit the changes in nattable
@@ -50,6 +61,10 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
+		
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
+				DisplayMode.EDIT);
+		registerErrorHandlingStyles(configRegistry);
 	}
 
 	/**
@@ -64,6 +79,9 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR,
 				new ComboBoxCellEditor(Arrays.asList(new String[] { "Horizontal", "Vertical", "Deviated", "S-Well" })),
 				DisplayMode.EDIT, ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
+				DisplayMode.EDIT);
+		registerErrorHandlingStyles(configRegistry);
 	}
 
 	/**
@@ -77,7 +95,9 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
-
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
+				DisplayMode.EDIT);
+		registerErrorHandlingStyles(configRegistry);
 	}
 
 	/**
@@ -91,5 +111,23 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
+				DisplayMode.EDIT);
+		registerErrorHandlingStyles(configRegistry);
+		
+		
+	}
+
+	
+
+	private void registerErrorHandlingStyles(IConfigRegistry configRegistry) {
+		IStyle validationErrorStyle = new Style();
+		validationErrorStyle.setAttributeValue(
+				CellStyleAttributes.BACKGROUND_COLOR, 
+				GUIHelper.COLOR_RED);
+		validationErrorStyle.setAttributeValue(
+				CellStyleAttributes.FOREGROUND_COLOR, 
+				GUIHelper.COLOR_WHITE);
+		configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, validationErrorStyle, DisplayMode.NORMAL, "INVALID");
 	}
 }
