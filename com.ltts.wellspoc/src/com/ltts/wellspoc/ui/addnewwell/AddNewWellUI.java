@@ -38,7 +38,8 @@ public class AddNewWellUI {
 	public Button wellTypeVerticalRadio;
 	public Button wellTypeDeviatedRadio;
 	public Button wellTypeSWellRadio;
-
+	public Button restoreButton;
+	
 	public String selectedRadio = "Horizontal";
 	public String selectedReservoir;
 	public String selectedField;
@@ -157,6 +158,12 @@ public class AddNewWellUI {
 		wellTypeSWellRadio = new Button(radioComposite, SWT.RADIO);
 		wellTypeSWellRadio.setText("S-Well");
 
+		// Restore defaults
+		restoreButton = new Button(addWellPageContainer, GridData.VERTICAL_ALIGN_END);
+		restoreButton.setText("Restore defaults");
+	    GridData restoreButtonGridData = new GridData(SWT.RIGHT, SWT.BOTTOM, true, true);
+	    restoreButton.setLayoutData(restoreButtonGridData);
+
 		isCheckBoxSelected(false);
 	}
 
@@ -196,6 +203,7 @@ public class AddNewWellUI {
 		wellTypeVerticalRadio.setEnabled(isChecked);
 		wellTypeHorizontalRadio.setEnabled(isChecked);
 		wellTypeDeviatedRadio.setEnabled(isChecked);
+		restoreButton.setEnabled(isChecked);
 	}
 
 	/**

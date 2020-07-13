@@ -1,11 +1,10 @@
 package com.ltts.wellspoc.ui.wellselection;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -18,6 +17,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * Synchronize UI and model instance.
@@ -31,6 +31,10 @@ public class WellSelectionUISupport {
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Table wellTable;
+
+	String[] headers = { "Well Selection", "Well Name", "Well Type" };
+	String[] methodNames = { "isChecked", "WellPlanName", "Type" };
+	int[] width = { 90, 240, 240 };
 
 	public WellSelectionUISupport(WellSelectionUI wellSelectionUI, Well wellModel) {
 		this.wellSelectionUI = wellSelectionUI;
@@ -55,7 +59,6 @@ public class WellSelectionUISupport {
 				}
 			}
 		});
-//		}
 	}
 
 	/**
@@ -82,43 +85,32 @@ public class WellSelectionUISupport {
 	}
 
 	/**
-	 * Creates the column for wellTable with two columns Well Selection and Well
-	 * Name.
+	 * provides the data for wellTable.
 	 * 
 	 * @param wellTable
 	 */
 	private void createColumns(Table wellTable) {
-		TableLayout layout = new TableLayout();
+		for (int i = 0; i < headers.length; i++) {
+			TableViewerColumn column = createTableViewerColumn(headers[i], width[i]);
+			column.setLabelProvider(new ColumnLabelProvider() {
+				@Override
+				public String getText(Object element) {
+					Well well = (Well) element;
+					for (int i = 1; i < headers.length; i++) {
+						try {
+							if ((column.getColumn().toString()).equals("TableColumn {" + headers[i] + "}")) {
+								Method getterMethod = well.getClass().getMethod("get" + methodNames[i]);
+								return (String) getterMethod.invoke(well);
+							}
+						} catch (Exception e) {
+							MessagesUtil.logError(WellSelectionUISupport.class.getName(), e.getMessage());
+						}
+					}
+					return null;
+				}
+			});
+		}
 
-		layout.addColumnData(new ColumnWeightData(100, true));
-		layout.addColumnData(new ColumnWeightData(250, true));
-		layout.addColumnData(new ColumnWeightData(250, true));
-		wellTable.setLayout(layout);
-
-		// First column - Well Selection
-		TableViewerColumn tableViewerColumn = createTableViewerColumn("Well Selection");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return " ";
-			}
-		});
-		// Second column - Well Name
-		tableViewerColumn = createTableViewerColumn("Well Name");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return ((Well) element).getWellPlanName();
-			}
-		});
-		// Third column - Well Type
-		tableViewerColumn = createTableViewerColumn("Well Type");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return ((Well) element).getType();
-			}
-		});
 	}
 
 	/**
@@ -127,10 +119,11 @@ public class WellSelectionUISupport {
 	 * @param name
 	 * @return
 	 */
-	private TableViewerColumn createTableViewerColumn(String name) {
+	private TableViewerColumn createTableViewerColumn(String name, int width) {
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(viewer, SWT.CENTER);
 		TableColumn tableColumn = tableViewerColumn.getColumn();
 		tableColumn.setText(name);
+		tableColumn.setWidth(width);
 		tableColumn.setMoveable(true);
 
 		return tableViewerColumn;

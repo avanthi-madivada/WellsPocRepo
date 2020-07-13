@@ -134,6 +134,24 @@ public class AddNewWellUISupport {
 			}
 		});
 
+		addNewWellUI.restoreButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				addNewWellUI.wellNameText.setText("");
+				addNewWellUI.eastingText.setText("");
+				addNewWellUI.northingText.setText("");
+				addNewWellUI.azimuthText.setText("");
+				addNewWellUI.wellTypeHorizontalRadio.setSelection(true);
+				addNewWellUI.wellTypeDeviatedRadio.setSelection(false);
+				addNewWellUI.wellTypeVerticalRadio.setSelection(false);
+				addNewWellUI.wellTypeSWellRadio.setSelection(false);
+				addNewWellUI.reservoirCombo.deselectAll();
+				addNewWellUI.fieldCombo.deselectAll();
+
+			}
+
+		});
 	}
 
 }
