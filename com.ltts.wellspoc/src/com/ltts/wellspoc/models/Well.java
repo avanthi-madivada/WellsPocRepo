@@ -13,6 +13,7 @@ public class Well {
 	private String reservoir;
 	private String type;
 	private boolean isChecked;
+	private boolean checkBoxState;
 
 	/**
 	 * @return WellName
@@ -118,6 +119,14 @@ public class Well {
 
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
+	}
+
+	public boolean checkBoxState() {
+		return checkBoxState;
+	}
+
+	public void setcheckBoxState(boolean checkBoxState) {
+		this.checkBoxState = checkBoxState;
 	}
 
 	public Well() {

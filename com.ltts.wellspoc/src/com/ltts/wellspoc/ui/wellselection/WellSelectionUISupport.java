@@ -31,14 +31,17 @@ public class WellSelectionUISupport {
 	private TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Table wellTable;
+	Well wellModel;
 
 	String[] headers = { "Well Selection", "Well Name", "Well Type" };
 	String[] methodNames = { "isChecked", "WellPlanName", "Type" };
-	int[] width = { 90, 240, 240 };
+	int[] width = { 90, 280, 280 };
 
 	public WellSelectionUISupport(WellSelectionUI wellSelectionUI, Well wellModel) {
 		this.wellSelectionUI = wellSelectionUI;
+		this.wellModel = wellModel;
 		wellTable = createTable(wellSelectionUI.wellSelectionContainer);
+
 		viewer.setInput(wellData);
 		changeUIFromModel();
 		addModifyListener();
@@ -49,6 +52,19 @@ public class WellSelectionUISupport {
 	 */
 	private void addModifyListener() {
 
+		wellSelectionUI.checkBoxButton.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (wellSelectionUI.getCheckBoxButton().getSelection() == true) {
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(true);
+				} else {
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(false);
+				}
+				changeUIFromModel();
+			}
+		});
+
 		wellTable.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -56,6 +72,7 @@ public class WellSelectionUISupport {
 				if (e.detail == SWT.CHECK) {
 					TableItem item = (TableItem) e.item;
 					WellSelectionModelMgr.INSTANCE.changeModelFromUI(item);
+					WellSelectionModelMgr.INSTANCE.changeCheckboxState();
 				}
 			}
 		});
@@ -69,10 +86,13 @@ public class WellSelectionUISupport {
 	 */
 	protected Table createTable(Composite parent) {
 		viewer = new TableViewer(parent, SWT.BORDER | SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL);
+
 		Table wellTable = viewer.getTable();
 		createColumns(wellTable);
 		wellTable.setHeaderVisible(true);
+
 		wellTable.setLinesVisible(true);
+
 		// Get the content for the viewer.
 		viewer.setContentProvider(new IStructuredContentProvider() {
 			@Override
@@ -92,12 +112,14 @@ public class WellSelectionUISupport {
 	private void createColumns(Table wellTable) {
 		for (int i = 0; i < headers.length; i++) {
 			TableViewerColumn column = createTableViewerColumn(headers[i], width[i]);
+
 			column.setLabelProvider(new ColumnLabelProvider() {
 				@Override
 				public String getText(Object element) {
 					Well well = (Well) element;
 					for (int i = 1; i < headers.length; i++) {
 						try {
+
 							if ((column.getColumn().toString()).equals("TableColumn {" + headers[i] + "}")) {
 								Method getterMethod = well.getClass().getMethod("get" + methodNames[i]);
 								return (String) getterMethod.invoke(well);
@@ -133,10 +155,14 @@ public class WellSelectionUISupport {
 	 * changes the state of check box in UI.
 	 */
 	private void changeUIFromModel() {
+		wellSelectionUI = WellSelectionViewMgr.INSTANCE.getWellSelectionUI();
+
 		for (TableItem item : wellTable.getItems()) {
 			Well wellData = (Well) item.getData();
 			item.setChecked(wellData.isChecked());
 		}
+
+		wellSelectionUI.checkBoxButton.setSelection(wellModel.checkBoxState());
 	}
 
 }

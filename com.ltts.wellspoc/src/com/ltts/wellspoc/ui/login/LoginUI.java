@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+
 /**
  * Class to create UI widgets for login page.
  * 
@@ -41,7 +42,7 @@ public class LoginUI {
 		gridDataUserNameText.widthHint = 100;
 		userNameText.setLayoutData(gridDataUserNameText);
 		userNameText.setTextLimit(15);
-		userNameText.setToolTipText("Default Username is 'admin'");
+		userNameText.setToolTipText("Default Username is 'admin'.");
 
 		// Password
 		Label passwordLabel = new Label(userAuthenticationContainer, SWT.NONE);
@@ -55,7 +56,7 @@ public class LoginUI {
 		gridDataPasswordText.widthHint = 100;
 		passwordText.setLayoutData(gridDataPasswordText);
 		passwordText.setTextLimit(15);
-		passwordText.setToolTipText("Default Password is 'admin'");
+		passwordText.setToolTipText("Default Password is 'admin'.");
 
 		changeUIFromModel();
 	}
