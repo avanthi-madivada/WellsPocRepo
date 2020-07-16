@@ -22,6 +22,7 @@ public enum WellSelectionModelMgr {
 
 	Well wellModel;
 	WellSelectionUI wellSelectionUI;
+	WellSelectionUISupport wellSelectionUISupport;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 
@@ -85,7 +86,7 @@ public enum WellSelectionModelMgr {
 	 * unchecked in well table and vice-versa.
 	 */
 	public void changeCheckboxState() {
-		wellSelectionUI = WellSelectionViewMgr.INSTANCE.getWellSelectionUI();
+		wellSelectionUISupport = WellSelectionViewMgr.INSTANCE.getWellSelectionUISupport();
 
 		boolean checkBoxState = true;
 		for (int i = 0; i < wellData.size(); i++) {
@@ -96,9 +97,9 @@ public enum WellSelectionModelMgr {
 		}
 		wellModel.setcheckBoxState(checkBoxState);
 		if (!checkBoxState) {
-			wellSelectionUI.getCheckBoxButton().setSelection(false);
+			wellSelectionUISupport.viewer.getTable().getColumn(0).setImage(wellSelectionUISupport.imageUnChecked);
 		} else {
-			wellSelectionUI.getCheckBoxButton().setSelection(true);
+			wellSelectionUISupport.viewer.getTable().getColumn(0).setImage(wellSelectionUISupport.imageChecked);
 		}
 		notifyListeners(this, "", "", "");
 	}

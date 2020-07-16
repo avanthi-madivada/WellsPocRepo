@@ -10,7 +10,10 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -28,14 +31,22 @@ import com.ltts.wellspoc.ui.util.MessagesUtil;
 public class WellSelectionUISupport {
 
 	WellSelectionUI wellSelectionUI;
-	private TableViewer viewer;
+	protected TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Table wellTable;
 	Well wellModel;
 
-	String[] headers = { "Well Selection", "Well Name", "Well Type" };
-	String[] methodNames = { "isChecked", "WellPlanName", "Type" };
-	int[] width = { 90, 280, 280 };
+	private Device device = Display.getCurrent();;
+
+	String[] headers = { " ", "Well Name", "Well Type" };
+	String[] methodNames = { " ", "WellPlanName", "Type" };
+	int[] width = { 28, 300, 300 };
+
+	Image imageUnChecked = new Image(device,
+			"C:\\Users\\40006037\\Desktop\\wellspoc_07_07 _latest\\WellsPocRepo\\com.ltts.wellspoc\\icons\\unchecked.gif");
+
+	Image imageChecked = new Image(device,
+			"C:\\Users\\40006037\\Desktop\\wellspoc_07_07 _latest\\WellsPocRepo\\com.ltts.wellspoc\\icons\\checked.gif");
 
 	public WellSelectionUISupport(WellSelectionUI wellSelectionUI, Well wellModel) {
 		this.wellSelectionUI = wellSelectionUI;
@@ -52,19 +63,6 @@ public class WellSelectionUISupport {
 	 */
 	private void addModifyListener() {
 
-		wellSelectionUI.checkBoxButton.addSelectionListener(new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (wellSelectionUI.getCheckBoxButton().getSelection() == true) {
-					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(true);
-				} else {
-					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(false);
-				}
-				changeUIFromModel();
-			}
-		});
-
 		wellTable.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -74,6 +72,24 @@ public class WellSelectionUISupport {
 					WellSelectionModelMgr.INSTANCE.changeModelFromUI(item);
 					WellSelectionModelMgr.INSTANCE.changeCheckboxState();
 				}
+			}
+		});
+
+		viewer.getTable().getColumn(0).addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				if (viewer.getTable().getColumn(0).getImage().equals(imageChecked)) {
+
+					viewer.getTable().getColumn(0).setImage(imageUnChecked);
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(false);
+				} else {
+
+					viewer.getTable().getColumn(0).setImage(imageChecked);
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(true);
+				}
+
+				changeUIFromModel();
 			}
 		});
 	}
@@ -148,6 +164,8 @@ public class WellSelectionUISupport {
 		tableColumn.setWidth(width);
 		tableColumn.setMoveable(true);
 
+		viewer.getTable().getColumn(0).setImage(imageUnChecked);
+
 		return tableViewerColumn;
 	}
 
@@ -156,13 +174,17 @@ public class WellSelectionUISupport {
 	 */
 	private void changeUIFromModel() {
 		wellSelectionUI = WellSelectionViewMgr.INSTANCE.getWellSelectionUI();
-
 		for (TableItem item : wellTable.getItems()) {
 			Well wellData = (Well) item.getData();
 			item.setChecked(wellData.isChecked());
 		}
+		if (wellModel.checkBoxState()) {
+			viewer.getTable().getColumn(0).setImage(imageChecked);
 
-		wellSelectionUI.checkBoxButton.setSelection(wellModel.checkBoxState());
+		} else {
+
+			viewer.getTable().getColumn(0).setImage(imageUnChecked);
+		}
 	}
 
 }

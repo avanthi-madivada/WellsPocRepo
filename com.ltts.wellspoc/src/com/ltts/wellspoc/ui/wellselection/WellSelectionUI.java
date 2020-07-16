@@ -3,7 +3,6 @@ package com.ltts.wellspoc.ui.wellselection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -16,8 +15,6 @@ import org.eclipse.swt.widgets.Label;
 public class WellSelectionUI {
 
 	Composite wellSelectionContainer;
-	Composite selectionContainer;
-	Button checkBoxButton;
 
 	/**
 	 * Creates UI widgets
@@ -31,13 +28,7 @@ public class WellSelectionUI {
 		wellSelectionContainer.setLayout(layout);
 		wellSelectionContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		selectionContainer = new Composite(wellSelectionContainer, SWT.FILL);
-		GridLayout selectionLayout = new GridLayout(2, false);
-		selectionContainer.setLayout(selectionLayout);
-
-		checkBoxButton = new Button(selectionContainer, SWT.CHECK);
-
-		Label welltabelLabel = new Label(selectionContainer, SWT.NONE);
+		Label welltabelLabel = new Label(wellSelectionContainer, SWT.NONE);
 		welltabelLabel.setText("Select the wells to view the details:");
 
 	}
@@ -50,13 +41,6 @@ public class WellSelectionUI {
 		gridData.horizontalAlignment = GridData.FILL;
 		gridData.heightHint = 100;
 		return gridData;
-	}
-
-	/**
-	 * @return checkBoxButton
-	 */
-	public Button getCheckBoxButton() {
-		return checkBoxButton;
 	}
 
 	/**

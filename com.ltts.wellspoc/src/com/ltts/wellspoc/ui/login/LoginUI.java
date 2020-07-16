@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-
 /**
  * Class to create UI widgets for login page.
  * 

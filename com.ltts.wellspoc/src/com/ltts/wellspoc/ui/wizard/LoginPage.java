@@ -107,6 +107,9 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		return isValid;
 	}
 
+	/**
+	 * Validates the user and returns the next page.
+	 */
 	@Override
 	public IWizardPage getNextPage() {
 		if (isValid()) {
@@ -115,6 +118,9 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		return null;
 	}
 
+	/**
+	 * @return false
+	 */
 	@Override
 	public boolean isPageComplete() {
 		return false;
