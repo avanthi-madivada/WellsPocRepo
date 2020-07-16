@@ -20,7 +20,7 @@ public class RowHeaderLayerStack extends AbstractLayerTransform {
      */
     public RowHeaderLayerStack(IDataProvider dataProvider) {
         DataLayer dataLayer = new DataLayer(dataProvider, 50, 20);
-        RowHeaderLayer rowHeaderLayer = new RowHeaderLayer(dataLayer,WellDetailsView.bodyLayer, WellDetailsView.bodyLayer.getSelectionLayer());
+        RowHeaderLayer rowHeaderLayer = new RowHeaderLayer(dataLayer,WellDetailsView.getBodyLayer(), WellDetailsView.getBodyLayer().getSelectionLayer());
         setUnderlyingLayer(rowHeaderLayer);
     }
 }

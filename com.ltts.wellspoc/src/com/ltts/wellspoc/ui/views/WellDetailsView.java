@@ -38,7 +38,16 @@ import com.ltts.wellspoc.models.WellDataProvider;
  */
 public class WellDetailsView extends ViewPart {
 
-	public static BodyLayerStack bodyLayer;
+	private static BodyLayerStack bodyLayer;
+	
+	public static BodyLayerStack getBodyLayer() {
+		return bodyLayer;
+	}
+
+	public static void setBodyLayer(BodyLayerStack bodyLayer) {
+		WellDetailsView.bodyLayer = bodyLayer;
+	}
+
 	private static NatTable natTable;
 	private List<Well> wellList = new ArrayList<Well>();
 	IDataProvider bodyDataProvider = null;
