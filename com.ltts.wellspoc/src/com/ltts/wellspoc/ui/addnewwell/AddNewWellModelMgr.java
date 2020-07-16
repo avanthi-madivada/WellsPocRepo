@@ -199,7 +199,7 @@ public enum AddNewWellModelMgr {
 
 			for (int i = 0; i < wellData.size(); i++) {
 
-				if (wellData.get(i).getWellPlanName().equals(addNewWellUI.wellNameText.getText())) {
+				if (isValidWellName()) {
 					MessagesUtil.displayErrorDialog(addNewWellUI.wellNameText.getText() + " already exists");
 					isValidWellName = false;
 					break;
@@ -224,6 +224,20 @@ public enum AddNewWellModelMgr {
 		}
 
 		return isFinishEnabled;
+	}
+
+	/**
+	 * return true if the well name is unique.
+	 * 
+	 * @return
+	 */
+	public boolean isValidWellName() {
+		for (int i = 0; i < wellData.size(); i++) {
+			if (wellData.get(i).getWellPlanName().equals(addNewWellUI.wellNameText.getText())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private IViewPart getWellDetailsViewInstance() {
