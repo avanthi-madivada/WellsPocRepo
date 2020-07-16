@@ -148,7 +148,8 @@ public class AddNewWellUISupport {
 				addNewWellUI.wellTypeSWellRadio.setSelection(false);
 				addNewWellUI.reservoirCombo.deselectAll();
 				addNewWellUI.fieldCombo.deselectAll();
-
+				addNewWellUI.selectedField = "";
+				addNewWellUI.selectedReservoir = "";
 			}
 
 		});
