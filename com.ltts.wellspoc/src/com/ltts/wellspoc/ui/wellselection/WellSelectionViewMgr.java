@@ -16,6 +16,7 @@ public enum WellSelectionViewMgr {
 
 	WellSelectionUI wellSelectionUI;
 	Well wellModel;
+	WellSelectionUISupport wellSelectionUISupport;
 
 	/**
 	 * instantiates model instance and updates UI with the values.
@@ -27,7 +28,7 @@ public enum WellSelectionViewMgr {
 
 		wellSelectionUI = new WellSelectionUI(parent);
 		wellModel = WellSelectionModelMgr.INSTANCE.getWellModel();
-		new WellSelectionUISupport(wellSelectionUI, wellModel);
+		wellSelectionUISupport = new WellSelectionUISupport(wellSelectionUI, wellModel);
 
 		return wellSelectionUI.getWellSelectionContainer();
 	}
@@ -39,6 +40,10 @@ public enum WellSelectionViewMgr {
 	 */
 	public WellSelectionUI getWellSelectionUI() {
 		return wellSelectionUI;
+	}
+
+	public WellSelectionUISupport getWellSelectionUISupport() {
+		return wellSelectionUISupport;
 	}
 
 }

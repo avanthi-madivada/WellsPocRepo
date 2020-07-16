@@ -1,23 +1,26 @@
 package com.ltts.wellspoc.ui.wellselection;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * Synchronize UI and model instance.
@@ -28,13 +31,25 @@ import com.ltts.wellspoc.models.WellDataProvider;
 public class WellSelectionUISupport {
 
 	WellSelectionUI wellSelectionUI;
-	private TableViewer viewer;
+	protected TableViewer viewer;
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	Table wellTable;
+	Well wellModel;
+
+	private Device device = Display.getCurrent();;
+
+	String[] headers = { " ", "Well Name", "Well Type" };
+	String[] methodNames = { " ", "WellPlanName", "Type" };
+	int[] width = { 28, 300, 300 };
+
+	Image imageUnChecked = new Image(device, getClass().getResourceAsStream("/icons/unchecked.gif"));
+	Image imageChecked = new Image(device, getClass().getResourceAsStream("/icons/checked.gif"));
 
 	public WellSelectionUISupport(WellSelectionUI wellSelectionUI, Well wellModel) {
 		this.wellSelectionUI = wellSelectionUI;
+		this.wellModel = wellModel;
 		wellTable = createTable(wellSelectionUI.wellSelectionContainer);
+
 		viewer.setInput(wellData);
 		changeUIFromModel();
 		addModifyListener();
@@ -52,10 +67,28 @@ public class WellSelectionUISupport {
 				if (e.detail == SWT.CHECK) {
 					TableItem item = (TableItem) e.item;
 					WellSelectionModelMgr.INSTANCE.changeModelFromUI(item);
+					WellSelectionModelMgr.INSTANCE.changeCheckboxState();
 				}
 			}
 		});
-//		}
+
+		viewer.getTable().getColumn(0).addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				if (viewer.getTable().getColumn(0).getImage().equals(imageChecked)) {
+
+					viewer.getTable().getColumn(0).setImage(imageUnChecked);
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(false);
+				} else {
+
+					viewer.getTable().getColumn(0).setImage(imageChecked);
+					WellSelectionModelMgr.INSTANCE.updateModelForCheckBox(true);
+				}
+
+				changeUIFromModel();
+			}
+		});
 	}
 
 	/**
@@ -66,10 +99,13 @@ public class WellSelectionUISupport {
 	 */
 	protected Table createTable(Composite parent) {
 		viewer = new TableViewer(parent, SWT.BORDER | SWT.CHECK | SWT.H_SCROLL | SWT.V_SCROLL);
+
 		Table wellTable = viewer.getTable();
 		createColumns(wellTable);
 		wellTable.setHeaderVisible(true);
+
 		wellTable.setLinesVisible(true);
+
 		// Get the content for the viewer.
 		viewer.setContentProvider(new IStructuredContentProvider() {
 			@Override
@@ -82,43 +118,34 @@ public class WellSelectionUISupport {
 	}
 
 	/**
-	 * Creates the column for wellTable with two columns Well Selection and Well
-	 * Name.
+	 * provides the data for wellTable.
 	 * 
 	 * @param wellTable
 	 */
 	private void createColumns(Table wellTable) {
-		TableLayout layout = new TableLayout();
+		for (int i = 0; i < headers.length; i++) {
+			TableViewerColumn column = createTableViewerColumn(headers[i], width[i]);
 
-		layout.addColumnData(new ColumnWeightData(100, true));
-		layout.addColumnData(new ColumnWeightData(250, true));
-		layout.addColumnData(new ColumnWeightData(250, true));
-		wellTable.setLayout(layout);
+			column.setLabelProvider(new ColumnLabelProvider() {
+				@Override
+				public String getText(Object element) {
+					Well well = (Well) element;
+					for (int i = 1; i < headers.length; i++) {
+						try {
 
-		// First column - Well Selection
-		TableViewerColumn tableViewerColumn = createTableViewerColumn("Well Selection");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return " ";
-			}
-		});
-		// Second column - Well Name
-		tableViewerColumn = createTableViewerColumn("Well Name");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return ((Well) element).getWellPlanName();
-			}
-		});
-		// Third column - Well Type
-		tableViewerColumn = createTableViewerColumn("Well Type");
-		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return ((Well) element).getType();
-			}
-		});
+							if ((column.getColumn().toString()).equals("TableColumn {" + headers[i] + "}")) {
+								Method getterMethod = well.getClass().getMethod("get" + methodNames[i]);
+								return (String) getterMethod.invoke(well);
+							}
+						} catch (Exception e) {
+							MessagesUtil.logError(WellSelectionUISupport.class.getName(), e.getMessage());
+						}
+					}
+					return null;
+				}
+			});
+		}
+
 	}
 
 	/**
@@ -127,11 +154,14 @@ public class WellSelectionUISupport {
 	 * @param name
 	 * @return
 	 */
-	private TableViewerColumn createTableViewerColumn(String name) {
+	private TableViewerColumn createTableViewerColumn(String name, int width) {
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(viewer, SWT.CENTER);
 		TableColumn tableColumn = tableViewerColumn.getColumn();
 		tableColumn.setText(name);
-		tableColumn.setMoveable(true);
+		tableColumn.setWidth(width);
+
+		viewer.getTable().getColumn(0).setResizable(false);
+		viewer.getTable().getColumn(0).setImage(imageUnChecked);
 
 		return tableViewerColumn;
 	}
@@ -140,9 +170,17 @@ public class WellSelectionUISupport {
 	 * changes the state of check box in UI.
 	 */
 	private void changeUIFromModel() {
+		wellSelectionUI = WellSelectionViewMgr.INSTANCE.getWellSelectionUI();
 		for (TableItem item : wellTable.getItems()) {
 			Well wellData = (Well) item.getData();
 			item.setChecked(wellData.isChecked());
+		}
+		if (wellModel.checkBoxState()) {
+			viewer.getTable().getColumn(0).setImage(imageChecked);
+
+		} else {
+
+			viewer.getTable().getColumn(0).setImage(imageUnChecked);
 		}
 	}
 

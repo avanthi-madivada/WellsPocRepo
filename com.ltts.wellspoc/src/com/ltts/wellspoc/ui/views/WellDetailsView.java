@@ -30,7 +30,6 @@ import com.ltts.wellspoc.dataprovider.RowHeaderLayerStack;
 import com.ltts.wellspoc.dataprovider.WellEditConfiguration;
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
-import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
 
 /**
  * @author Deepika KS WellDetailsView is a subclass of ViewPart which is used to

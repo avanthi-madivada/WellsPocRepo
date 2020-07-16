@@ -94,19 +94,22 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
 				&& !LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
 
-			MessagesUtil.displayErrorDialog("Incorrect username and password");
+			MessagesUtil.displayErrorDialog("Your username and password is incorrect. Please try again.");
 
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)) {
 
-			MessagesUtil.displayErrorDialog("Incorrect username");
+			MessagesUtil.displayErrorDialog("Your username is incorrect. Please try again.");
 
 		} else if (!LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
 
-			MessagesUtil.displayErrorDialog("Incorrect password");
+			MessagesUtil.displayErrorDialog("Your password is incorrect. Please try again.");
 		}
 		return isValid;
 	}
 
+	/**
+	 * Validates the user and returns the next page.
+	 */
 	@Override
 	public IWizardPage getNextPage() {
 		if (isValid()) {
@@ -115,6 +118,9 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 		return null;
 	}
 
+	/**
+	 * @return false
+	 */
 	@Override
 	public boolean isPageComplete() {
 		return false;

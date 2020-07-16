@@ -80,12 +80,18 @@ public class WellsPage extends WizardPage implements PropertyChangeListener {
 		}
 	}
 
+	/**
+	 * returns addNewWellPage.
+	 */
 	@Override
 	public IWizardPage getNextPage() {
 		return WellsWizard.addNewWellPage;
 
 	}
 
+	/**
+	 * @return false.
+	 */
 	@Override
 	public boolean isPageComplete() {
 		return false;

@@ -23,8 +23,6 @@ public class WellsWizard extends Wizard {
 	static WellsPage wellsPage;
 	static AddNewWellPage addNewWellPage;
 
-	List<Well> selectedWellsList = new ArrayList<Well>();
-	Well well = new Well();
 	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
 
 	boolean isFinishEnabled;
@@ -74,13 +72,13 @@ public class WellsWizard extends Wizard {
 	@Override
 	public boolean canFinish() {
 		isValid = false;
-		
-		if(getContainer().getCurrentPage().isPageComplete()) {
+
+		if (getContainer().getCurrentPage().isPageComplete()) {
 			try {
-					if (AddNewWellModelMgr.INSTANCE.isValid()) {
-						isValid = true;
-					}
-				
+				if (AddNewWellModelMgr.INSTANCE.isValid()) {
+					isValid = true;
+				}
+
 			} catch (Exception e) {
 				MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
 			}
