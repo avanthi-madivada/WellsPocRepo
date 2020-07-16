@@ -4,7 +4,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
@@ -82,8 +81,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.reservoirCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int index = addNewWellUI.reservoirCombo.getSelectionIndex();
-				addNewWellUI.selectedReservoir = addNewWellUI.reservoirCombo.getItem(index);
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 
 			}
@@ -92,8 +89,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.fieldCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int index = addNewWellUI.fieldCombo.getSelectionIndex();
-				addNewWellUI.selectedField = addNewWellUI.fieldCombo.getItem(index);
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -101,8 +96,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.wellTypeHorizontalRadio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				addNewWellUI.wellTypeHorizontalRadio = (Button) e.getSource();
-				addNewWellUI.selectedRadio = addNewWellUI.wellTypeHorizontalRadio.getText();
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -110,8 +103,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.wellTypeVerticalRadio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				addNewWellUI.wellTypeVerticalRadio = (Button) e.getSource();
-				addNewWellUI.selectedRadio = addNewWellUI.wellTypeVerticalRadio.getText();
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -119,8 +110,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.wellTypeDeviatedRadio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				addNewWellUI.wellTypeDeviatedRadio = (Button) e.getSource();
-				addNewWellUI.selectedRadio = addNewWellUI.wellTypeDeviatedRadio.getText();
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -128,8 +117,6 @@ public class AddNewWellUISupport {
 		addNewWellUI.wellTypeSWellRadio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				addNewWellUI.wellTypeSWellRadio = (Button) e.getSource();
-				addNewWellUI.selectedRadio = addNewWellUI.wellTypeSWellRadio.getText();
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -148,8 +135,7 @@ public class AddNewWellUISupport {
 				addNewWellUI.wellTypeSWellRadio.setSelection(false);
 				addNewWellUI.reservoirCombo.deselectAll();
 				addNewWellUI.fieldCombo.deselectAll();
-				addNewWellUI.selectedField = "";
-				addNewWellUI.selectedReservoir = "";
+
 			}
 
 		});

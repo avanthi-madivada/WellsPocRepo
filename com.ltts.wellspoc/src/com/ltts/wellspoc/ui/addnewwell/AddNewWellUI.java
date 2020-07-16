@@ -40,10 +40,6 @@ public class AddNewWellUI {
 	public Button wellTypeSWellRadio;
 	public Button restoreButton;
 
-	public String selectedRadio = "Horizontal";
-	public String selectedReservoir;
-	public String selectedField;
-
 	// Min and Max value for azimuth.
 	Double azimuthMinValue = 0.0;
 	Double azimuthMaxValue = 360.0;
@@ -232,27 +228,6 @@ public class AddNewWellUI {
 	 */
 	public Text getAzimuthText() {
 		return azimuthText;
-	}
-
-	/**
-	 * @return selectedRadio
-	 */
-	public String getSelectedRadio() {
-		return selectedRadio;
-	}
-
-	/**
-	 * @return selectedReservoir
-	 */
-	public String getSelectedReservoir() {
-		return selectedReservoir;
-	}
-
-	/**
-	 * @return selectedField
-	 */
-	public String getSelectedField() {
-		return selectedField;
 	}
 
 	/**
