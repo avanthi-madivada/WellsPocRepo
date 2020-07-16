@@ -42,11 +42,8 @@ public class WellSelectionUISupport {
 	String[] methodNames = { " ", "WellPlanName", "Type" };
 	int[] width = { 28, 300, 300 };
 
-	Image imageUnChecked = new Image(device,
-			"C:\\Users\\40006037\\Desktop\\wellspoc_07_07 _latest\\WellsPocRepo\\com.ltts.wellspoc\\icons\\unchecked.gif");
-
-	Image imageChecked = new Image(device,
-			"C:\\Users\\40006037\\Desktop\\wellspoc_07_07 _latest\\WellsPocRepo\\com.ltts.wellspoc\\icons\\checked.gif");
+	Image imageUnChecked = new Image(device, getClass().getResourceAsStream("/icons/unchecked.gif"));
+	Image imageChecked = new Image(device, getClass().getResourceAsStream("/icons/checked.gif"));
 
 	public WellSelectionUISupport(WellSelectionUI wellSelectionUI, Well wellModel) {
 		this.wellSelectionUI = wellSelectionUI;
@@ -162,8 +159,8 @@ public class WellSelectionUISupport {
 		TableColumn tableColumn = tableViewerColumn.getColumn();
 		tableColumn.setText(name);
 		tableColumn.setWidth(width);
-		tableColumn.setMoveable(true);
 
+		viewer.getTable().getColumn(0).setResizable(false);
 		viewer.getTable().getColumn(0).setImage(imageUnChecked);
 
 		return tableViewerColumn;
