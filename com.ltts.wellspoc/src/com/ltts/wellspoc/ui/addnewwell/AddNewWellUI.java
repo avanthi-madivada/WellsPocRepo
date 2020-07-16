@@ -243,5 +243,4 @@ public class AddNewWellUI {
 	public Button getCheckBoxButton() {
 		return checkBoxButton;
 	}
-
 }

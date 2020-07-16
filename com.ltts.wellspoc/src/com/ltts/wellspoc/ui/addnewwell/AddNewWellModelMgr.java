@@ -286,5 +286,4 @@ public enum AddNewWellModelMgr {
 			return null;
 		}
 	}
-
 }

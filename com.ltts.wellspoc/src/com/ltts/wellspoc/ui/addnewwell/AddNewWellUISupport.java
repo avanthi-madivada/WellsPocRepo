@@ -137,7 +137,6 @@ public class AddNewWellUISupport {
 				addNewWellUI.fieldCombo.deselectAll();
 
 			}
-
 		});
 	}
 
