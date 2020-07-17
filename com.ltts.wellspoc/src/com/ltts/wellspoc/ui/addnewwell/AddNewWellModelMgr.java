@@ -97,18 +97,31 @@ public enum AddNewWellModelMgr {
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedField != null) {
-				wellModel.setField(AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedField);
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.fieldCombo.getText() != null) {
+				wellModel.setField(AddNewWellViewMgr.INSTANCE.addNewWellUI.fieldCombo.getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedReservoir != null) {
-				wellModel.setReservoir(AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedReservoir);
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.reservoirCombo.getText() != null) {
+				wellModel.setReservoir(AddNewWellViewMgr.INSTANCE.addNewWellUI.reservoirCombo.getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedRadio != null) {
-				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.selectedRadio);
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeHorizontalRadio.getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeHorizontalRadio.getText());
+				notifyListeners(this, "", "", "");
+			}
+
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeVerticalRadio.getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeVerticalRadio.getText());
+				notifyListeners(this, "", "", "");
+			}
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeDeviatedRadio.getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeDeviatedRadio.getText());
+				notifyListeners(this, "", "", "");
+			}
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeSWellRadio.getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeSWellRadio.getText());
 				notifyListeners(this, "", "", "");
 			}
 		} catch (Exception e) {
@@ -136,8 +149,9 @@ public enum AddNewWellModelMgr {
 			if (addNewWellUI.getWellNameText().getText().isEmpty()
 					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
 					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
-					|| (addNewWellUI.getAzimuthText().getText().isEmpty()) || addNewWellUI.getSelectedField().isEmpty()
-					|| addNewWellUI.getSelectedReservoir().isEmpty() || MessagesUtil.isValid == false) {
+					|| (addNewWellUI.getAzimuthText().getText().isEmpty())
+					|| addNewWellUI.fieldCombo.getText().isEmpty() || addNewWellUI.reservoirCombo.getText().isEmpty()
+					|| MessagesUtil.isValid == false) {
 
 				isValid = false;
 			}
@@ -174,9 +188,9 @@ public enum AddNewWellModelMgr {
 			well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
 			well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
 			well.setAzimuth(Double.parseDouble(addNewWellUI.azimuthText.getText()));
-			well.setField(addNewWellUI.selectedField);
-			well.setReservoir(addNewWellUI.selectedReservoir);
-			well.setType(addNewWellUI.selectedRadio);
+			well.setField(addNewWellUI.fieldCombo.getText());
+			well.setReservoir(addNewWellUI.reservoirCombo.getText());
+			well.setType(setWellType());
 			well.setChecked(true);
 
 			wellData.add(well);
@@ -184,6 +198,27 @@ public enum AddNewWellModelMgr {
 			isFinishEnabled = true;
 
 		}
+	}
+
+	/**
+	 * checks for the selected radio button and returns the appropriate text.
+	 * 
+	 * @return
+	 */
+	private String setWellType() {
+		if (addNewWellUI.wellTypeHorizontalRadio.getSelection() == true) {
+			return addNewWellUI.wellTypeHorizontalRadio.getText();
+		}
+		if (addNewWellUI.wellTypeVerticalRadio.getSelection() == true) {
+			return addNewWellUI.wellTypeVerticalRadio.getText();
+		}
+		if (addNewWellUI.wellTypeDeviatedRadio.getSelection() == true) {
+			return addNewWellUI.wellTypeDeviatedRadio.getText();
+		}
+		if (addNewWellUI.wellTypeSWellRadio.getSelection() == true) {
+			return addNewWellUI.wellTypeSWellRadio.getText();
+		}
+		return null;
 	}
 
 	/**
@@ -251,5 +286,4 @@ public enum AddNewWellModelMgr {
 			return null;
 		}
 	}
-
 }
