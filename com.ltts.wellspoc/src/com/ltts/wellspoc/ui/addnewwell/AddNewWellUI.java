@@ -33,6 +33,7 @@ public class AddNewWellUI {
 	private Combo fieldCombo;
 	private Label reservoirLabel;
 	private Combo reservoirCombo;
+	
 	public Group getAddwellGroup() {
 		return addwellGroup;
 	}
