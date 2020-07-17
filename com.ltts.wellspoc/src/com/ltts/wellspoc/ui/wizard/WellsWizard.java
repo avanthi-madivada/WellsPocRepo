@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.intro.IIntroPart;
 
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
@@ -23,7 +25,7 @@ public class WellsWizard extends Wizard {
 	static WellsPage wellsPage;
 	static AddNewWellPage addNewWellPage;
 
-	public static List<Well> getSelectedWellsList = new ArrayList<Well>();
+	private static List<Well> getSelectedWellsList = new ArrayList<Well>();
 
 	boolean isFinishEnabled;
 	boolean isValid;
@@ -59,6 +61,14 @@ public class WellsWizard extends Wizard {
 		isFinishEnabled = false;
 		if (getContainer().getCurrentPage().isPageComplete()) {
 			if (AddNewWellModelMgr.INSTANCE.finishPressed()) {
+				
+				//close the welcome page if its open
+				IIntroPart intro = PlatformUI.getWorkbench().getIntroManager().getIntro();
+				if (intro != null) 
+				{
+	             PlatformUI.getWorkbench().getIntroManager().closeIntro(intro);	            
+				} 
+				
 				isFinishEnabled = true;
 			}
 		}

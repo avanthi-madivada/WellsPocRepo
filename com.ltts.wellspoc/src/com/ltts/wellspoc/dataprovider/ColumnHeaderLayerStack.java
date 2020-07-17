@@ -20,7 +20,7 @@ public class ColumnHeaderLayerStack extends AbstractLayerTransform {
      */
     public ColumnHeaderLayerStack(IDataProvider dataProvider) {
         DataLayer dataLayer = new DataLayer(dataProvider);
-        ColumnHeaderLayer colHeaderLayer = new ColumnHeaderLayer(dataLayer,WellDetailsView.bodyLayer, WellDetailsView.bodyLayer.getSelectionLayer());
+        ColumnHeaderLayer colHeaderLayer = new ColumnHeaderLayer(dataLayer,WellDetailsView.getBodyLayer(), WellDetailsView.getBodyLayer().getSelectionLayer());
         setUnderlyingLayer(colHeaderLayer);
     }
 }
