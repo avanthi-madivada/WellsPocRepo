@@ -6,7 +6,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 import com.ltts.wellspoc.models.Well;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 /**
  * synchronize UI and model instance.
@@ -56,7 +55,10 @@ public class AddNewWellUISupport {
 		addNewWellUI.eastingText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				MessagesUtil.restrictEnteredChars(addNewWellUI.eastingText, Double.MIN_VALUE, Double.MAX_VALUE);
+
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.eastingText, Double.MIN_VALUE,
+						Double.MAX_VALUE);
+
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -64,8 +66,10 @@ public class AddNewWellUISupport {
 		addNewWellUI.azimuthText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				MessagesUtil.restrictEnteredChars(addNewWellUI.azimuthText, addNewWellUI.azimuthMinValue,
+
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.azimuthText, addNewWellUI.azimuthMinValue,
 						addNewWellUI.azimuthMaxValue);
+
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
@@ -73,7 +77,10 @@ public class AddNewWellUISupport {
 		addNewWellUI.northingText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				MessagesUtil.restrictEnteredChars(addNewWellUI.northingText, Double.MIN_VALUE, Double.MAX_VALUE);
+
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.northingText, Double.MIN_VALUE,
+						Double.MAX_VALUE);
+
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});

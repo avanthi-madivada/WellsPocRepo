@@ -5,6 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -36,6 +40,11 @@ public enum AddNewWellModelMgr {
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	public List<Well> selectedWellsList = new ArrayList<Well>();
 
+	
+	private static final Device device = Display.getCurrent();;
+	private static final Color red = new Color(device, 255, 0, 0);
+	private final static Color black = new Color(device, 0, 0, 0);
+	
 	/**
 	 * provides well Model instance.
 	 * 
@@ -274,6 +283,23 @@ public enum AddNewWellModelMgr {
 		}
 		return false;
 	}
+	
+	/**
+	 * validates the double value and sets the foreground accordingly.
+	 * 
+	 * @param textItem
+	 * @param minValue
+	 * @param maxValue
+	 */
+	public void checkValidDouble(Text textItem, Double minValue, Double maxValue) {
+		if (MessagesUtil.restrictEnteredChars(textItem.getText(), minValue,
+				maxValue)) {
+			textItem.setForeground(black);
+		} else {
+			textItem.setForeground(red);
+		}
+	}
+	
 
 	private IViewPart getWellDetailsViewInstance() {
 		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
