@@ -27,12 +27,12 @@ public class AddNewWellUISupport {
 	 * method to create listeners.
 	 */
 	private void addModifyListener() {
-		addNewWellUI.checkBoxButton.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getCheckBoxButton().addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 
-				if (addNewWellUI.checkBoxButton.getSelection() == true) {
+				if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
 					isChecked = true;
 					addNewWellUI.isCheckBoxSelected(isChecked);
 				} else {
@@ -45,47 +45,46 @@ public class AddNewWellUISupport {
 
 		});
 
-		addNewWellUI.wellNameText.addModifyListener(new ModifyListener() {
+		addNewWellUI.getWellNameText().addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.eastingText.addModifyListener(new ModifyListener() {
+		addNewWellUI.getEastingText().addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
 
-				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.eastingText, Double.MIN_VALUE,
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.getEastingText(), Double.MIN_VALUE,
+						Double.MAX_VALUE);
+				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
+			}
+		});
+
+		addNewWellUI.getAzimuthText().addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.getAzimuthText(),
+						addNewWellUI.azimuthMinValue, addNewWellUI.azimuthMaxValue);
+
+				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
+			}
+		});
+
+		addNewWellUI.getNorthingText().addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+
+				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.getNorthingText(), Double.MIN_VALUE,
 						Double.MAX_VALUE);
 
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.azimuthText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-
-				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.azimuthText, addNewWellUI.azimuthMinValue,
-						addNewWellUI.azimuthMaxValue);
-
-				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
-			}
-		});
-
-		addNewWellUI.northingText.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-
-				AddNewWellModelMgr.INSTANCE.checkValidDouble(addNewWellUI.northingText, Double.MIN_VALUE,
-						Double.MAX_VALUE);
-
-				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
-			}
-		});
-
-		addNewWellUI.reservoirCombo.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getReservoirCombo().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
@@ -93,55 +92,55 @@ public class AddNewWellUISupport {
 			}
 		});
 
-		addNewWellUI.fieldCombo.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getFieldCombo().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.wellTypeHorizontalRadio.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getWellTypeHorizontalRadio().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.wellTypeVerticalRadio.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getWellTypeVerticalRadio().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.wellTypeDeviatedRadio.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getWellTypeDeviatedRadio().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.wellTypeSWellRadio.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getWellTypeSWellRadio().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				AddNewWellModelMgr.INSTANCE.changeModelFromUI();
 			}
 		});
 
-		addNewWellUI.restoreButton.addSelectionListener(new SelectionAdapter() {
+		addNewWellUI.getRestoreButton().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				addNewWellUI.wellNameText.setText("");
-				addNewWellUI.eastingText.setText("");
-				addNewWellUI.northingText.setText("");
-				addNewWellUI.azimuthText.setText("");
-				addNewWellUI.wellTypeHorizontalRadio.setSelection(true);
-				addNewWellUI.wellTypeDeviatedRadio.setSelection(false);
-				addNewWellUI.wellTypeVerticalRadio.setSelection(false);
-				addNewWellUI.wellTypeSWellRadio.setSelection(false);
-				addNewWellUI.reservoirCombo.deselectAll();
-				addNewWellUI.fieldCombo.deselectAll();
+				addNewWellUI.getWellNameText().setText("");
+				addNewWellUI.getEastingText().setText("");
+				addNewWellUI.getNorthingText().setText("");
+				addNewWellUI.getAzimuthText().setText("");
+				addNewWellUI.getWellTypeHorizontalRadio().setSelection(true);
+				addNewWellUI.getWellTypeDeviatedRadio().setSelection(false);
+				addNewWellUI.getWellTypeVerticalRadio().setSelection(false);
+				addNewWellUI.getWellTypeSWellRadio().setSelection(false);
+				addNewWellUI.getReservoirCombo().deselectAll();
+				addNewWellUI.getFieldCombo().deselectAll();
 
 			}
 		});

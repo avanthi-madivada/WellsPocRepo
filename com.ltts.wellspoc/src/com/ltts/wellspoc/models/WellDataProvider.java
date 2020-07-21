@@ -29,7 +29,8 @@ public class WellDataProvider {
 		wellData.add(new Well("Well 7", 560107.6, 4444305.1, 320.0, "Ghawar", "Not Fm. 2 HD Top", "Horizontal", false));
 		wellData.add(new Well("Well 8", 530107.6, 32244305.1, 290.0, "Ghawar", "Not Fm. 2 HD Top", "Vertical", false));
 		wellData.add(new Well("Well 9", 550107.6, 6244305.1, 170.0, "Ghawar", "Not Fm. 2 HD Top", "Deviated", false));
-		wellData.add(new Well("Well 10", 580107.6, 6744305.1, 160.0, "Ghawar", "Not Fm. 2 HD Top", "Horizontal", false));
+		wellData.add(
+				new Well("Well 10", 580107.6, 6744305.1, 160.0, "Ghawar", "Not Fm. 2 HD Top", "Horizontal", false));
 
 	}
 

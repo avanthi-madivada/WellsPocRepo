@@ -38,7 +38,7 @@ public enum AddNewWellModelMgr {
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
-	public List<Well> selectedWellsList = new ArrayList<Well>();
+	private List<Well> selectedWellsList = new ArrayList<Well>();
 
 	private static final Device device = Display.getCurrent();;
 	private static final Color red = new Color(device, 255, 0, 0);
@@ -82,54 +82,54 @@ public enum AddNewWellModelMgr {
 
 		try {
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellNameText.getText() != null) {
-				wellModel.setWellPlanName(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellNameText.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellNameText().getText() != null) {
+				wellModel.setWellPlanName(AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellNameText().getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.northingText.getText()) != 0.0) {
+			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.getNorthingText().getText()) != 0.0) {
 				wellModel.setNorthing(
-						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.northingText.getText())));
+						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.getNorthingText().getText())));
 				notifyListeners(this, "", "", "");
 			}
 
-			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.eastingText.getText()) != 0.0) {
+			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.getEastingText().getText()) != 0.0) {
 				wellModel.setEasting(
-						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.eastingText.getText())));
+						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.getEastingText().getText())));
 				notifyListeners(this, "", "", "");
 			}
 
-			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.azimuthText.getText()) != 0.0) {
+			if (Double.parseDouble(AddNewWellViewMgr.INSTANCE.addNewWellUI.getAzimuthText().getText()) != 0.0) {
 				wellModel.setAzimuth(
-						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.azimuthText.getText())));
+						Double.parseDouble((AddNewWellViewMgr.INSTANCE.addNewWellUI.getAzimuthText().getText())));
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.fieldCombo.getText() != null) {
-				wellModel.setField(AddNewWellViewMgr.INSTANCE.addNewWellUI.fieldCombo.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getFieldCombo().getText() != null) {
+				wellModel.setField(AddNewWellViewMgr.INSTANCE.addNewWellUI.getFieldCombo().getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.reservoirCombo.getText() != null) {
-				wellModel.setReservoir(AddNewWellViewMgr.INSTANCE.addNewWellUI.reservoirCombo.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getReservoirCombo().getText() != null) {
+				wellModel.setReservoir(AddNewWellViewMgr.INSTANCE.addNewWellUI.getReservoirCombo().getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeHorizontalRadio.getSelection() == true) {
-				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeHorizontalRadio.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeHorizontalRadio().getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeHorizontalRadio().getText());
 				notifyListeners(this, "", "", "");
 			}
 
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeVerticalRadio.getSelection() == true) {
-				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeVerticalRadio.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeVerticalRadio().getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeVerticalRadio().getText());
 				notifyListeners(this, "", "", "");
 			}
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeDeviatedRadio.getSelection() == true) {
-				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeDeviatedRadio.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeDeviatedRadio().getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeDeviatedRadio().getText());
 				notifyListeners(this, "", "", "");
 			}
-			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeSWellRadio.getSelection() == true) {
-				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.wellTypeSWellRadio.getText());
+			if (AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeSWellRadio().getSelection() == true) {
+				wellModel.setType(AddNewWellViewMgr.INSTANCE.addNewWellUI.getWellTypeSWellRadio().getText());
 				notifyListeners(this, "", "", "");
 			}
 		} catch (Exception e) {
@@ -158,8 +158,8 @@ public enum AddNewWellModelMgr {
 					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
 					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
 					|| (addNewWellUI.getAzimuthText().getText().isEmpty())
-					|| addNewWellUI.fieldCombo.getText().isEmpty() || addNewWellUI.reservoirCombo.getText().isEmpty()
-					|| MessagesUtil.isValid == false) {
+					|| addNewWellUI.getFieldCombo().getText().isEmpty()
+					|| addNewWellUI.getReservoirCombo().getText().isEmpty() || MessagesUtil.isValid == false) {
 
 				isValid = false;
 			}
@@ -192,12 +192,12 @@ public enum AddNewWellModelMgr {
 
 		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
 
-			well.setWellPlanName(addNewWellUI.wellNameText.getText());
-			well.setEasting(Double.parseDouble(addNewWellUI.eastingText.getText()));
-			well.setNorthing(Double.parseDouble(addNewWellUI.northingText.getText()));
-			well.setAzimuth(Double.parseDouble(addNewWellUI.azimuthText.getText()));
-			well.setField(addNewWellUI.fieldCombo.getText());
-			well.setReservoir(addNewWellUI.reservoirCombo.getText());
+			well.setWellPlanName(addNewWellUI.getWellNameText().getText());
+			well.setEasting(Double.parseDouble(addNewWellUI.getEastingText().getText()));
+			well.setNorthing(Double.parseDouble(addNewWellUI.getNorthingText().getText()));
+			well.setAzimuth(Double.parseDouble(addNewWellUI.getAzimuthText().getText()));
+			well.setField(addNewWellUI.getFieldCombo().getText());
+			well.setReservoir(addNewWellUI.getReservoirCombo().getText());
 			well.setType(setWellType());
 			well.setChecked(true);
 
@@ -214,17 +214,17 @@ public enum AddNewWellModelMgr {
 	 * @return
 	 */
 	private String setWellType() {
-		if (addNewWellUI.wellTypeHorizontalRadio.getSelection() == true) {
-			return addNewWellUI.wellTypeHorizontalRadio.getText();
+		if (addNewWellUI.getWellTypeHorizontalRadio().getSelection() == true) {
+			return addNewWellUI.getWellTypeHorizontalRadio().getText();
 		}
-		if (addNewWellUI.wellTypeVerticalRadio.getSelection() == true) {
-			return addNewWellUI.wellTypeVerticalRadio.getText();
+		if (addNewWellUI.getWellTypeVerticalRadio().getSelection() == true) {
+			return addNewWellUI.getWellTypeVerticalRadio().getText();
 		}
-		if (addNewWellUI.wellTypeDeviatedRadio.getSelection() == true) {
-			return addNewWellUI.wellTypeDeviatedRadio.getText();
+		if (addNewWellUI.getWellTypeDeviatedRadio().getSelection() == true) {
+			return addNewWellUI.getWellTypeDeviatedRadio().getText();
 		}
-		if (addNewWellUI.wellTypeSWellRadio.getSelection() == true) {
-			return addNewWellUI.wellTypeSWellRadio.getText();
+		if (addNewWellUI.getWellTypeSWellRadio().getSelection() == true) {
+			return addNewWellUI.getWellTypeSWellRadio().getText();
 		}
 		return null;
 	}
@@ -241,9 +241,8 @@ public enum AddNewWellModelMgr {
 		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
 
 			for (int i = 0; i < wellData.size(); i++) {
-
-				if (isValidWellName(wellData.get(i).getWellPlanName(), addNewWellUI.wellNameText.getText())) {
-					MessagesUtil.displayErrorDialog(addNewWellUI.wellNameText.getText() + " already exists");
+				if (isValidWellName(wellData.get(i).getWellPlanName(), addNewWellUI.getWellNameText().getText())) {
+					MessagesUtil.displayErrorDialog(addNewWellUI.getWellNameText().getText() + " already exists");
 					isValidWellName = false;
 					break;
 				}
@@ -274,6 +273,7 @@ public enum AddNewWellModelMgr {
 	 * 
 	 * @return
 	 */
+
 	public boolean isValidWellName(String existWellName, String newWellName) {
 		if (existWellName.equals(newWellName)) {
 			return true;

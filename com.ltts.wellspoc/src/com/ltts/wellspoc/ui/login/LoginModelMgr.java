@@ -99,6 +99,7 @@ public enum LoginModelMgr {
 			MessagesUtil.displayErrorDialog("Your password is incorrect. Please try again.");
 		}
 		return isValid;
+
 	}
 
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {

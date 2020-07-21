@@ -94,5 +94,4 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	public boolean isPageComplete() {
 		return false;
 	}
-
 }

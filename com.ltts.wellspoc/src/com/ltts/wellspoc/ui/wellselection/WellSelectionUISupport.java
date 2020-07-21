@@ -105,6 +105,10 @@ public class WellSelectionUISupport {
 		wellTable.setHeaderVisible(true);
 
 		wellTable.setLinesVisible(true);
+		
+		//change color of column header
+		wellTable.setHeaderForeground(Display.getDefault().getSystemColor(SWT.COLOR_LINK_FOREGROUND));
+		wellTable.setHeaderBackground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
 
 		// Get the content for the viewer.
 		viewer.setContentProvider(new IStructuredContentProvider() {
@@ -138,7 +142,7 @@ public class WellSelectionUISupport {
 								return (String) getterMethod.invoke(well);
 							}
 						} catch (Exception e) {
-							MessagesUtil.logError(WellSelectionUISupport.class.getName(), e.getMessage());
+							MessagesUtil.logError(this.getClass().getName(), e.getMessage());
 						}
 					}
 					return null;

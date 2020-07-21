@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Shell;
  *
  */
 public class MessagesUtil {
+
 	// Gets the active shell.
 	private static Shell defaultShell = Display.getDefault().getActiveShell();
 	public static boolean isValid = true;

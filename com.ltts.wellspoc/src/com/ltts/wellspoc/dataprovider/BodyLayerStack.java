@@ -9,30 +9,30 @@ import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 
 /**
- * @author Deepika KS
- *  Subclass of AbstractLayerTransform which are expected to override methods in this
- * class to implement body layer transformations.
+ * @author Deepika KS Subclass of AbstractLayerTransform which are expected to
+ *         override methods in this class to implement body layer
+ *         transformations.
  */
 public class BodyLayerStack extends AbstractLayerTransform {
 
-    private SelectionLayer selectionLayer;
+	private SelectionLayer selectionLayer;
 
-    /**
-     * @param dataProvider
-     */
-    public BodyLayerStack(IDataProvider dataProvider) {
-        DataLayer bodyDataLayer = new DataLayer(dataProvider);
-        ColumnReorderLayer columnReorderLayer = new ColumnReorderLayer(bodyDataLayer);
-        ColumnHideShowLayer columnHideShowLayer = new ColumnHideShowLayer(columnReorderLayer);
-        this.selectionLayer = new SelectionLayer(columnHideShowLayer);
-        ViewportLayer viewportLayer = new ViewportLayer(this.selectionLayer);
-        setUnderlyingLayer(viewportLayer);
-    }
+	/**
+	 * @param dataProvider
+	 */
+	public BodyLayerStack(IDataProvider dataProvider) {
+		DataLayer bodyDataLayer = new DataLayer(dataProvider);
+		ColumnReorderLayer columnReorderLayer = new ColumnReorderLayer(bodyDataLayer);
+		ColumnHideShowLayer columnHideShowLayer = new ColumnHideShowLayer(columnReorderLayer);
+		this.selectionLayer = new SelectionLayer(columnHideShowLayer);
+		ViewportLayer viewportLayer = new ViewportLayer(this.selectionLayer);
+		setUnderlyingLayer(viewportLayer);
+	}
 
-    /**
-     * @return SelectionLayer
-     */
-    public SelectionLayer getSelectionLayer() {
-        return this.selectionLayer;
-    }
+	/**
+	 * @return SelectionLayer
+	 */
+	public SelectionLayer getSelectionLayer() {
+		return this.selectionLayer;
+	}
 }

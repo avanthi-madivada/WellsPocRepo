@@ -89,7 +89,7 @@
             </command>
             <command
                   commandId="com.ltts.wellspoc.welldetailscommand"
-                  icon="icons/add_correction.png"
+                  icon="icons/showdetails.png"
                   label="Show Well Details"
                   style="push"
                   tooltip="Show Well Details">

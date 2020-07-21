@@ -101,7 +101,7 @@ public enum WellSelectionModelMgr {
 	}
 
 	/**
-	 * checks the well Data list for checkbox state.
+	 * checks the well Data list for check-box state.
 	 * 
 	 * @param wellData
 	 * @return

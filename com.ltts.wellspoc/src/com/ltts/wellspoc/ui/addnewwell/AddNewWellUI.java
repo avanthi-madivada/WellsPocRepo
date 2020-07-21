@@ -19,26 +19,27 @@ import org.eclipse.swt.widgets.Text;
  */
 public class AddNewWellUI {
 
-	public Button checkBoxButton;
-	public Group addwellGroup;
-	public Label wellNameLabel;
-	public Text wellNameText;
-	public Label eastingLabel;
-	public Text eastingText;
-	public Label northingLabel;
-	public Text northingText;
-	public Label azimuthLabel;
-	public Text azimuthText;
-	public Label fieldLabel;
-	public Combo fieldCombo;
-	public Label reservoirLabel;
-	public Combo reservoirCombo;
-	public Label wellTypelabel;
-	public Button wellTypeHorizontalRadio;
-	public Button wellTypeVerticalRadio;
-	public Button wellTypeDeviatedRadio;
-	public Button wellTypeSWellRadio;
-	public Button restoreButton;
+	private Button checkBoxButton;
+	private Group addwellGroup;
+	private Label wellNameLabel;
+	private Text wellNameText;
+	private Label eastingLabel;
+	private Text eastingText;
+	private Label northingLabel;
+	private Text northingText;
+	private Label azimuthLabel;
+	private Text azimuthText;
+	private Label fieldLabel;
+	private Combo fieldCombo;
+	private Label reservoirLabel;
+	private Combo reservoirCombo;
+
+	private Label wellTypelabel;
+	private Button wellTypeHorizontalRadio;
+	private Button wellTypeVerticalRadio;
+	private Button wellTypeDeviatedRadio;
+	private Button wellTypeSWellRadio;
+	private Button restoreButton;
 
 	// Min and Max value for azimuth.
 	Double azimuthMinValue = 0.0;
@@ -48,7 +49,7 @@ public class AddNewWellUI {
 	String[] reservoirData = { "Not Fm 2D Top" };
 
 	boolean isChecked = false;
-	public Composite addWellPageContainer;
+	private Composite addWellPageContainer;
 
 	/**
 	 * method to create the UI.
@@ -243,4 +244,54 @@ public class AddNewWellUI {
 	public Button getCheckBoxButton() {
 		return checkBoxButton;
 	}
+
+	/**
+	 * @return fieldCombo
+	 */
+	public Combo getFieldCombo() {
+		return fieldCombo;
+	}
+
+	/**
+	 * @return reservoirCombo
+	 */
+	public Combo getReservoirCombo() {
+		return reservoirCombo;
+	}
+
+	/**
+	 * @return wellTypeHorizontalRadio
+	 */
+	public Button getWellTypeHorizontalRadio() {
+		return wellTypeHorizontalRadio;
+	}
+
+	/**
+	 * @return wellTypeVerticalRadio
+	 */
+	public Button getWellTypeVerticalRadio() {
+		return wellTypeVerticalRadio;
+	}
+
+	/**
+	 * @return wellTypeDeviatedRadio
+	 */
+	public Button getWellTypeDeviatedRadio() {
+		return wellTypeDeviatedRadio;
+	}
+
+	/**
+	 * @return wellTypeSWellRadio
+	 */
+	public Button getWellTypeSWellRadio() {
+		return wellTypeSWellRadio;
+	}
+
+	/**
+	 * @return restoreButton
+	 */
+	public Button getRestoreButton() {
+		return restoreButton;
+	}
+
 }
