@@ -25,6 +25,7 @@ public enum WellSelectionModelMgr {
 	WellSelectionUISupport wellSelectionUISupport;
 	private List<PropertyChangeListener> wellModelChangeisteners = new ArrayList<PropertyChangeListener>();
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
+	boolean checkBoxState;
 
 	/**
 	 * provides well Model instance.
@@ -88,13 +89,8 @@ public enum WellSelectionModelMgr {
 	public void changeCheckboxState() {
 		wellSelectionUISupport = WellSelectionViewMgr.INSTANCE.getWellSelectionUISupport();
 
-		boolean checkBoxState = true;
-		for (int i = 0; i < wellData.size(); i++) {
-			if (!(wellData.get(i).isChecked())) {
-				checkBoxState = false;
-				break;
-			}
-		}
+		checkBoxState = isChecked(wellData);
+
 		wellModel.setcheckBoxState(checkBoxState);
 		if (!checkBoxState) {
 			wellSelectionUISupport.viewer.getTable().getColumn(0).setImage(wellSelectionUISupport.imageUnChecked);
@@ -102,6 +98,23 @@ public enum WellSelectionModelMgr {
 			wellSelectionUISupport.viewer.getTable().getColumn(0).setImage(wellSelectionUISupport.imageChecked);
 		}
 		notifyListeners(this, "", "", "");
+	}
+
+	/**
+	 * checks the well Data list for checkbox state.
+	 * 
+	 * @param wellData
+	 * @return
+	 */
+	boolean isChecked(List<Well> wellData) {
+		checkBoxState = true;
+		for (int i = 0; i < wellData.size(); i++) {
+			if (!(wellData.get(i).isChecked())) {
+				checkBoxState = false;
+				break;
+			}
+		}
+		return checkBoxState;
 	}
 
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {

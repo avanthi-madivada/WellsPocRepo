@@ -84,23 +84,21 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	 * 
 	 * @return
 	 */
-	public boolean isValid() {
+	public boolean isValid(String userName, String password) {
 		isValid = false;
-		if (LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
-				&& LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+		if (userName.contentEquals(USERNAME) && password.contentEquals(PASSWORD)) {
 
 			isValid = true;
 
-		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)
-				&& !LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+		} else if (!userName.contentEquals(USERNAME) && !password.contentEquals(PASSWORD)) {
 
 			MessagesUtil.displayErrorDialog("Your username and password is incorrect. Please try again.");
 
-		} else if (!LoginModelMgr.INSTANCE.getUserModel().getUserName().contentEquals(USERNAME)) {
+		} else if (!userName.contentEquals(USERNAME)) {
 
 			MessagesUtil.displayErrorDialog("Your username is incorrect. Please try again.");
 
-		} else if (!LoginModelMgr.INSTANCE.getUserModel().getPassword().contentEquals(PASSWORD)) {
+		} else if (!password.contentEquals(PASSWORD)) {
 
 			MessagesUtil.displayErrorDialog("Your password is incorrect. Please try again.");
 		}
@@ -112,7 +110,8 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	 */
 	@Override
 	public IWizardPage getNextPage() {
-		if (isValid()) {
+		if (isValid(LoginModelMgr.INSTANCE.getUserModel().getUserName(),
+				LoginModelMgr.INSTANCE.getUserModel().getPassword())) {
 			return WellsWizard.wellsPage;
 		}
 		return null;
