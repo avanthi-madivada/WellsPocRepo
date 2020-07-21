@@ -8,19 +8,20 @@ import java.util.Set;
 public class PropertiesCache {
 
 	private final Properties configProp = new Properties();
-	
+
 	/*Private constructor to restrict new instances */
 	PropertiesCache() 
 	{
-	
+
 		InputStream in = this.getClass().getClassLoader().getResourceAsStream("resource.properties");
 		try {
 			configProp.load(in);
-			} 
+		} 
 		catch (IOException e)
 		{
-        e.printStackTrace();
-    }
+			MessagesUtil.logError(this.getClass().getName(), e.getMessage());
+
+		}
 	}
 
 	/*Bill pugh solution for singleton pattern using static inner class
@@ -29,35 +30,35 @@ public class PropertiesCache {
 	 */
 	private static class LazyHolder
 	{
-    private static final PropertiesCache INSTANCE = new PropertiesCache();
+		private static final PropertiesCache INSTANCE = new PropertiesCache();
 	}
 
 	/*This method returns an instance of singleton class*/
-	
+
 	public static PropertiesCache getInstance()
 	{
-    return LazyHolder.INSTANCE;
+		return LazyHolder.INSTANCE;
 	}
 
 	/*This method is used to access value of individual property
 	 */  
 
 	public String getProperty(String key){
-    return configProp.getProperty(key);
+		return configProp.getProperty(key);
 	}
 
 	/*This method is used to access all property names
 	 */ 
-	
+
 	public Set<String> getAllPropertyNames(){
-    return configProp.stringPropertyNames();
+		return configProp.stringPropertyNames();
 	}
 
 	/*This method checks whether a property contains 
 	 * a value for particular key
 	 */
-	
+
 	public boolean containsKey(String key){
-    return configProp.containsKey(key);
+		return configProp.containsKey(key);
 	}
 }
