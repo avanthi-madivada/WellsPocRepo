@@ -106,7 +106,7 @@ public enum WellSelectionModelMgr {
 	 * @param wellData
 	 * @return
 	 */
-	private boolean isChecked(List<Well> wellData) {
+	public boolean isChecked(List<Well> wellData) {
 		checkBoxState = true;
 		for (int i = 0; i < wellData.size(); i++) {
 			if (!(wellData.get(i).isChecked())) {
