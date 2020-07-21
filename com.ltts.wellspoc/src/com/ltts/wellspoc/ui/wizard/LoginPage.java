@@ -84,7 +84,7 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	 * 
 	 * @return
 	 */
-	public boolean isValid(String userName, String password) {
+	private boolean isValid(String userName, String password) {
 		isValid = false;
 		if (userName.contentEquals(USERNAME) && password.contentEquals(PASSWORD)) {
 
