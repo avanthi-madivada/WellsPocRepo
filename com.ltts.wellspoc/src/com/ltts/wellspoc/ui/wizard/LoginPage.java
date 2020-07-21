@@ -10,7 +10,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.ltts.wellspoc.ui.login.LoginModelMgr;
 import com.ltts.wellspoc.ui.login.LoginViewMgr;
-import com.ltts.wellspoc.ui.util.MessagesUtil;
 import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
@@ -22,13 +21,10 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 
 	// accessing user name and password
 	PropertiesCache prop = PropertiesCache.getInstance();
-	private final String USERNAME = prop.getProperty("LoginPage_username");
-	private final String PASSWORD = prop.getProperty("LoginPage_password");
 
 	String PAGE_TITLE = prop.getProperty("LoginPage_page_title");
 	public Text userNameText = null;
 	public Text passwordText = null;
-	boolean isValid;
 
 	/**
 	 * Constructor for Login
@@ -80,37 +76,11 @@ public class LoginPage extends WizardPage implements PropertyChangeListener {
 	}
 
 	/**
-	 * validates the user name and password entered.
-	 * 
-	 * @return
-	 */
-	public boolean isValid(String userName, String password) {
-		isValid = false;
-		if (userName.contentEquals(USERNAME) && password.contentEquals(PASSWORD)) {
-
-			isValid = true;
-
-		} else if (!userName.contentEquals(USERNAME) && !password.contentEquals(PASSWORD)) {
-
-			MessagesUtil.displayErrorDialog("Your username and password is incorrect. Please try again.");
-
-		} else if (!userName.contentEquals(USERNAME)) {
-
-			MessagesUtil.displayErrorDialog("Your username is incorrect. Please try again.");
-
-		} else if (!password.contentEquals(PASSWORD)) {
-
-			MessagesUtil.displayErrorDialog("Your password is incorrect. Please try again.");
-		}
-		return isValid;
-	}
-
-	/**
 	 * Validates the user and returns the next page.
 	 */
 	@Override
 	public IWizardPage getNextPage() {
-		if (isValid(LoginModelMgr.INSTANCE.getUserModel().getUserName(),
+		if (LoginModelMgr.INSTANCE.isValid(LoginModelMgr.INSTANCE.getUserModel().getUserName(),
 				LoginModelMgr.INSTANCE.getUserModel().getPassword())) {
 			return WellsWizard.wellsPage;
 		}

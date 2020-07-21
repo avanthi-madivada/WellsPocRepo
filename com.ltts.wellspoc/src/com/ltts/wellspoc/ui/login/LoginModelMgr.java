@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ltts.wellspoc.models.UserModel;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
+import com.ltts.wellspoc.ui.util.PropertiesCache;
 
 /**
  * creates user Model instance.
@@ -19,6 +21,12 @@ public enum LoginModelMgr {
 
 	UserModel userModel;
 	private List<PropertyChangeListener> userModelChangeisteners = new ArrayList<PropertyChangeListener>();
+
+	// accessing user name and password
+	PropertiesCache prop = PropertiesCache.getInstance();
+	private final String USERNAME = prop.getProperty("LoginPage_username");
+	private final String PASSWORD = prop.getProperty("LoginPage_password");
+	boolean isValid;
 
 	/**
 	 * provides user Model instance.
@@ -65,6 +73,32 @@ public enum LoginModelMgr {
 			userModel.setPassword(LoginViewMgr.INSTANCE.loginUI.passwordText.getText());
 			notifyListeners(this, "", "", "");
 		}
+	}
+
+	/**
+	 * validates the user name and password entered.
+	 * 
+	 * @return
+	 */
+	public boolean isValid(String userName, String password) {
+		isValid = false;
+		if (userName.contentEquals(USERNAME) && password.contentEquals(PASSWORD)) {
+
+			isValid = true;
+
+		} else if (!userName.contentEquals(USERNAME) && !password.contentEquals(PASSWORD)) {
+
+			MessagesUtil.displayErrorDialog("Your username and password is incorrect. Please try again.");
+
+		} else if (!userName.contentEquals(USERNAME)) {
+
+			MessagesUtil.displayErrorDialog("Your username is incorrect. Please try again.");
+
+		} else if (!password.contentEquals(PASSWORD)) {
+
+			MessagesUtil.displayErrorDialog("Your password is incorrect. Please try again.");
+		}
+		return isValid;
 	}
 
 	private void notifyListeners(Object object, String property, String oldValue, String newValue) {
