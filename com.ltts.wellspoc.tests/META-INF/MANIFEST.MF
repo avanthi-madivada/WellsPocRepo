@@ -7,4 +7,5 @@ Bundle-Vendor: LTTS
 Automatic-Module-Name: com.ltts.wellspoc.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.junit;bundle-version="(4.0.0,5.0.0)"
-Import-Package: com.ltts.wellspoc.models
+Import-Package: com.ltts.wellspoc.models,
+ com.ltts.wellspoc.ui.util
