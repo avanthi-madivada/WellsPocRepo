@@ -33,150 +33,6 @@ public class AddNewWellUI {
 	private Combo fieldCombo;
 	private Label reservoirLabel;
 	private Combo reservoirCombo;
-	
-	public Group getAddwellGroup() {
-		return addwellGroup;
-	}
-
-	public void setAddwellGroup(Group addwellGroup) {
-		this.addwellGroup = addwellGroup;
-	}
-
-	public Label getWellNameLabel() {
-		return wellNameLabel;
-	}
-
-	public void setWellNameLabel(Label wellNameLabel) {
-		this.wellNameLabel = wellNameLabel;
-	}
-
-	public Label getEastingLabel() {
-		return eastingLabel;
-	}
-
-	public void setEastingLabel(Label eastingLabel) {
-		this.eastingLabel = eastingLabel;
-	}
-
-	public Label getNorthingLabel() {
-		return northingLabel;
-	}
-
-	public void setNorthingLabel(Label northingLabel) {
-		this.northingLabel = northingLabel;
-	}
-
-	public Label getAzimuthLabel() {
-		return azimuthLabel;
-	}
-
-	public void setAzimuthLabel(Label azimuthLabel) {
-		this.azimuthLabel = azimuthLabel;
-	}
-
-	public Label getFieldLabel() {
-		return fieldLabel;
-	}
-
-	public void setFieldLabel(Label fieldLabel) {
-		this.fieldLabel = fieldLabel;
-	}
-
-	public Combo getFieldCombo() {
-		return fieldCombo;
-	}
-
-	public void setFieldCombo(Combo fieldCombo) {
-		this.fieldCombo = fieldCombo;
-	}
-
-	public Label getReservoirLabel() {
-		return reservoirLabel;
-	}
-
-	public void setReservoirLabel(Label reservoirLabel) {
-		this.reservoirLabel = reservoirLabel;
-	}
-
-	public Combo getReservoirCombo() {
-		return reservoirCombo;
-	}
-
-	public void setReservoirCombo(Combo reservoirCombo) {
-		this.reservoirCombo = reservoirCombo;
-	}
-
-	public Label getWellTypelabel() {
-		return wellTypelabel;
-	}
-
-	public void setWellTypelabel(Label wellTypelabel) {
-		this.wellTypelabel = wellTypelabel;
-	}
-
-	public Button getWellTypeHorizontalRadio() {
-		return wellTypeHorizontalRadio;
-	}
-
-	public void setWellTypeHorizontalRadio(Button wellTypeHorizontalRadio) {
-		this.wellTypeHorizontalRadio = wellTypeHorizontalRadio;
-	}
-
-	public Button getWellTypeVerticalRadio() {
-		return wellTypeVerticalRadio;
-	}
-
-	public void setWellTypeVerticalRadio(Button wellTypeVerticalRadio) {
-		this.wellTypeVerticalRadio = wellTypeVerticalRadio;
-	}
-
-	public Button getWellTypeDeviatedRadio() {
-		return wellTypeDeviatedRadio;
-	}
-
-	public void setWellTypeDeviatedRadio(Button wellTypeDeviatedRadio) {
-		this.wellTypeDeviatedRadio = wellTypeDeviatedRadio;
-	}
-
-	public Button getWellTypeSWellRadio() {
-		return wellTypeSWellRadio;
-	}
-
-	public void setWellTypeSWellRadio(Button wellTypeSWellRadio) {
-		this.wellTypeSWellRadio = wellTypeSWellRadio;
-	}
-
-	public Button getRestoreButton() {
-		return restoreButton;
-	}
-
-	public void setRestoreButton(Button restoreButton) {
-		this.restoreButton = restoreButton;
-	}
-
-	public void setCheckBoxButton(Button checkBoxButton) {
-		this.checkBoxButton = checkBoxButton;
-	}
-
-	public void setWellNameText(Text wellNameText) {
-		this.wellNameText = wellNameText;
-	}
-
-	public void setEastingText(Text eastingText) {
-		this.eastingText = eastingText;
-	}
-
-	public void setNorthingText(Text northingText) {
-		this.northingText = northingText;
-	}
-
-	public void setAzimuthText(Text azimuthText) {
-		this.azimuthText = azimuthText;
-	}
-
-	public void setAddWellPageContainer(Composite addWellPageContainer) {
-		this.addWellPageContainer = addWellPageContainer;
-	}
 
 	private Label wellTypelabel;
 	private Button wellTypeHorizontalRadio;
@@ -388,4 +244,54 @@ public class AddNewWellUI {
 	public Button getCheckBoxButton() {
 		return checkBoxButton;
 	}
+
+	/**
+	 * @return fieldCombo
+	 */
+	public Combo getFieldCombo() {
+		return fieldCombo;
+	}
+
+	/**
+	 * @return reservoirCombo
+	 */
+	public Combo getReservoirCombo() {
+		return reservoirCombo;
+	}
+
+	/**
+	 * @return wellTypeHorizontalRadio
+	 */
+	public Button getWellTypeHorizontalRadio() {
+		return wellTypeHorizontalRadio;
+	}
+
+	/**
+	 * @return wellTypeVerticalRadio
+	 */
+	public Button getWellTypeVerticalRadio() {
+		return wellTypeVerticalRadio;
+	}
+
+	/**
+	 * @return wellTypeDeviatedRadio
+	 */
+	public Button getWellTypeDeviatedRadio() {
+		return wellTypeDeviatedRadio;
+	}
+
+	/**
+	 * @return wellTypeSWellRadio
+	 */
+	public Button getWellTypeSWellRadio() {
+		return wellTypeSWellRadio;
+	}
+
+	/**
+	 * @return restoreButton
+	 */
+	public Button getRestoreButton() {
+		return restoreButton;
+	}
+
 }

@@ -142,7 +142,7 @@ public class WellSelectionUISupport {
 								return (String) getterMethod.invoke(well);
 							}
 						} catch (Exception e) {
-							MessagesUtil.logError(WellSelectionUISupport.class.getName(), e.getMessage());
+							MessagesUtil.logError(this.getClass().getName(), e.getMessage());
 						}
 					}
 					return null;

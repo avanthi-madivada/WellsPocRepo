@@ -1,13 +1,9 @@
 package com.ltts.wellspoc.ui.wizard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.intro.IIntroPart;
 
-import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
 import com.ltts.wellspoc.ui.util.MessagesUtil;
 
@@ -24,8 +20,6 @@ public class WellsWizard extends Wizard {
 	LoginPage loginPage;
 	static WellsPage wellsPage;
 	static AddNewWellPage addNewWellPage;
-
-	private static List<Well> getSelectedWellsList = new ArrayList<Well>();
 
 	boolean isFinishEnabled;
 	boolean isValid;
@@ -61,14 +55,13 @@ public class WellsWizard extends Wizard {
 		isFinishEnabled = false;
 		if (getContainer().getCurrentPage().isPageComplete()) {
 			if (AddNewWellModelMgr.INSTANCE.finishPressed()) {
-				
-				//close the welcome page if its open
+
+				// close the welcome page if its open
 				IIntroPart intro = PlatformUI.getWorkbench().getIntroManager().getIntro();
-				if (intro != null) 
-				{
-	             PlatformUI.getWorkbench().getIntroManager().closeIntro(intro);	            
-				} 
-				
+				if (intro != null) {
+					PlatformUI.getWorkbench().getIntroManager().closeIntro(intro);
+				}
+
 				isFinishEnabled = true;
 			}
 		}
@@ -90,7 +83,7 @@ public class WellsWizard extends Wizard {
 				}
 
 			} catch (Exception e) {
-				MessagesUtil.logError(AddNewWellPage.class.getName(), e.getMessage());
+				MessagesUtil.logError(this.getClass().getName(), e.getMessage());
 			}
 		}
 		return isValid;

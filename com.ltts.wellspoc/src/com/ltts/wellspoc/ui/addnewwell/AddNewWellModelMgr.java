@@ -5,6 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -35,6 +39,10 @@ public enum AddNewWellModelMgr {
 
 	private List<Well> wellData = WellDataProvider.wellDataProvider.getWell();
 	private List<Well> selectedWellsList = new ArrayList<Well>();
+
+	private static final Device device = Display.getCurrent();;
+	private static final Color red = new Color(device, 255, 0, 0);
+	private final static Color black = new Color(device, 0, 0, 0);
 
 	/**
 	 * provides well Model instance.
@@ -150,8 +158,8 @@ public enum AddNewWellModelMgr {
 					|| Double.parseDouble((addNewWellUI.getNorthingText().getText())) == 0.0
 					|| Double.parseDouble((addNewWellUI.getEastingText().getText())) == 0.0
 					|| (addNewWellUI.getAzimuthText().getText().isEmpty())
-					|| addNewWellUI.getFieldCombo().getText().isEmpty() || addNewWellUI.getReservoirCombo().getText().isEmpty()
-					|| MessagesUtil.isValid == false) {
+					|| addNewWellUI.getFieldCombo().getText().isEmpty()
+					|| addNewWellUI.getReservoirCombo().getText().isEmpty() || MessagesUtil.isValid == false) {
 
 				isValid = false;
 			}
@@ -233,8 +241,7 @@ public enum AddNewWellModelMgr {
 		if (addNewWellUI.getCheckBoxButton().getSelection() == true) {
 
 			for (int i = 0; i < wellData.size(); i++) {
-
-				if (isValidWellName()) {
+				if (isValidWellName(wellData.get(i).getWellPlanName(), addNewWellUI.getWellNameText().getText())) {
 					MessagesUtil.displayErrorDialog(addNewWellUI.getWellNameText().getText() + " already exists");
 					isValidWellName = false;
 					break;
@@ -266,13 +273,27 @@ public enum AddNewWellModelMgr {
 	 * 
 	 * @return
 	 */
-	public boolean isValidWellName() {
-		for (int i = 0; i < wellData.size(); i++) {
-			if (wellData.get(i).getWellPlanName().equals(addNewWellUI.getWellNameText().getText())) {
-				return true;
-			}
+
+	public boolean isValidWellName(String existWellName, String newWellName) {
+		if (existWellName.equals(newWellName)) {
+			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * validates the double value and sets the foreground accordingly.
+	 * 
+	 * @param textItem
+	 * @param minValue
+	 * @param maxValue
+	 */
+	public void checkValidDouble(Text textItem, Double minValue, Double maxValue) {
+		if (MessagesUtil.restrictEnteredChars(textItem.getText(), minValue, maxValue)) {
+			textItem.setForeground(black);
+		} else {
+			textItem.setForeground(red);
+		}
 	}
 
 	private IViewPart getWellDetailsViewInstance() {

@@ -54,8 +54,7 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
 
-		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
-				DisplayMode.EDIT);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, new Validation(), DisplayMode.EDIT);
 		registerErrorHandlingStyles(configRegistry);
 	}
 
@@ -71,8 +70,7 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR,
 				new ComboBoxCellEditor(Arrays.asList(new String[] { "Horizontal", "Vertical", "Deviated", "S-Well" })),
 				DisplayMode.EDIT, ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
-		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
-				DisplayMode.EDIT);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, new Validation(), DisplayMode.EDIT);
 		registerErrorHandlingStyles(configRegistry);
 	}
 
@@ -87,8 +85,7 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
-		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
-				DisplayMode.EDIT);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, new Validation(), DisplayMode.EDIT);
 		registerErrorHandlingStyles(configRegistry);
 	}
 
@@ -103,23 +100,16 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
 				new DefaultDoubleDisplayConverter(), DisplayMode.NORMAL,
 				ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
-		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,new Validation(),
-				DisplayMode.EDIT);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, new Validation(), DisplayMode.EDIT);
 		registerErrorHandlingStyles(configRegistry);
-
 
 	}
 
-
-
 	private void registerErrorHandlingStyles(IConfigRegistry configRegistry) {
 		IStyle validationErrorStyle = new Style();
-		validationErrorStyle.setAttributeValue(
-				CellStyleAttributes.BACKGROUND_COLOR, 
-				GUIHelper.COLOR_RED);
-		validationErrorStyle.setAttributeValue(
-				CellStyleAttributes.FOREGROUND_COLOR, 
-				GUIHelper.COLOR_WHITE);
-		configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, validationErrorStyle, DisplayMode.NORMAL, "INVALID");
+		validationErrorStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_RED);
+		validationErrorStyle.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, GUIHelper.COLOR_WHITE);
+		configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, validationErrorStyle,
+				DisplayMode.NORMAL, "INVALID");
 	}
 }

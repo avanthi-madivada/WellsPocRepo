@@ -4,11 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 
 /**
  * Utility class with methods to display error, warnings and logging.
@@ -17,12 +14,9 @@ import org.eclipse.swt.widgets.Text;
  *
  */
 public class MessagesUtil {
+
 	// Gets the active shell.
 	private static Shell defaultShell = Display.getDefault().getActiveShell();
-
-	private static final Device device = Display.getCurrent();;
-	private static final Color red = new Color(device, 255, 0, 0);
-	private final static Color black = new Color(device, 0, 0, 0);
 	public static boolean isValid = true;
 
 	/**
@@ -79,11 +73,10 @@ public class MessagesUtil {
 	 * @param textItem
 	 * @param minValue
 	 * @param maxValue
+	 * @return
 	 */
-	public static void restrictEnteredChars(Text textItem, Double minValue, Double maxValue) {
-		String allowedCharacters = "0123456789.,-";
-		String text = textItem.getText();
-		textItem.setForeground(black);
+	public static boolean restrictEnteredChars(String text, Double minValue, Double maxValue) {
+		String allowedCharacters = "0123456789.";
 		for (int i = 0; i < text.length(); i++) {
 			char charBefore = '\t';
 			if (i >= 2) {
@@ -93,34 +86,31 @@ public class MessagesUtil {
 			boolean isAllowed = allowedCharacters.indexOf(character) > -1;
 
 			if (!isAllowed) {
-				textItem.setForeground(red);
 				isValid = false;
-				return;
+				return isValid;
 			} else if (charBefore == '.') {
-				textItem.setForeground(red);
 				isValid = false;
-				return;
+				return isValid;
 			}
 		}
-		checkInLimit(textItem, minValue, maxValue);
+		checkInLimit(text, minValue, maxValue);
+		return isValid;
 	}
 
 	/**
 	 * Checks if the entered chars is number or not.
 	 * 
 	 * @param textItem
+	 * @return
 	 */
-	public static void checkIfNumber(Text textItem) {
-		String textEntered = textItem.getText();
+	public static boolean checkIfNumber(String text) {
 		try {
-			textItem.setForeground(black);
-			Double.valueOf(textEntered);
-			return;
+			Double.valueOf(text);
+			isValid = true;
 		} catch (NumberFormatException exception) {
 			isValid = false;
-			textItem.setForeground(red);
-			return;
 		}
+		return isValid;
 	}
 
 	/**
@@ -129,23 +119,20 @@ public class MessagesUtil {
 	 * @param textItem
 	 * @param minValue
 	 * @param maxValue
+	 * @return
 	 */
-	public static void checkInLimit(Text textItem, Double minValue, Double maxValue) {
-		checkIfNumber(textItem);
-		String textEntered = textItem.getText();
+	public static boolean checkInLimit(String text, Double minValue, Double maxValue) {
+		checkIfNumber(text);
 		try {
-			Double enteredDouble = Double.valueOf(textEntered);
+			Double enteredDouble = Double.valueOf(text);
 			if (enteredDouble < minValue || enteredDouble > maxValue) {
 				isValid = false;
-				textItem.setForeground(red);
-				return;
 			} else {
-				textItem.setForeground(black);
 				isValid = true;
-				return;
 			}
 		} catch (NumberFormatException exception) {
 			isValid = false;
 		}
+		return isValid;
 	}
 }
