@@ -6,5 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: LTTS
 Automatic-Module-Name: com.ltts.wellspoc.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.junit;bundle-version="(4.0.0,5.0.0)"
+Require-Bundle: org.junit;bundle-version="(4.0.0,5.0.0)",
+ org.eclipse.swt,
+ com.ltts.wellspoc
 Import-Package: com.ltts.wellspoc.models
