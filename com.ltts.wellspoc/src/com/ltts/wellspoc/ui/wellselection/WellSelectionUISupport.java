@@ -107,7 +107,7 @@ public class WellSelectionUISupport {
 		wellTable.setLinesVisible(true);
 		
 		//change color of column header
-		wellTable.setHeaderForeground(Display.getDefault().getSystemColor(SWT.COLOR_LINK_FOREGROUND));
+		wellTable.setHeaderForeground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
 		wellTable.setHeaderBackground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
 
 		// Get the content for the viewer.
