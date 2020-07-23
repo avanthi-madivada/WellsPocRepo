@@ -39,6 +39,7 @@ public class WellEditConfiguration extends AbstractRegistryConfiguration {
 
 		configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, IEditableRule.ALWAYS_EDITABLE,
 				DisplayMode.NORMAL, ColumnLabelAccumulator.COLUMN_LABEL_PREFIX + columnIndex);
+
 	}
 
 	/**
