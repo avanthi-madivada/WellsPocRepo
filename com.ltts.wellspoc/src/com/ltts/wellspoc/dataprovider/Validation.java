@@ -39,13 +39,44 @@ public class Validation extends DataValidator {
 				}
 			}
 		}
+		/*
+		 * if (columnIndex == 3) { if ((((Double) newValue).doubleValue() <= 360)) {
+		 * return true; } else { return false; } }
+		 */
+
+		// for azimuth validation
 		if (columnIndex == 3) {
-			if ((((Double) newValue).doubleValue() <= 360)) {
+			if ((((Double) newValue).doubleValue() < 0) || (((Double) newValue).doubleValue() > 360)) {
+
+				return false;
+			} else {
+
+				return true;
+			}
+		}
+
+		// for northing validation
+		if (columnIndex == 2) {
+			if ((((Double) newValue).doubleValue() > 0)) {
+
 				return true;
 			} else {
+
 				return false;
 			}
-		} else {
+		}
+
+		// for easting validation
+		if (columnIndex == 1) {
+			if ((((Double) newValue).doubleValue() > 0)) {
+				return true;
+			} else {
+
+				return false;
+			}
+		}
+
+		else {
 			if ((newValue instanceof Double) && (((Double) newValue).doubleValue() > 10000)) {
 				return true;
 
