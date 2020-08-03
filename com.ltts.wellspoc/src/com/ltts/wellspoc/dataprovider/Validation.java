@@ -5,10 +5,10 @@ import java.util.List;
 import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.data.validate.DataValidator;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
-
 import com.ltts.wellspoc.models.Well;
 import com.ltts.wellspoc.models.WellDataProvider;
 import com.ltts.wellspoc.ui.addnewwell.AddNewWellModelMgr;
+import com.ltts.wellspoc.ui.util.MessagesUtil;
 
 public class Validation extends DataValidator {
 
@@ -39,22 +39,23 @@ public class Validation extends DataValidator {
 				}
 			}
 		}
-		if (columnIndex == 3) {
-			if ((((Double) newValue).doubleValue() <= 360)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			if ((newValue instanceof Double) && (((Double) newValue).doubleValue() > 10000)) {
-				return true;
 
-			} else if (newValue instanceof String) {
-				return true;
-			} else {
+		// for azimuth validation
+		if (columnIndex == 3) {
+			if ((((Double) newValue).doubleValue() < 0) || (((Double) newValue).doubleValue() > 360)) {
 				return false;
+			} else {
+
+				return true;
 			}
 		}
-	}
 
+		// for easting and northing validation
+		if (columnIndex == 1 || columnIndex == 2) {
+			if ((newValue instanceof Double)) {
+				return MessagesUtil.restrictEnteredChars(newValue.toString(), Double.MIN_VALUE, Double.MAX_VALUE);
+			}
+		}
+		return false;
+	}
 }
