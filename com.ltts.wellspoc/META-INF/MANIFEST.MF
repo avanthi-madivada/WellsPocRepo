@@ -12,4 +12,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.nebula.widgets.nattable.core;bundle-version="1.5.0"
 Automatic-Module-Name: com.ltts.wellspoc
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: com.ltts.wellspoc.models
+Export-Package: com.ltts.wellspoc.models,
+ com.ltts.wellspoc.ui.util

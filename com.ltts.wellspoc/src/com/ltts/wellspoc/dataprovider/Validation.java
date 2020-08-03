@@ -43,7 +43,6 @@ public class Validation extends DataValidator {
 		// for azimuth validation
 		if (columnIndex == 3) {
 			if ((((Double) newValue).doubleValue() < 0) || (((Double) newValue).doubleValue() > 360)) {
-
 				return false;
 			} else {
 
@@ -52,18 +51,11 @@ public class Validation extends DataValidator {
 		}
 
 		// for easting and northing validation
-
 		if (columnIndex == 1 || columnIndex == 2) {
-
 			if ((newValue instanceof Double)) {
-
 				return MessagesUtil.restrictEnteredChars(newValue.toString(), Double.MIN_VALUE, Double.MAX_VALUE);
-
 			}
-
 		}
 		return false;
-
 	}
-
 }
